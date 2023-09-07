@@ -2,9 +2,10 @@
 
 - [Introduction](./intro.md)
 - [Contributing to rustic](./contributing-to-rustic.md)
-- [Comparison between `rustic` and `restic`](./comparison-restic.md)
+- [Comparison `rustic` and `restic`](./comparison-restic.md)
 - [FAQ](./FAQ.md)
 - [Installation](./installation.md)
+- [Getting Started](./getting_started.md)
 - [Preparing a new repository](./commands/init/intro.md)
   - [Local Backend](./commands/init/local.md)
   - [REST Server](./commands/init/rest.md)
