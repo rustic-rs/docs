@@ -29,7 +29,7 @@
   - [Ensuring deduplication for copied Snapshots](./commands/misc/deduplication.md)
   - [Checking Integrity and Consistency](./commands/misc/check.md)
   - [Upgrading the Repository Format Version](./commands/misc/upgrading_repository_format.md)
-- [Restore data from backups](./commands/restore/intro.md)
+- [Restoring data from backups](./commands/restore/intro.md)
   - [Using mount](./commands/restore/using_mount.md)
   - [Printing files to StdOut](./commands/restore/printing_stdout.md)
 - [Removing backup snapshots](./commands/forget/intro.md)
