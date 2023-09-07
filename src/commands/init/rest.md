@@ -1,9 +1,10 @@
 # REST Server
 
 In order to backup data to the remote server via HTTP or HTTPS protocol, you
-must first set up a remote [REST server](https://github.com/rustic/rest-server)
-instance. Once the server is configured, accessing it is achieved by changing
-the URL scheme like this:
+must first set up a remote
+[REST server](https://github.com/rustic-rs/rust-server) instance. Once the
+server is configured, accessing it is achieved by changing the URL scheme like
+this:
 
 ```console
 rustic -r rest:http://host:8000/ init

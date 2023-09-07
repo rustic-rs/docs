@@ -50,5 +50,5 @@ source = "/etc"
 allows you to use `rustic backup` and `rustic forget --prune` in your regularly
 backup/cleanup scripts.
 
-See also <https://github.com/rustic-rs/rustic/tree/main/examples> for more
-config file examples.
+For more config file examples
+[check the config here](https://github.com/rustic-rs/rustic/tree/main/config)

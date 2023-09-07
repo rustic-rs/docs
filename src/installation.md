@@ -28,7 +28,7 @@ scoop install rustic
 ```
 
 You can download the latest stable release versions of rustic from the
-`rustic release page <https://github.com/rustic/rustic/releases/latest>`__.
+[rustic release page](https://github.com/rustic-rs/rustic/releases/latest).
 These builds are considered stable and releases are made regularly in a
 controlled manner.
 
@@ -66,9 +66,9 @@ command must have the permission to replace the rustic binary.
 ### Unstable Builds
 
 Another option is to use the latest builds for the master branch, available on
-the `rustic beta download site <https://github.com/rustic-rs/rustic-beta>`__.
-These too are pre-compiled and ready to run, and a new version is built every
-time a push is made to the main branch.
+the [rustic beta download site](https://github.com/rustic-rs/rustic-beta). These
+too are pre-compiled and ready to run, and a new version is built every time a
+push is made to the main branch.
 
 ## From Source
 

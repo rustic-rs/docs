@@ -12,8 +12,8 @@ created rustic repository 085b3c76b9 at /srv/rustic-repo
 **Warning**: Remembering your password is important! If you lose it, you won't
 be able to access data stored in the repository.
 
-**Warning**: On Linux, storing the backup repository on a CIFS (SMB) share is
+<!-- TODO! **Warning**: On Linux, storing the backup repository on a CIFS (SMB) share is
 not recommended due to compatibility issues. Either use another backend or set
-the environment variable `GODEBUG` to `asyncpreemptoff=1`. Refer to GitHub issue
-`#2659 <https://github.com/rustic/rustic/issues/2659>`_ for further
-explanations.
+the environment variable `GODEBUG` to `asyncpreemptoff=1`. Refer to [GitHub issue
+#2659](https://github.com/restic/restic/issues/2659) for further
+explanations. -->
