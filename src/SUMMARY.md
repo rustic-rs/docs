@@ -31,6 +31,7 @@
   - [Filtering Snapshots to Copy](./commands/misc/filter.md)
   - [Ensuring deduplication for copied Snapshots](./commands/misc/deduplication.md)
   - [Checking Integrity and Consistency](./commands/misc/check.md)
+  - [Managing Repository Keys](./commands/misc/key.md)
   - [Upgrading the Repository Format Version](./commands/misc/upgrading_repository_format.md)
 - [Restoring data from backups](./commands/restore/intro.md)
   - [Using mount](./commands/restore/using_mount.md)
