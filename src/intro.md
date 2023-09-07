@@ -1,3 +1,5 @@
+![rustic getting started](https://media.githubusercontent.com/media/rustic-rs/docs/main/assets/readme_header.png)
+
 # Introduction
 
 Rustic is a fast and secure backup program. In the following sections, we will
