@@ -16,4 +16,4 @@ edit-url-template = "https://github.com/rustic-rs/docs/edit/main/{path}"
 
 [output.html.fold]
 enable = true
-level = 2
+level = 0
