@@ -1,6 +1,8 @@
 # Summary
 
 - [Introduction](./intro.md)
+- [Comparison rustic vs. restic](./comparison-restic.md)
+- [FAQ](./FAQ.md)
 - [Installation](./installation.md)
 - [Preparing a new repository](./preparing_a_new_repo.md)
 - [Backup](./commands/backup.md)
