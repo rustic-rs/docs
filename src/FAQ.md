@@ -8,14 +8,6 @@
 - [How does rustic work with cold storages like AWS Glacier?](#how-does-rustic-work-with-cold-storages-like-aws-glacier)
 - [How does the lock-free prune work?](#how-does-the-lock-free-prune-work)
 - [You said "rustic uses less resources than restic" but I'm observing the opposite](#you-said-rustic-uses-less-resources-than-restic-but-im-observing-the-opposite)
-- [How to install shell completions](#how-to-install-shell-completions)
-  - [Bash](#bash)
-  - [Fish](#fish)
-  - [Powershell](#powershell)
-    - [Linux](#linux)
-    - [Windows](#windows)
-    - [macOs](#macos)
-  - [Zsh](#zsh)
 
 <!-- /TOC -->
 
