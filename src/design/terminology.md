@@ -13,7 +13,7 @@ the SHA-256 hash of the data and its length.
 *Pack*: A Pack combines one or more Blobs, e.g. in a single file.
 
 *Snapshot*: A Snapshot stands for the state of a file or directory that has been
-backed up at some point in time. The state here means the content and meta data
+backed up at some point in time. The state here means the content and metadata
 like the name and modification time for the file or the directory and its
 contents.
 

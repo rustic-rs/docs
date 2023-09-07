@@ -63,6 +63,7 @@
   - [Requirements](./design/analysis/requirements.md)
 - [Technical FAQ](./FATQ.md)
 - [Development](./development/intro.md)
+  - [Glossary](./development/glossary.md)
   - [Release process](./development/release_process.md)
   - [Testing](./development/testing.md)
 - [Encryption]()
