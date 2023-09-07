@@ -1,5 +1,7 @@
 # Frequently asked technical questions
 
+## Memory Requirements
+
 > **Question**: *You mention a "huge decrease in memory requirement"; are you
 > streaming blobs to the data store without keeping them in memory and just
 > keeping the hashes in memory? How does the memory footprint look like?*
