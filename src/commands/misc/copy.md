@@ -32,16 +32,16 @@ destination repository. This means that copied files, which existed in both the
 source and destination repository, *may occupy up to twice their space* in the
 destination repository. See below for how to avoid this.
 
-The destination repository is specified with `--repo2` or can be read from a
-file specified via `--repository-file2`. Both of these options can also set as
-environment variables `$RESTIC_REPOSITORY2` or `$RESTIC_REPOSITORY_FILE2`
+The destination repository is specified with `--repo` or can be read from a file
+specified via `--repository-file`. Both of these options can also set as
+environment variables `$RUSTIC_REPOSITORY` or `$RUSTIC_REPOSITORY_FILE`
 respectively. For the destination repository the password can be read from a
-file `--password-file2` or from a command `--password-command2`. Alternatively
-the environment variables `$RESTIC_PASSWORD_COMMAND2` and
-`$RESTIC_PASSWORD_FILE2` can be used. It is also possible to directly pass the
-password via `$RESTIC_PASSWORD2`. The key which should be used for decryption
-can be selected by passing its ID via the flag `--key-hint2` or the environment
-variable `$RESTIC_KEY_HINT2`.
+file `--password-file` or from a command `--password-command`. Alternatively the
+environment variables `$RUSTIC_PASSWORD_COMMAND` and `$RUSTIC_PASSWORD_FILE` can
+be used. It is also possible to directly pass the password via
+`$RUSTIC_PASSWORD`. The key which should be used for decryption can be selected
+by passing its ID via the flag `--key-hint` or the environment variable
+`$RUSTIC_KEY_HINT`.
 
 **Note**: In case the source and destination repository use the same backend,
 the configuration options and environment variables used to configure the
