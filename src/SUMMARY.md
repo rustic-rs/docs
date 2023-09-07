@@ -4,6 +4,7 @@
 - [Contributing to rustic](./contributing-to-rustic.md)
 - [Comparison `rustic` and `restic`](./comparison-restic.md)
 - [FAQ](./FAQ.md)
+- [Technical FAQ](./FATQ.md)
 - [Installation](./installation.md)
 - [Getting Started](./getting_started.md)
 - [Preparing a new repository](./commands/init/intro.md)
