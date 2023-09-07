@@ -1,7 +1,8 @@
 # Summary
 
 - [Introduction](./intro.md)
-- [Comparison rustic vs. restic](./comparison-restic.md)
+- [Contributing to rustic](./contributing-to-rustic.md)
+- [Comparison between `rustic` and `restic`](./comparison-restic.md)
 - [FAQ](./FAQ.md)
 - [Installation](./installation.md)
 - [Preparing a new repository](./commands/init/intro.md)

@@ -13,6 +13,20 @@
 
 ### Stable Releases
 
+#### [cargo-binstall](https://crates.io/crates/cargo-binstall)
+
+```bash
+cargo binstall rustic-rs
+```
+
+#### Windows
+
+##### [Scoop](https://scoop.sh/)
+
+```bash
+scoop install rustic
+```
+
 You can download the latest stable release versions of rustic from the
 `rustic release page <https://github.com/rustic/rustic/releases/latest>`__.
 These builds are considered stable and releases are made regularly in a
@@ -58,18 +72,28 @@ time a push is made to the main branch.
 
 ## From Source
 
----
+**Beware**: This installs the latest development version, which might be
+unstable.
 
 rustic is written in Rust and you need a current Rust version.
 
 In order to build rustic from source, execute the following steps:
 
-```console
-$ git clone https://github.com/rustic-rs/rustic
-[...]
-$ cd rustic
-$ cargo build --release
+### Github
+
+```bash
+cargo install --git https://github.com/rustic-rs/rustic.git rustic-rs
 ```
+
+### crates.io
+
+You can also directly install the latest crate from crates.io.
+
+```bash
+cargo install rustic-rs
+```
+
+### Cross-compile
 
 You can easily cross-compile rustic for all supported platforms, make sure that
 the cross-compile toolchain is installed for your target. Then run the build for
