@@ -1,5 +1,9 @@
 # Environment Variables
 
+**Important**: For always up-to-date information, please make sure to check the
+in-repository documentation for the config files available
+[here](https://github.com/rustic-rs/rustic/blob/main/config/README.md).
+
 In addition to command-line options, rustic supports passing various options in
 environment variables. The following lists these environment variables:
 

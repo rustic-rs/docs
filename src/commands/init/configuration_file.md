@@ -1,5 +1,9 @@
 # Configuration file
 
+**Important**: For always up-to-date information, please make sure to check the
+in-repository documentation for the config files available
+[here](https://github.com/rustic-rs/rustic/blob/main/config/README.md).
+
 Rustic supports configuration files in the TOML format which should be located
 in the rustic config dir. On unix this is typically `$HOME/.config/rustic`, see
 <https://docs.rs/directories/latest/directories/struct.ProjectDirs.html> for
