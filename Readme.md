@@ -13,7 +13,9 @@
 
 # Documentation
 
-An open source documentation book for [rustic](https://github.com/rustic-rs/rustic) that you can read [here](https://rustic.cli.rs/docs).
+An open source documentation book for
+[rustic](https://github.com/rustic-rs/rustic) that you can read
+[here](https://rustic.cli.rs/docs).
 
 ## Building with mdbook
 
