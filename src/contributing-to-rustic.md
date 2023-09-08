@@ -96,8 +96,8 @@ making changes, please include relevant unit tests. Run the test suite with:
 cargo test --workspace
 ```
 
-or check the [testing guide](development/testing_guide.md) for more information
-which tools we provide for making developing `rustic` easier.
+or check the [testing guide](development/testing.md) for more information which
+tools we provide for making developing `rustic` easier.
 
 Make sure all tests pass before submitting your changes. PRs containing tests
 have a much higher probability of getting merged (fast).
@@ -107,8 +107,7 @@ the new code.
 
 Besides that, we welcome PRs which increase the general test coverage of the
 project. You can check the
-[testing guide](development/testing_guide.md#code-coverage) for more
-information.
+[testing guide](./development/testing.md#code-coverage) for more information.
 
 We appreciate tests in every form: be it *unit*, *doc* or *integration* tests
 (chose depending on your use case).
@@ -269,16 +268,16 @@ Some extra tutorials on `git rebase`:
 ## Development Setup
 
 If you want to set up a local development environment, follow the steps in the
-[development guide](development/intro.md) file - which is currently being worked
-on.
+[development guide](./development/intro.md) file - which is currently being
+worked on.
 
 ## License
 
 By contributing to `rustic` or any crates contained in this repository, you
 agree that your contributions will be licensed under:
 
-- [Apache License, Version 2.0](./LICENSE-APACHE)
-- [MIT license](./LICENSE-MIT).
+- [Apache License, Version 2.0](https://raw.githubusercontent.com/rustic-rs/rustic/main/LICENSE-APACHE)
+- [MIT license](https://raw.githubusercontent.com/rustic-rs/rustic/main/LICENSE-MIT).
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be

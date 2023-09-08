@@ -12,8 +12,8 @@ append-only mode, but few other standard backends do. To support append-only
 with such backends, one can use `rclone`* as a complement in between the backup
 client and the backend service.
 
-- [rest-server](https://github.com/rustic/rest-server/)
-- [rclone](https://rclone.org/commands/rclone_serve_rustic/)
+- [rust-server](https://github.com/rustic-rs/rust-server/)
+- [rclone](https://rclone.org/commands/rclone_serve_restic/)
 
 To remove snapshots and recover the corresponding disk space, the `forget` and
 `prune` commands require full read, write and delete access to the repository.
