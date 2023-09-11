@@ -65,10 +65,10 @@ command must have the permission to replace the rustic binary.
 
 ### Unstable Builds
 
-Another option is to use the latest builds for the master branch, available on
-the [rustic beta download site](https://github.com/rustic-rs/rustic-beta). These
-too are pre-compiled and ready to run, and a new version is built every time a
-push is made to the main branch.
+Another option is to use the nightly builds for the main branch, available on
+the [nightly download page](https://github.com/rustic-rs/nightly). These too are
+pre-compiled and ready to run, and a new version is built every night from the
+main branch of various repositories.
 
 ## From Source
 

@@ -5,6 +5,7 @@
 - [FAQ](./FAQ.md)
   - [Comparison `rustic` and `restic`](./comparison-restic.md)
 - [Installation](./installation.md)
+  - [Nightly Builds](./nightly_builds.md)
 - [Completions](./commands/misc/completions.md)
 - [Getting Started](./getting_started.md)
 - [Preparing a new repository](./commands/init/intro.md)
