@@ -7,12 +7,14 @@ are available here for download.
 Use at your own risk.
 
 <table>
+<tbody>
 <tr><th><img src="https://media.githubusercontent.com/media/rustic-rs/docs/main/assets/readme_header.png" height="150" /></th><th> <img src="https://media.githubusercontent.com/media/rustic-rs/docs/main/assets/readme_header_scheduler.png" height="150" /></th><th><img src="https://media.githubusercontent.com/media/rustic-rs/docs/main/assets/readme_header_server.png" height="150" /></th>
 </tr>
 <tr>
 <td><a href="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml/badge.svg" /></td><td><a href="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml/badge.svg" /></a></td> <td><a href="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml/badge.svg" /></a></td>
 </tr>
-<table>
+</tbody>
+</table>
 
 |                Platform                 |                                                                                                                rustic                                                                                                                 |                                                                                                                               rustic_scheduler                                                                                                                                |                                                                                                                             rustic_server                                                                                                                              |
 | :-------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
