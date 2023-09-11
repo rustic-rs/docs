@@ -13,6 +13,7 @@ site-url = "/docs/"
 git-repository-url = "https://github.com/rustic-rs/docs"
 git-repository-icon = "fa-github"
 edit-url-template = "https://github.com/rustic-rs/docs/edit/main/{path}"
+cname = "rustic.cli.rs"
 
 [output.html.fold]
 enable = true
