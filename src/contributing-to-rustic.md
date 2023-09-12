@@ -63,7 +63,8 @@ and describe your suggestion in detail.
 
 ## Developer's documentation
 
-For more information about developing around `rustic`, see the [developer's documentation](https://rustic.cli.rs/dev-docs/).
+For more information about developing around `rustic`, see the
+[developer's documentation](https://rustic.cli.rs/dev-docs/).
 
 ## License
 
