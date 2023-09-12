@@ -44,9 +44,10 @@
   - [Customize Pruning](./commands/forget/customize_pruning.md)
   - [Recovering from "no free space" errors](./commands/forget/recover_no_free_space_error.md)
 - [Talks](./talks.md)
-- [TODO]()
+
+<!-- - [TODO]()
   - [REST Backend](https://github.com/restic/restic/blob/master/doc/REST_backend.rst)
   - [Cache](https://github.com/restic/restic/blob/master/doc/cache.rst)
   - [Troubleshooting](https://github.com/restic/restic/blob/master/doc/077_troubleshooting.rst)
   - [Scripting](https://github.com/restic/restic/blob/master/doc/075_scripting.rst)
-  - [Examples](https://github.com/restic/restic/blob/master/doc/080_examples.rst)
+  - [Examples](https://github.com/restic/restic/blob/master/doc/080_examples.rst) -->

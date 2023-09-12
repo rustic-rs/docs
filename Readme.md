@@ -15,10 +15,16 @@ An open source user documentation book for
 [rustic](https://github.com/rustic-rs/rustic) that you can read
 [here](https://rustic.cli.rs/docs).
 
-## Building with mdbook
+## Installation
 
 This book is built with [mdbook](https://rust-lang.github.io/mdBook/). You can
 install it by running `cargo install mdbook`.
+
+### Additional dependencies
+
+- `cargo install mdbook-last-changed` for date changes in the footer
+
+## Building with mdbook
 
 If you want to build it locally you can run one of these two commands in the
 root directory of the repository:

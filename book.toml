@@ -6,6 +6,10 @@ multilingual = false
 src = "src"
 title = "rustic user documentation"
 
+[preprocessor.last-changed]
+command = "mdbook-last-changed"
+renderer = ["html"]
+
 [output.html]
 curly-quotes = true
 default-theme = "ayu"
