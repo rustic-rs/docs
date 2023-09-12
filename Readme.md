@@ -1,8 +1,8 @@
 <p align="center">
-<img src="https://media.githubusercontent.com/media/rustic-rs/docs/main/assets/readme_header.png" height="400" />
+<img src="https://media.githubusercontent.com/media/rustic-rs/assets/main/logos/readme_header_docs.png" height="400" />
 </p>
 <p align="center">
-<b>fast, encrypted, and deduplicated backups</b>
+<b>user documentation</b>
 </p>
 
 <p align="center">
@@ -11,9 +11,7 @@
 <a href="https://crates.io/crates/rustic-rs"><img src="https://img.shields.io/crates/d/rustic-rs.svg" /></a>
 <p>
 
-# Documentation
-
-An open source documentation book for
+An open source user documentation book for
 [rustic](https://github.com/rustic-rs/rustic) that you can read
 [here](https://rustic.cli.rs/docs).
 
