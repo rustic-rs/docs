@@ -4,7 +4,7 @@ description = "rustic - fast, encrypted, and deduplicated backups"
 language = "en"
 multilingual = false
 src = "src"
-title = "rustic documentation"
+title = "rustic user documentation"
 
 [output.html]
 curly-quotes = true
