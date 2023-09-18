@@ -11,11 +11,6 @@ We appreciate your help in making this project better.
   - [Reporting Bugs](#reporting-bugs)
   - [Issue and Pull Request Labels](#issue-and-pull-request-labels)
   - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Code Style and Formatting](#code-style-and-formatting)
-  - [Testing](#testing)
-  - [Submitting Pull Requests](#submitting-pull-requests)
-    - [Rebasing and other workflows](#rebasing-and-other-workflows)
-- [Development Setup](#development-setup)
 - [License](#license)
 
 ## Code of Conduct
