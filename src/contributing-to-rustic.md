@@ -1,6 +1,6 @@
-# Contributing to `rustic`
+# Contributing
 
-Thank you for your interest in contributing to `rustic`!
+Thank you for your interest in contributing to the `rustic` ecosystem!
 
 We appreciate your help in making this project better.
 
