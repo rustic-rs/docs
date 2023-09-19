@@ -1,7 +1,7 @@
 # Cold storage
 
 Rustic supports to store the repository in a so-called cold storage. These are
-storages which are design for long-time storage and offer usually cheap storage
+storages which are designed for long-term storage and offer usually cheap storage
 for the price of retarded or expensive access. Examples are Amazon S3 Glacier or
 OVH Cloud Archive.
 
