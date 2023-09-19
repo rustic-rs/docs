@@ -6,17 +6,60 @@ are available here for download.
 **WARNING**: These builds are not guaranteed to be stable, and may contain bugs.
 Use at your own risk.
 
+## Verification
+
+### Minisign/Rsign2
+
+Install
+
+- `rsign2` with `cargo install rsign2` or
+- `minisign` with `scoop install minisign` (on Windows, check other installation
+  instructions [here](https://jedisct1.github.io/minisign/)).
+
+Run
+
+```console
+rsign verify <filename>.tar.gz \
+  -x <filename>.tar.gz.sig \
+  -P RWSWSCEJEEacVeCy0va71hlrVtiW8YzMzOyJeso0Bfy/ZXq5OryWi/8T
+```
+
+### PGP
+
+Download our public key or copy and paste it from below:
+
+`wget https://github.com/rustic-rs/nightly/raw/main/pub/pgp.pub`
+
+Check the fingerprint:
+
+```text
+12B7166D9FD59124416952E34018C5DE3BF8C081
+```
+
+against the output of: `gpg --show-keys <PUBLIC_KEY_FILE>`
+
+Import the key with `gpg --import <PUBLIC_KEY_FILE>`
+
+Verify the signature with `gpg --verify <filename>.tar.gz.asc <filename>.tar.gz`
+
+The output should say “Good Signature”.
+
+**Note**: We use the `.asc` extension for the files because `.sig` was already
+taken for supporting `minisign` used by `cargo-binstall`.
+
+## Status
+
 <table>
-<tbody>
-<tr><th><img src="https://raw.githubusercontent.com/rustic-rs/assets/main/logos/readme_header.png" height="150" /></th><th> <img src="https://raw.githubusercontent.com/rustic-rs/assets/main/logos/readme_header_scheduler.png" height="150" /></th><th><img src="https://raw.githubusercontent.com/rustic-rs/assets/main/logos/readme_header_server.png" height="150" /></th>
+<tr><th><a href="https://www.github.com/rustic-rs/rustic" target="_blank"><img src="https://github.com/rustic-rs/assets/blob/main/logos/readme_header.png?raw=true" height="150" /></a></th><th> <a href="https://www.github.com/rustic-rs/rustic_scheduler" target="_blank"><img src="https://github.com/rustic-rs/assets/blob/main/logos/readme_header_scheduler.png?raw=true" height="150" /></a></th><th><a href="https://www.github.com/rustic-rs/rustic_server" target="_blank"><img src="https://github.com/rustic-rs/assets/blob/main/logos/readme_header_server.png?raw=true" height="150" /></a></th>
 </tr>
 <tr>
-<td><a href="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml/badge.svg" length="70" /></td><td><a href="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml/badge.svg" length="90" /></a></td> <td><a href="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml/badge.svg" length="90" /></a></td>
+<td><a href="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic/actions/workflows/nightly.yml/badge.svg" /></td><td><a href="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_scheduler/actions/workflows/nightly.yml/badge.svg" /></a></td> <td><a href="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml"><img src="https://github.com/rustic-rs/rustic_server/actions/workflows/nightly.yml/badge.svg" /></a></td>
 </tr>
-</tbody>
-</table>
+<table>
 
 <br />
+
+## Download matrix
 
 |           Platform           |                                                                                                                                                                         rustic                                                                                                                                                                         |                                                                                                                                                                                                  rustic_scheduler                                                                                                                                                                                                  |                                                                                                                                                                                                                  rustic_server                                                                                                                                                                                                                   |
 | :--------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -28,6 +71,7 @@ Use at your own risk.
 |         MacOS x86_64         |                [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-apple-darwin.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-apple-darwin.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-apple-darwin.tar.gz.asc)                |                [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-apple-darwin.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-apple-darwin.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-apple-darwin.tar.gz.asc)                |                                        [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-apple-darwin.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-apple-darwin.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-apple-darwin.tar.gz.asc)                                        |
 |        MacOS aarch64         |              [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-aarch64-apple-darwin.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-aarch64-apple-darwin.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-aarch64-apple-darwin.tar.gz.asc)               |              [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-aarch64-apple-darwin.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-aarch64-apple-darwin.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-aarch64-apple-darwin.tar.gz.asc)               | <!-- [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-aarch64-apple-darwin.tar.gz)  [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-aarch64-apple-darwin.tar.gz.sha256)  [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-aarch64-apple-darwin.tar.gz.asc) --> n.a., [#6](https://github.com/rustic-rs/rustic_server/issues/6) |
 |        NetBSD x86_64         |             [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-unknown-netbsd.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-unknown-netbsd.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-unknown-netbsd.tar.gz.asc)             |             [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-unknown-netbsd.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-unknown-netbsd.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-unknown-netbsd.tar.gz.asc)             |                                     [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-unknown-netbsd.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-unknown-netbsd.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-unknown-netbsd.tar.gz.asc)                                     |
-|    Windows (experimental)    |           [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz.asc)            |           [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz.asc)            |                                   [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz.asc)                                    |
+| Windows x86_64 / msvc (exp)  |           [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-msvc.tar.gz.asc)            |           [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-msvc.tar.gz.asc)            |                                   [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-msvc.tar.gz.asc)                                    |
+|  Windows x86_64 / gnu (exp)  |             [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-gnu.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-gnu.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic/rustic-nightly-x86_64-pc-windows-gnu.tar.gz.asc)             |             [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-gnu.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-gnu.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_scheduler/rustic-scheduler-nightly-x86_64-pc-windows-gnu.tar.gz.asc)             |                                     [⏬](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-gnu.tar.gz) [#️⃣](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-gnu.tar.gz.sha256) [🔑](https://github.com/rustic-rs/nightly/raw/main/rustic_server/rustic-server-nightly-x86_64-pc-windows-gnu.tar.gz.asc)                                     |
 
 <p align="center"><b>Key</b>: ⏬ Download | #️⃣ SHA256 checksum | 🔑 Signature</p>
