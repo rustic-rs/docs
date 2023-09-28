@@ -11,11 +11,11 @@ can be specified by the `--hot-repo` option or the `RUSTIC_REPO_HOT`
 environmental variable, e.g.:
 
 ```console
-rustic -r rclone:foo:bar --repo-hot rclone:foo:bar init
+rustic -r rclone:foo:bar --repo-hot rclone:foo:bar-hot init
 ```
 
 In this example in the repository
-``rclone:foo:bar``` all data is saved. In the repository``rclone:foo:bar-hot``
+``rclone:foo:bar`` all data is saved. In the repository``rclone:foo:bar-hot``
 only hot data is saved, i.e. this is not a complete repository.
 
 **Warning**: You have to specify both the cold repository (using `-r`) and the
