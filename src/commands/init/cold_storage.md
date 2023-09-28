@@ -14,9 +14,9 @@ environmental variable, e.g.:
 rustic -r rclone:foo:bar --repo-hot rclone:foo:bar-hot init
 ```
 
-In this example in the repository
-``rclone:foo:bar`` all data is saved. In the repository``rclone:foo:bar-hot``
-only hot data is saved, i.e. this is not a complete repository.
+In this example in the repository ``rclone:foo:bar`` all data is saved. In the
+repository``rclone:foo:bar-hot`` only hot data is saved, i.e. this is not a
+complete repository.
 
 **Warning**: You have to specify both the cold repository (using `-r`) and the
 hot repository (using `--repo-hot`) in the `init` command and all other commands
