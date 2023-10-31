@@ -33,7 +33,8 @@ password-file = "/root/key-rustic"
 no-cache = true # no cache needed for local repository
 
 [forget]
-keep-daily = 14 keep-weekly = 5
+keep-daily = 14
+keep-weekly = 5
 
 [backup]
 exclude-if-present = [".nobackup", "CACHEDIR.TAG"]
