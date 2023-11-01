@@ -30,9 +30,12 @@ restoring <Snapshot of [/home/user/work] at 2015-05-08 21:40:19.884408621 +0200 
 
 This will restore the file `foo` to `/tmp/restore-work/work/foo`.
 
-You can use the command `rustic ls latest` <!-- TODO: or `rustic find foo` (rustic find not implemented yet) --> to find the path
-to the file within the snapshot. This path you can then pass to `--include` in
-verbatim to only restore the single file or directory.
+You can use the command `rustic ls latest`
+
+<!-- TODO: or `rustic find foo` (rustic find not implemented yet) --> to find
+
+the path to the file within the snapshot. This path you can then pass to
+`--include` in verbatim to only restore the single file or directory.
 
 There are case insensitive variants of `--exclude` and `--include` called
 `--iexclude` and `--iinclude`. These options will behave the same way but ignore

@@ -1,7 +1,7 @@
 # Restore using mount
 
-**NOTE**: `rustic` doesn't support `mount` at this point, please use `restic`
-to invoke this operation for the time being. We are working on a `mount`
+**NOTE**: `rustic` doesn't support `mount` at this point, please use `restic` to
+invoke this operation for the time being. We are working on a `mount`
 implementation for `rustic`.
 
 Browsing your backup as a regular file system is also very easy. First, create a
