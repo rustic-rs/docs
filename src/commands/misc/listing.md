@@ -12,7 +12,7 @@ ID        Date                 Host    Tags   Directory
 bdbd3439  2015-05-08 21:45:17  luigi          /home/art
 590c8fc8  2015-05-08 21:47:38  kazik          /srv
 9f0bc19e  2015-05-08 21:46:11  luigi          /srv
-````
+```
 
 You can filter the listing by directory path:
 
