@@ -52,4 +52,4 @@ larger datasets to the repository which can increase the throughput. But there
 are also disadvantages. Rustic keeps the whole pack in memory before writing it
 to the backend. As writes are parallelized, multiple packs are kept. So larger
 pack sizes increase the memory usage of the `backup` command. Moreover larger
-pack sizes lead to increased repack rates during `prune` or `forget -- prune`.
+pack sizes lead to increased repack rates during `prune` or `forget --prune`.
