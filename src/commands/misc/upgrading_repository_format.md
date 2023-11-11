@@ -4,7 +4,7 @@ Repositories created using earlier rustic versions use an older repository
 format version and have to be upgraded to allow using all new features.
 Upgrading must be done explicitly as a newer repository version increases the
 minimum rustic version required to access the repository. For example the
-repository format version 2 is only readable using rustic 0.14.0 or newer.
+repository format version 2 is only readable using rustic 0.2.0 or newer.
 
 Upgrading to repo version 2 is a two step process: first run
 `migrate upgrade_repo_v2` which will check the repository integrity and then
