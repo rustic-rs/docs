@@ -15,7 +15,7 @@
   - [Cold Storage](./commands/init/cold_storage.md)
   - [Configuration File](./commands/init/configuration_file.md)
 - [Backing up data](./commands/backup/intro.md)
-  - [Preparing a new repository](./commands/backup/preparation.md)
+  - [Creating snapshots](./commands/backup/creating_snapshots.md)
   - [File change detection](./commands/backup/file_change_detection.md)
   - [Dry Run](./commands/backup/dry_run.md)
   - [Excluding Files](./commands/backup/excluding_files.md)
