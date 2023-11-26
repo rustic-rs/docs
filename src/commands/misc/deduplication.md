@@ -1,20 +1,27 @@
 # Ensuring deduplication for copied snapshots
 
-Even though the copy command can transfer snapshots between arbitrary
-repositories, deduplication between snapshots from the source and destination
-repository may not work. To ensure proper deduplication, both repositories have
-to use the same parameters for splitting large files into smaller chunks, which
-requires additional setup steps. With the same parameters rustic will for both
-repositories split identical files into identical chunks and therefore
-deduplication also works for snapshots copied between these repositories.
+Different repositories usually have different parameters for splitting
+larger files into smaller chunks. When copying snapshots between
+arbitrary repository, deduplication between snapshots from the source
+and destination repository doesn't work unless the repositories share
+the same parameters, the so-called chunker parameters.
 
-The chunker parameters are generated once when creating a new (destination)
-repository. That is for a copy destination repository we have to instruct rustic
-to initialize it using the same chunker parameters as the source repository:
-
+Rustic enforces identical chunker parameters - if you try to copy to a
+repository with different chunker parameter, you get an error like
 ```console
-rustic -r /srv/rustic-repo-copy init --repo2 /srv/rustic-repo --copy-chunker-params
+cannot copy to repository with different chunker parameter (re-chunking not implemented)!
 ```
 
-Note that it is not possible to change the chunker parameters of an existing
-repository.
+Note: Currently it is not possible to change the chunker parameters of
+existing repositories (re-chunking is not yet implemented).
+
+To create a repository with identical chunker parameters to a source
+repository, don't initialize the target repository, but instead run
+the first `copy` command with the `--init` option. 
+This option initializes non-existing repositories with the correct
+chunker parameter:
+```console
+rustic copy --init [SNAPSHOTS]
+```
+
+Note: The target repositories must be defined in the config file.
