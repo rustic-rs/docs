@@ -19,8 +19,7 @@ repositories (re-chunking is not yet implemented).
 To create a repository with identical chunker parameters to a source repository,
 don't initialize the target repository, but instead run the first `copy` command
 with the `--init` option. This option initializes non-existing repositories with
-the correct
-chunker parameter:
+the correct chunker parameter:
 ```console
 rustic copy --init [SNAPSHOTS]
 ```
