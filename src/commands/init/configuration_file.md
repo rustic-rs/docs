@@ -8,8 +8,8 @@ Rustic supports configuration files in the TOML format which should be located
 in the rustic config dir. On unix this is typically `$HOME/.config/rustic`, see
 <https://docs.rs/directories/latest/directories/struct.ProjectDirs.html> for
 more details about the config location. If no rustic config dir is available,
-rustic searches global config dor (on unix typically `/etc/rustic`) and the
-current working dir for configuration files.
+rustic searches global rustic config dir (on unix typically `/etc/rustic`) and
+the current working dir for configuration files.
 
 By default, rustic uses the file `rustic.toml`. This can be overwritten by the
 `-P <PROFILE>` option which tells rustic to search for a `<PROFILE>.toml`
