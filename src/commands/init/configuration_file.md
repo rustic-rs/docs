@@ -4,12 +4,13 @@
 in-repository documentation for the config files available
 [here](https://github.com/rustic-rs/rustic/blob/main/config/README.md).
 
-Rustic supports configuration files in the TOML format which should be located
-in the rustic config dir. On unix this is typically `$HOME/.config/rustic`, see
-<https://docs.rs/directories/latest/directories/struct.ProjectDirs.html> for
-more details about the config location. If no rustic config dir is available,
-rustic searches global rustic config dir (on unix typically `/etc/rustic`) and
-the current working dir for configuration files.
+Rustic supports configuration files in the TOML format. The files are searched 
+in the following locations:
+- the global rustic config dir (on unix typically `/etc/rustic`)
+- the users' rustic config dir. On unix this is typically `$HOME/.config/rustic`,
+  see <https://docs.rs/directories/latest/directories/struct.ProjectDirs.html>
+  for more details about the config location.
+- the current working dir
 
 By default, rustic uses the file `rustic.toml`. This can be overwritten by the
 `-P <PROFILE>` option which tells rustic to search for a `<PROFILE>.toml`
