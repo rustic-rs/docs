@@ -28,7 +28,7 @@ jobs:
       MDBOOK_VERSION: 0.4.21
     steps:
       - uses: actions/checkout@v4
-      - uses: taiki-e/install-action@57fbff3bfbe0630412e3b91136e8fac7dcb615ca
+      - uses: taiki-e/install-action@94488150318c27687effe5a4a5d2f7e0b02d8233
         with:
           tool: mdbook,mdbook-last-changed
       - name: Setup Pages
