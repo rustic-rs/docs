@@ -1,0 +1,65 @@
+name: Format PR with dprint
+
+on:
+  pull_request:
+    types: [labeled]
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  pr-fmt:
+    if: ${{ github.event.label.name == 'S-fmt' && github.repository_owner == 'rustic-rs' }}
+    name: Format PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          fetch-depth: 1 # fetch all history so that git describe works
+
+      - name: Install dprint
+        shell: bash
+        run: |
+          curl -fsSL https://dprint.dev/install.sh | sh
+          echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
+
+      - name: Check formatting
+        shell: bash
+        run: ~/.dprint/bin/dprint fmt
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config --local user.email "action@localhost.org"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Format PR"
+          git push
+      
+  remove-fmt-label:
+    name: Remove fmt label
+    needs: pr-fmt
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      ! contains(needs.*.result, 'skipped') &&
+      github.repository_owner == 'rustic-rs'
+    steps:
+      - name: Remove label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+          --method DELETE \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/${{ github.repository }}/issues/${{ github.event.number }}/labels/S-fmt
