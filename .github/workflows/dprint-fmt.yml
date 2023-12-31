@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.base.sha }}
 
       - name: Install dprint
         shell: bash
@@ -33,9 +36,10 @@ jobs:
       - name: Commit changes
         shell: bash
         run: |
-          git config --local user.email "action@localhost.org"
-          git config --local user.name "GitHub Actions"
-          git commit -am "Format PR"
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
+          git add .
+          git commit -m "Format PR"
           git push
       
   remove-fmt-label:
