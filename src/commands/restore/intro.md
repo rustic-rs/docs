@@ -20,8 +20,8 @@ restoring <Snapshot of [/home/art] at 2015-05-08 21:45:17.884408621 +0200 CEST> 
 ```
 
 Use `--glob` (pattern to exclude/include (can be specified multiple times))
-to restrict the restore to a subset of files in
-the snapshot. For example, to restore a single file:
+to restrict the restore to a subset of files in the snapshot.
+For example, to restore a single file:
 
 ```console
 $ rustic -r /srv/rustic-repo restore 79766175 /tmp/restore-work --glob /work/foo
