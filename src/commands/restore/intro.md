@@ -10,8 +10,8 @@ restoring <Snapshot of [/home/user/work] at 2015-05-08 21:40:19.884408621 +0200 
 ```
 
 Use the word `latest` to restore the last backup. You can also combine `latest`
-with the `--filter-host` and `--filter-path` filters to choose the last backup for a specific
-host, path or both.
+with the `--filter-host` and `--filter-path` filters to choose the last backup
+for a specific host, path or both.
 
 ```console
 $ rustic -r /srv/rustic-repo restore latest /tmp/restore-art --filter-path "/home/art" --filter-host luigi
@@ -19,9 +19,9 @@ enter password for repository:
 restoring <Snapshot of [/home/art] at 2015-05-08 21:45:17.884408621 +0200 CEST> to /tmp/restore-art
 ```
 
-Use `--glob` (pattern to exclude/include (can be specified multiple times))
-to restrict the restore to a subset of files in the snapshot.
-For example, to restore a single file:
+Use `--glob` (pattern to exclude/include (can be specified multiple times)) to
+restrict the restore to a subset of files in the snapshot. For example, to
+restore a single file:
 
 ```console
 $ rustic -r /srv/rustic-repo restore 79766175 /tmp/restore-work --glob /work/foo
@@ -38,6 +38,5 @@ You can use the command `rustic ls latest`
 the path to the file within the snapshot. This path you can then pass to
 `--glob` in verbatim to only restore the single file or directory.
 
-There is case insensitive variants of `--glob` called
-`--iglob`. This option will behave the same way but ignore
-the casing of paths.
+There is case insensitive variants of `--glob` called `--iglob`. This option
+will behave the same way but ignore the casing of paths.
