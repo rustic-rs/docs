@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        with:
-          fetch-depth: 1 # fetch all history so that git describe works
 
       - name: Install dprint
         shell: bash
@@ -28,7 +26,7 @@ jobs:
           curl -fsSL https://dprint.dev/install.sh | sh
           echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
 
-      - name: Check formatting
+      - name: Format PR
         shell: bash
         run: ~/.dprint/bin/dprint fmt
 
@@ -37,8 +35,7 @@ jobs:
         run: |
           git config --local user.email "action@localhost.org"
           git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Format PR"
+          git commit -am "Format PR"
           git push
       
   remove-fmt-label:
