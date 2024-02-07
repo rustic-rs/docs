@@ -12,13 +12,13 @@ Improvements implemented in rustic:
 - Already faster than restic for most operations (but not yet fully speed
   optimized)
 - Cleaner concept of logging output; possibility to write logs to a log file
-- `rustic repair` command allows to repair some kinds of broken repositories
 - `backup` command can use `.gitignore` files
 - `restore` uses existing files; also option `--delete` available
 - Snapshots save much more information, available in `snapshots` command
 - Integrates the [Rhai](https://rhai.rs/) script language for snapshot filtering
 - Allows to save repository options in the repository config file via the
   command `config`
+- New command `webdav` to serve repository as webdav service
 - New command `merge`
 - New command `repo-info`
 - `check` command checks and uses cache; option `--trust-cache` is available
