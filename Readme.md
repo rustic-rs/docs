@@ -7,7 +7,7 @@
 
 <p align="center">
 <a href="https://crates.io/crates/rustic-rs"><img src="https://img.shields.io/crates/v/rustic-rs.svg" /></a>
-<a href="https://raw.githubusercontent.com/rustic-rs/rustic/main/"><img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" /></a>
+<a href="https://raw.githubusercontent.com/rustic-rs/docs/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" /></a>
 <a href="https://crates.io/crates/rustic-rs"><img src="https://img.shields.io/crates/d/rustic-rs.svg" /></a>
 <p>
 
