@@ -14,7 +14,7 @@
 
 ## Storage backends
 
-| : backend :            | restic         | rustic                                  |
+| backend                | restic         | rustic                                  |
 | ---------------------- | -------------- | --------------------------------------- |
 | local                  | ✅             | ✅                                      |
 | sftp                   | ✅             | ✅ (via opendal, windows not supported) |
@@ -34,7 +34,7 @@
 
 ## Commands
 
-| : command :      | restic                 | rustic                                   |
+| command          | restic                 | rustic                                   |
 | ---------------- | ---------------------- | ---------------------------------------- |
 | backup           | ✅                     | ✅                                       |
 | cache            | ✅                     | ❌                                       |
@@ -75,7 +75,7 @@
 
 ## Information saved in snapshots
 
-| : information :                                                                                | restic   | rustic |
+| information                                                                                    | restic   | rustic |
 | ---------------------------------------------------------------------------------------------- | -------- | ------ |
 | [from repo design info](https://github.com/restic/restic/blob/master/doc/design.rst#snapshots) | ✅       | ✅     |
 | program version used                                                                           | ✅       | ✅     |
@@ -87,7 +87,7 @@
 
 ## General options
 
-| : option :                   | restic                                        | rustic                                                 |
+| option                       | restic                                        | rustic                                                 |
 | ---------------------------- | --------------------------------------------- | ------------------------------------------------------ |
 | --cacert file                | ✅                                            | ❌                                                     |
 | --cache-dir                  | ✅                                            | ✅ (or in config file)                                 |
@@ -120,7 +120,7 @@
 
 ## Rustic in-repo config options
 
-| : option :                    | restic                                                | rustic       |
+| option                        | restic                                                | rustic       |
 | ----------------------------- | ----------------------------------------------------- | ------------ |
 | append_only                   | ❌                                                    | ✅           |
 | compression                   | ✅ (by `--compression`)                               | ✅           |
@@ -136,19 +136,19 @@
 
 ## Snapshot filtering
 
-| : filter : | restic       | rustic (also in config file)                      |
-| ---------- | ------------ | ------------------------------------------------- |
-| by host    | ✅ `--host`  | ✅ `--filter-host`                                |
-| by label   | ❌           | ✅ `--filter-label`                               |
-| by paths   | ✅ `--paths` | ✅ `--filter-paths`                               |
-| by tags    | ✅ `--tags`  | ✅ `--filter-tags`                                |
-| custom     | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
+| filter   | restic       | rustic (also in config file)                      |
+| -------- | ------------ | ------------------------------------------------- |
+| by host  | ✅ `--host`  | ✅ `--filter-host`                                |
+| by label | ❌           | ✅ `--filter-label`                               |
+| by paths | ✅ `--paths` | ✅ `--filter-paths`                               |
+| by tags  | ✅ `--tags`  | ✅ `--filter-tags`                                |
+| custom   | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
 
 ## Comparison of important commands
 
 ### `init`
 
-| : option :            | restic                         | rustic                               |
+| option                | restic                         | rustic                               |
 | --------------------- | ------------------------------ | ------------------------------------ |
 | --copy-chunker-params | ✅                             | ✅ (by using `copy --init`)          |
 | --from-*              | ✅                             | ❌ (not needed, see `copy` command)) |
@@ -159,11 +159,11 @@
 
 ### `backup`
 
-| : general :                    | restic | rustic |
+| general                        | restic | rustic |
 | ------------------------------ | ------ | ------ |
 | allow to backup relative paths | ❌     | ✅     |
 
-| : option :            | restic                            | rustic (also in config file)    |
+| option                | restic                            | rustic (also in config file)    |
 | --------------------- | --------------------------------- | ------------------------------- |
 | --as-path             | ❌                                | ✅                              |
 | --command             | ❌                                | ✅                              |
@@ -205,15 +205,15 @@
 
 ### `restore`
 
-| : general :                            | restic | rustic |
+| general                                | restic | rustic |
 | -------------------------------------- | ------ | ------ |
 | scan and use already existing files    | ❌     | ✅     |
 | resumable restore                      | ❌     | ✅     |
 | restore hard links                     | ✅     | ❌     |
-| "<snapshotID>:<subfolder>" syntax      | ✅     | ✅     |
-| "<snapshotID>:<subfolder>/file" syntax | ❌     | ✅     |
+| `<snapshotID>:<subfolder>` syntax      | ✅     | ✅     |
+| `<snapshotID>:<subfolder>/file` syntax | ❌     | ✅     |
 
-| : option :                     | restic                             | rustic                                      |
+| option                         | restic                             | rustic                                      |
 | ------------------------------ | ---------------------------------- | ------------------------------------------- |
 | filtering options for "latest" | ✅                                 | ✅                                          |
 | --delete                       | ❌                                 | ✅                                          |
@@ -230,24 +230,24 @@
 
 ### `dump`
 
-| : general : | restic | rustic |
-| ----------- | ------ | ------ |
-| dump files  | ✅     | ✅     |
-| dump dirs   | ✅     | ❌     |
+| general    | restic | rustic |
+| ---------- | ------ | ------ |
+| dump files | ✅     | ✅     |
+| dump dirs  | ✅     | ❌     |
 
-| : option :                              | restic | rustic                  |
+| option                                  | restic | rustic                  |
 | --------------------------------------- | ------ | ----------------------- |
 | snapshot filtering options for "latest" | ✅     | ✅                      |
 | --archive                               | ✅     | ❌ (no dumping of dirs) |
 
 ### `forget`
 
-| : general :                             | restic | rustic |
+| general                                 | restic | rustic |
 | --------------------------------------- | ------ | ------ |
 | allow to keep all XXX                   | ✅     | ✅     |
 | respect "no delete" options in snapshot | ❌     | ✅     |
 
-| : option :                   | restic               | rustic (also in config file) |
+| option                       | restic               | rustic (also in config file) |
 | ---------------------------- | -------------------- | ---------------------------- |
 | snapshot filtering options   | ✅                   | ✅                           |
 | --keep-last                  | ✅                   | ✅                           |
@@ -272,14 +272,14 @@
 
 ### `prune`
 
-| : general :                                | restic | rustic |
+| general                                    | restic | rustic |
 | ------------------------------------------ | ------ | ------ |
 | prune plan without reading pack files      | ✅     | ✅     |
 | prune parallel to backup (two-phase prune) | ❌     | ✅     |
 | different sizes for tree and data packs    | ❌     | ✅     |
 | (option to) resize packs                   | ✅     | ✅     |
 
-| : option :                     | restic                     | rustic                                            |
+| option                         | restic                     | rustic                                            |
 | ------------------------------ | -------------------------- | ------------------------------------------------- |
 | --fast-repack                  | ❌                         | ✅                                                |
 | --instant-delete               | ✅ (default, no two-phase) | ✅                                                |
@@ -295,7 +295,7 @@
 
 ### `check`
 
-| : general :                   | restic                       | rustic       |
+| general                       | restic                       | rustic       |
 | ----------------------------- | ---------------------------- | ------------ |
 | check index files             | ✅                           | ✅           |
 | check index vs packs          | ✅                           | ✅           |
@@ -305,7 +305,7 @@
 | check cache integrity         | ❌                           | ✅           |
 | check hot/cold integrity      | ❌ (no cold storage support) | ✅           |
 
-| : option :         | restic                        | rustic                |
+| option             | restic                        | rustic                |
 | ------------------ | ----------------------------- | --------------------- |
 | --read-data        | ✅                            | ✅                    |
 | --read-data-subset | ✅                            | ❌                    |
@@ -314,13 +314,13 @@
 
 ### `copy`
 
-| : general :                           | restic      | rustic         |
+| general                               | restic      | rustic         |
 | ------------------------------------- | ----------- | -------------- |
 | source/destination given by           | CLI options | in config file |
 | multiple destinations                 | ❌          | ✅             |
 | check for matching chunker parameters | ❌          | ✅             |
 
-| : option :                 | restic | rustic                              |
+| option                     | restic | rustic                              |
 | -------------------------- | ------ | ----------------------------------- |
 | snapshot filtering options | ✅     | ✅                                  |
 | --from-*                   | ✅     | ❌ (destiniation(s) in config file) |
@@ -328,12 +328,12 @@
 
 ### `snapshots`
 
-| : general :                               | restic   | rustic |
+| general                                   | restic   | rustic |
 | ----------------------------------------- | -------- | ------ |
 | summarize identical snapshots (like "+3") | ❌       | ✅     |
 | show summary information (sizes)          | ❌ (WIP) | ✅     |
 
-| : option :                 | restic               | rustic                     |
+| option                     | restic               | rustic                     |
 | -------------------------- | -------------------- | -------------------------- |
 | snapshot filtering options | ✅                   | ✅                         |
 | --all                      | ❌                   | ✅                         |
@@ -344,7 +344,7 @@
 
 ### `ls`
 
-| : option :                              | restic | rustic |
+| option                                  | restic | rustic |
 | --------------------------------------- | ------ | ------ |
 | snapshot filtering options for "latest" | ✅     | ✅     |
 | --glob                                  | ❌     | ✅     |
@@ -359,14 +359,14 @@
 
 ### `diff`
 
-| : general :                            | restic | rustic |
+| general                                | restic | rustic |
 | -------------------------------------- | ------ | ------ |
 | allow "latest"                         | ❌     | ✅     |
 | diff with local files                  | ❌     | ✅     |
-| "<snapshotID>:<subfolder>" syntax      | ✅     | ✅     |
-| "<snapshotID>:<subfolder>/file" syntax | ❌     | ✅     |
+| `<snapshotID>:<subfolder>` syntax      | ✅     | ✅     |
+| `<snapshotID>:<subfolder>/file` syntax | ❌     | ✅     |
 
-| : option :                              | restic                        | rustic |
+| option                                  | restic                        | rustic |
 | --------------------------------------- | ----------------------------- | ------ |
 | snapshot filtering options for "latest" | ❌ (no "latest" support)      | ✅     |
 | --glob                                  | ❌                            | ✅     |
