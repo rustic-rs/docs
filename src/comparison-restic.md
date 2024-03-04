@@ -5,6 +5,7 @@
 |                        | `restic`                                          | `rustic`                                           |
 | ---------------------- | ------------------------------------------------- | -------------------------------------------------- |
 | programming language   | Go                                                | Rust                                               |
+| test coverage          | ✅                                                | ❌ (only few tests implemented)                    |
 | config profile support | ❌                                                | ✅                                                 |
 | locking                | lock files in repository                          | lock-free operations, two-phase pruning            |
 | cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data) |
