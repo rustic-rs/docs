@@ -43,7 +43,7 @@
   - [Security Considerations in Append-Only Mode](./commands/forget/security_considerations_append_only.md)
   - [Customize Pruning](./commands/forget/customize_pruning.md)
   - [Recovering from "no free space" errors](./commands/forget/recover_no_free_space_error.md)
-- [Talks](./talks.md)
+- [Stories](./stories.md)
 
 <!-- - [TODO]()
   - [REST Backend](https://github.com/restic/restic/blob/master/doc/REST_backend.rst)
