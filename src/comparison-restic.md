@@ -183,7 +183,7 @@
 | `--files-from-raw`        | ✅                                | ❌                                        |
 | `--files-from-verbatim`   | ✅                                | ❌                                        |
 | `--force`                 | ✅                                | ✅                                        |
-| `--git-ignore`            | ❌                                | ✅                                        |
+| `--git-ignore`            | ❌ (roadmap: 0.19)                | ✅                                        |
 | `--group-by`              | ✅ (host/paths/tags)              | ✅ (host/label/paths/tags)                |
 | `--host`                  | ✅                                | ✅                                        |
 | `--iexclude`              | ✅                                | ✅ `--iglob`                              |
@@ -207,13 +207,13 @@
 
 ### `restore`
 
-| general                                | `restic` | `rustic` |
-| -------------------------------------- | -------- | -------- |
-| scan and use already existing files    | ❌       | ✅       |
-| resumable restore                      | ❌       | ✅       |
-| restore hard links                     | ✅       | ❌       |
-| `<snapshotID>:<subfolder>` syntax      | ✅       | ✅       |
-| `<snapshotID>:<subfolder>/file` syntax | ❌       | ✅       |
+| general                                | `restic`           | `rustic` |
+| -------------------------------------- | ------------------ | -------- |
+| scan and use already existing files    | ❌ (roadmap: 0.17) | ✅       |
+| resumable restore                      | ❌ (roadmap: 0.17) | ✅       |
+| restore hard links                     | ✅                 | ❌       |
+| `<snapshotID>:<subfolder>` syntax      | ✅                 | ✅       |
+| `<snapshotID>:<subfolder>/file` syntax | ❌                 | ✅       |
 
 | option                         | `restic`                           | `rustic`                                    |
 | ------------------------------ | ---------------------------------- | ------------------------------------------- |
@@ -274,12 +274,13 @@
 
 ### `prune`
 
-| general                                    | `restic` | `rustic` |
-| ------------------------------------------ | -------- | -------- |
-| prune plan without reading pack files      | ✅       | ✅       |
-| prune parallel to backup (two-phase prune) | ❌       | ✅       |
-| different pack sizes for tree/data packs   | ❌       | ✅       |
-| (option to) resize packs                   | ✅       | ✅       |
+| general                                    | `restic`           | `rustic` |
+| ------------------------------------------ | ------------------ | -------- |
+| prune plan without reading pack files      | ✅                 | ✅       |
+| prune parallel to backup (two-phase prune) | ❌ (roadmap: 0.19) | ✅       |
+| different pack sizes for tree/data packs   | ❌                 | ✅       |
+| resumable prune                            | ❌ (roadmap: 0.17) | ✅       |
+| (option to) resize packs                   | ✅                 | ✅       |
 
 | option                           | `restic`                   | `rustic`                                          |
 | -------------------------------- | -------------------------- | ------------------------------------------------- |
@@ -297,15 +298,15 @@
 
 ### `check`
 
-| general                       | `restic`                     | `rustic`     |
-| ----------------------------- | ---------------------------- | ------------ |
-| check index files             | ✅                           | ✅           |
-| check index vs packs          | ✅                           | ✅           |
-| check snapshot files          | ✅                           | ✅           |
-| (optionally) check pack files | ✅                           | ✅           |
-| cache policy                  | create temporary             | use existing |
-| check cache integrity         | ❌                           | ✅           |
-| check hot/cold integrity      | ❌ (no cold storage support) | ✅           |
+| general                       | `restic`                                      | `rustic`     |
+| ----------------------------- | --------------------------------------------- | ------------ |
+| check index files             | ✅                                            | ✅           |
+| check index vs packs          | ✅                                            | ✅           |
+| check snapshot files          | ✅                                            | ✅           |
+| (optionally) check pack files | ✅                                            | ✅           |
+| cache policy                  | create temporary (use existing: roadmap 0.18) | use existing |
+| check cache integrity         | ❌                                            | ✅           |
+| check hot/cold integrity      | ❌ (no cold storage support)                  | ✅           |
 
 | option               | `restic`                      | `rustic`              |
 | -------------------- | ----------------------------- | --------------------- |
