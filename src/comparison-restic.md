@@ -17,14 +17,14 @@
 
 | backend                    | `restic`                                        | `rustic`                                                    |
 | -------------------------- | ----------------------------------------------- | ----------------------------------------------------------- |
-| `local`                    | ✅                                              | ✅                                                          |
+| `local`                    | ✅ (built-in)                                   | ✅ (built-in)                                               |
 | `sftp`                     | ✅ (using external `ssh` command)               | ✅ (built-in using `opendal`, windows not supported)        |
-| `rest`                     | ✅                                              | ✅                                                          |
-| `s3`                       | ✅                                              | ✅ (built-in using `opendal`)                               |
-| `swift`                    | ✅                                              | ✅ (built-in using `opendal`)                               |
-| `b2`                       | ✅                                              | ✅ (built-in using `opendal`)                               |
-| `azure`                    | ✅                                              | ✅ (built-in using `opendal`)                               |
-| `gs`                       | ✅                                              | ✅ (built-in using `opendal`)                               |
+| `rest`                     | ✅ (built-in)                                   | ✅ (built-in)                                               |
+| `s3`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
+| `swift`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
+| `b2`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
+| `azure`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
+| `gs`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
 | `dropbox`                  | ❌                                              | ✅ (built-in using `opendal`)                               |
 | `ftp`                      | ❌                                              | ✅ (built-in using `opendal`)                               |
 | `gdrive`                   | ❌                                              | ✅ (built-in using `opendal`)                               |
