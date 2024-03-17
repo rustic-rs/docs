@@ -24,18 +24,22 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    env:
-      MDBOOK_VERSION: 0.4.21
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - uses: taiki-e/install-action@dabb9c1ee51c21c545764a0d517f069ff52e6477
-        with:
-          tool: mdbook,mdbook-last-changed
+      
+      - name: Install mdbook
+        uses: ./.github/workflows/install-mdbook
+      
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@1f0c5cde4bc74cd7e1254d0cb4de8d49e9068c7d # v4
-      - name: Build with mdBook
-        run: mdbook build
+      
+      - name: Build course
+        run: |
+          mdbook build -d book
+          mv book/html/* book/pandoc/pdf/*.pdf book/
+          rm -r book/html book/pandoc
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

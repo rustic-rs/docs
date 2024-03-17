@@ -24,6 +24,21 @@ install it by running `cargo install mdbook`.
 
 - `cargo install mdbook-last-changed` for date changes in the footer
 
+- `cargo install mdbook-pandoc` for rendering the book to PDF
+
+#### Texlive
+
+```sh
+# Source the .env file to get the PANDOC_VERSION
+. ./.env
+
+sudo apt-get update
+
+sudo apt-get install -y texlive texlive-latex-extra texlive-luatex texlive-lang-cjk librsvg2-bin fonts-noto
+
+curl -LsSf https://github.com/jgm/pandoc/releases/download/$PANDOC_VERSION/pandoc-$PANDOC_VERSION-linux-amd64.tar.gz | tar zxf -
+```
+
 ## Building with mdbook
 
 If you want to build it locally you can run one of these two commands in the
