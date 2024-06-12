@@ -6,12 +6,13 @@
 | ---------------------- | ------------------------------------------------- | -------------------------------------------------- |
 | programming language   | Go                                                | Rust                                               |
 | test coverage          | ✅                                                | ❌ (only few tests implemented)                    |
-| config profile support | ❌                                                | ✅                                                 |
+| config profile support | ❌ (wrapper tools available)                      | ✅                                                 |
 | locking                | lock files in repository                          | lock-free operations, two-phase pruning            |
 | cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data) |
 | in-repo config         | ❌                                                | ✅ (see below for details)                         |
 | logging                | `-v` or `--quiet`, no log-file support            | `--log-level`, supports log-file output            |
 | returns error code     | ✅                                                | ❌                                                 |
+| available as library   | ❌                                                | ✅ rustic_core                                     |
 
 ## Storage backends
 
