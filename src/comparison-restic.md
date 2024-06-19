@@ -152,7 +152,7 @@
 
 | option                  | `restic`                       | `rustic`                            |
 | ----------------------- | ------------------------------ | ----------------------------------- |
-| `--copy-chunker-params` | ✅                             | ❌ (not needed, see `copy` command) |
+| `--copy-chunker-params` | ✅                             | ❌ (not needed, use `copy --init`   |
 | `--from-*`              | ✅                             | ❌ (not needed, see `copy` command) |
 | `--hostname`            | ❌ (always sets hostname)      | ✅                                  |
 | `--repository-version`  | ✅                             | ✅ (use `--set-version`)            |
