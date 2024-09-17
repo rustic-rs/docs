@@ -208,6 +208,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | `--skip-if-unchanged`   | ✅                                | ✅ `--skip-identical-parent`              |
 | `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
 | `--stdin-filename`      | ✅                                | ✅                                        |
+| `--stdin-from-command`  | ✅                                | ❌                                        |
 | `--tag`                 | ✅                                | ✅                                        |
 | `--time`                | ✅                                | ✅                                        |
 | `--with-atime`          | ✅                                | ✅                                        |
@@ -277,7 +278,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | `--keep-within-half-yearly`    | ❌                   | ✅                                        |
 | `--keep-within-yearly`         | ✅                   | ✅                                        |
 | `--keep-tag`                   | ✅                   | ✅                                        |
-| `--keep-none`                  | ❌                   | ✅                                        |
+| `--usafe-allow-remove-all`     | ✅                   | ✅ --keep-none`                           |
 | `--compact`                    | ✅                   | ❌                                        |
 | `--group-by`                   | ✅ (host/paths/tags) | ✅ (host/label/paths/tags)                |
 | `--prune`                      | ✅                   | ✅                                        |
