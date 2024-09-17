@@ -29,7 +29,7 @@
 - [Working with repositories](./commands/misc/intro.md)
   - [Listing Snapshots](./commands/misc/listing.md)
   - [Copying Snapshots between Repositories](./commands/misc/copy.md)
-  - [Filtering Snapshots to Copy](./commands/misc/filter.md)
+  - [Filtering Snapshots](./commands/misc/filter.md)
   - [Ensuring deduplication for copied Snapshots](./commands/misc/deduplication.md)
   - [Checking Integrity and Consistency](./commands/misc/check.md)
   - [Managing Repository Keys](./commands/misc/key.md)
