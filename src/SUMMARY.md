@@ -4,6 +4,7 @@
 - [Contributing to rustic](./contributing-to-rustic.md)
 - [FAQ](./FAQ.md)
   - [Comparison `rustic` and `restic`](./comparison-restic.md)
+- [Breaking Changes](./breaking_changes.md)
 - [Installation](./installation.md)
   - [Nightly Builds](./nightly_builds.md)
 - [Completions](./commands/misc/completions.md)
