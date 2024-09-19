@@ -5,7 +5,7 @@ point in time is called a "snapshot" in rustic. Run the following command and
 enter the repository password you chose above again:
 
 ```console
-$ rustic -r /srv/rustic-repo --log-level debug backup ~/work
+$ rustic --log-level debug backup ~/work
 open repository
 enter password for repository:
 password is correct
@@ -40,7 +40,7 @@ data, but this time it's even faster and no new data was added to the repository
 (since all data is already there). This is de-duplication at work!
 
 ```console
-$ rustic -r /srv/rustic-repo --log-level debug backup ~/work
+$ rustic --log-level debug backup ~/work
 open repository
 enter password for repository:
 password is correct
@@ -61,7 +61,7 @@ You can even backup individual files in the same repository (not passing
 `--log-level` means less output):
 
 ```console
-$ rustic -r /srv/rustic-repo backup ~/work.txt
+$ rustic backup ~/work.txt
 enter password for repository:
 password is correct
 snapshot 249d0210 saved
