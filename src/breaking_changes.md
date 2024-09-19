@@ -23,12 +23,25 @@ Consistently apply singular and plural naming conventions for keys in the
 configuration file that accept an array of values. This change affects the
 following keys:
 
-- glob -> globs
-- iglob -> iglobs
-- glob_file -> glob_files
-- iglob_file -> iglob_files
 - custom_ignorefile -> custom_ignorefiles
+- glob -> globs
+- glob_file -> glob_files
+- iglob -> iglobs
+- iglob_file -> iglob_files
 - tag -> tags
 
-You need to update your configuration file accordingly, changing the key names
-from singular to plural.
+Update your configuration file accordingly, changing the key names from singular
+to plural. For cases, where the key name was singular before, the value must be
+wrapped in an array.
+
+So, for example
+
+```toml
+tag = "important"
+```
+
+becomes:
+
+```toml
+tags = ["important"]
+```
