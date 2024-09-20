@@ -4,7 +4,7 @@ Restoring from a snapshot is as easy as it sounds, just use the following
 command to restore the contents of the latest snapshot to `/tmp/restore-work`:
 
 ```console
-$ rustic -r /srv/rustic-repo restore 79766175 /tmp/restore-work
+$ rustic restore 79766175 /tmp/restore-work
 enter password for repository:
 restoring <Snapshot of [/home/user/work] at 2015-05-08 21:40:19.884408621 +0200 CEST> to /tmp/restore-work
 ```
@@ -14,7 +14,7 @@ with the `--filter-host` and `--filter-path` filters to choose the last backup
 for a specific host, path or both.
 
 ```console
-$ rustic -r /srv/rustic-repo restore latest /tmp/restore-art --filter-path "/home/art" --filter-host luigi
+$ rustic restore latest /tmp/restore-art --filter-path "/home/art" --filter-host luigi
 enter password for repository:
 restoring <Snapshot of [/home/art] at 2015-05-08 21:45:17.884408621 +0200 CEST> to /tmp/restore-art
 ```
@@ -24,7 +24,7 @@ restrict the restore to a subset of files in the snapshot. For example, to
 restore a single file:
 
 ```console
-$ rustic -r /srv/rustic-repo restore 79766175 /tmp/restore-work --glob /work/foo
+$ rustic restore 79766175 /tmp/restore-work --glob /work/foo
 enter password for repository:
 restoring <Snapshot of [/home/user/work] at 2015-05-08 21:40:19.884408621 +0200 CEST> to /tmp/restore-work
 ```

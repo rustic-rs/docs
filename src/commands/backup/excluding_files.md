@@ -31,7 +31,7 @@ Let's say we have a file called `glob.txt` with the following content:
 It can be used like this:
 
 ```console
-rustic -r /srv/rustic-repo backup ~/work --glob="!*.c" --glob-file=glob.txt
+rustic backup ~/work --glob="!*.c" --glob-file=glob.txt
 ```
 
 This instructs rustic to exclude files matching the following criteria:
@@ -60,7 +60,7 @@ Please note that this does not prevent you from specifying multiple filesystems
 on the command line, e.g:
 
 ```console
-rustic -r /srv/rustic-repo backup --one-file-system / /media/usb
+rustic backup --one-file-system / /media/usb
 ```
 
 will back up both the `/` and `/media/usb` filesystems, but will not include
@@ -73,7 +73,7 @@ Files larger than a given size can be excluded using the `--exclude-larger-than`
 option:
 
 ```console
-rustic -r /srv/rustic-repo backup ~/work --exclude-larger-than 1M
+rustic backup ~/work --exclude-larger-than 1M
 ```
 
 This excludes files in `~/work` which are larger than 1 MiB from the backup.

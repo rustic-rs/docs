@@ -6,18 +6,19 @@ must first set up a remote
 server is configured, accessing it is achieved by changing the URL scheme like
 this:
 
-```console
-rustic -r rest:http://host:8000/ init
+```toml
+[repository]
+repository = "rest:http://host:8000/"
 ```
 
 Depending on your REST server setup, you can use HTTPS protocol, password
 protection, multiple repositories or any combination of those features. The
 TCP/IP port is also configurable. Here are some more examples:
 
-```console
-rustic -r rest:https://host:8000/ init
-rustic -r rest:https://user:pass@host:8000/ init
-rustic -r rest:https://user:pass@host:8000/my_backup_repo/ init
+```toml
+repository = "rest:http://host:8000/"
+repository = "rest:http://user:pass@host:8000/"
+repository = "rest:http://user:pass@host:8000/my_backup_repo"
 ```
 
 If you use TLS, rustic will use the system's CA certificates to verify the

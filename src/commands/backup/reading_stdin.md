@@ -1,7 +1,7 @@
 # Reading data from StdIn
 
 Sometimes it can be nice to directly save the output of a program, e.g.
-`mysqldump` so that the SQL can later be restored. Rustic supports this mode of
+`mysqldump` so that the SQL can later be restored. rustic supports this mode of
 operation, just supply `-` as backup source to the `backup` command like this:
 
 ```console
