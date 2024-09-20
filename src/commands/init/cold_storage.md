@@ -26,6 +26,31 @@ In this example in the repository `rclone:foo:cold-repo` all data is saved. In
 the repository `rclone:foo:hot-repo` only hot data is saved, i.e. this is not a
 complete repository.
 
+Note that you can also specify repository options individually for hot and cold
+repository, e.g.:
+
+```toml
+[repository]
+repository = "opendal:s3"
+repo-hot = "opendal:s3"
+
+# options for both parts
+[repository.options]
+access_key_id = "xxx"
+secret_access_key = "yyy"
+
+# options only for hot part
+[repository.options-hot]
+bucket = "bucket_name_hot"
+root = "/path/to/repo"
+
+# options only cold part
+[repository.options-cold]
+bucket = "bucket_name_cold"
+root = "/path/to/repo"
+default_storage_class = "DEEP_ARCHIVE"
+```
+
 **Warning**: You have to specify both the cold repository and the hot repository
 in the `init` command and all other commands which access and work with the
 repository. Best, you use a config profile to set both within.
