@@ -7,6 +7,24 @@ guidance on how to migrate from one version to another.
 
 ### Configuration File
 
+#### Using String in `password-command` and `warm-up-command`
+
+Using a String for `password-command` or `warm-up-command` have been re-allowed.
+
+Note: The former version to give the command in an array is no longer supported.
+Instead of
+
+```toml
+password-command = ["echo", "password"]
+```
+
+please use either of
+
+```toml
+password-command = "echo password"
+password-command = { command = "echo", args = ["password"] }
+```
+
 #### Copy Command
 
 Targets for the copy command must now be given by using existing rustic config
