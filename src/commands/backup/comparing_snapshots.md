@@ -1,6 +1,6 @@
 # Comparing Snapshots
 
-Rustic has a `diff` command which shows the difference between two snapshots or
+rustic has a `diff` command which shows the difference between two snapshots or
 a snapshot and a local path/dir
 
 ```console

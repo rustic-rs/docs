@@ -1,6 +1,6 @@
 # Configuration file
 
-Rustic supports configuration profile files in the TOML format. This allows you
+rustic supports configuration profile files in the TOML format. This allows you
 to use rustic on the command line without the need to specify required or wanted
 options. When using config profiles, rustic commands can be simply called as
 `rustic backup`, `rustic snapshots` or `rustic forget` and all essential options
@@ -14,8 +14,7 @@ config profile is present and omit options which are usually set there.
 in-repository documentation for the config files available
 [here](https://github.com/rustic-rs/rustic/blob/main/config/README.md).
 
-Rustic supports configuration profile files in the TOML format. The files are
-searched in the following locations:
+The configuration profile files are searched in the following locations:
 
 - the global rustic config dir (on unix typically `/etc/rustic`)
 - the users' rustic config dir. On unix this is typically

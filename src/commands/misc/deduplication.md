@@ -6,7 +6,7 @@ deduplication between snapshots from the source and destination repository
 doesn't work unless the repositories share the same parameters, the so-called
 chunker parameters.
 
-Rustic enforces identical chunker parameters - if you try to copy to a
+rustic enforces identical chunker parameters - if you try to copy to a
 repository with different chunker parameter, you get an error like
 
 ```console
