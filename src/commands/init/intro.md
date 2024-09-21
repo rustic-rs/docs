@@ -7,18 +7,49 @@ local repository; the remaining sections of this chapter cover all the other
 options. You can skip to the next chapter once you've read the relevant section
 here.
 
-For automated backups, rustic accepts the repository location in the environment
-variable `RUSTIC_REPOSITORY`.
+Note that rustic supports to store configuration in a config profile file in the
+TOML format which is the preferred way to configure rustic.
 
 For the password, several options exist:
 
+- Setting the password directly in the config profile file:
+
+```toml
+[repository]
+password = "secret"
+```
+
 - Setting the environment variable `RUSTIC_PASSWORD`
 
-- Specifying the path to a file with the password via the option
-  `--password-file` or the environment variable `RUSTIC_PASSWORD_FILE`
+- Specifying the path to a file with the password via the CLI option
+  `--password-file`, the environment variable `RUSTIC_PASSWORD_FILE`, or setting
+  in the configuration profile
 
-- Configuring a program to be called when the password is needed via the option
-  `--password-command` or the environment variable `RUSTIC_PASSWORD_COMMAND`
+```toml
+[repository]
+password-file = "/path/to/my/password.txt"
+```
+
+- Configuring a program to be called when the password is needed via the CLI
+  option `--password-command` , the environment variable
+  `RUSTIC_PASSWORD_COMMAND` or setting in the configuration profile
+
+```toml
+[repository]
+password-command = "get_my_password.sh"
+```
+
+If none of these password options is used, rustic will query for a password
+(followed by a confirmation query if the password is to be set).
+
+If you have configured your repository and password in the config profile,
+simply run
+
+```console
+rustic init
+```
+
+and your repository is created.
 
 The `init` command has an option called `--set-version` which can be used to
 explicitly set the version for the new repository.
@@ -49,7 +80,7 @@ Options to specify the target pack size:
 Note that larger pack sizes have advantages, especially for large repository or
 remote repositories. They lead to less packs in the repository and transfer
 larger datasets to the repository which can increase the throughput. But there
-are also disadvantages. Rustic keeps the whole pack in memory before writing it
+are also disadvantages. rustic keeps the whole pack in memory before writing it
 to the backend. As writes are parallelized, multiple packs are kept. So larger
 pack sizes increase the memory usage of the `backup` command. Moreover larger
 pack sizes lead to increased repack rates during `prune` or `forget --prune`.

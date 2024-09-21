@@ -4,7 +4,7 @@ Snapshots can have one or more tags, short strings which add identifying
 information. Just specify the tags for a snapshot one by one with `--tag`:
 
 ```console
-$ rustic -r /srv/rustic-repo backup --tag projectX --tag foo --tag bar ~/work
+$ rustic backup --tag projectX --tag foo --tag bar ~/work
 [...]
 ```
 
