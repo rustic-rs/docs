@@ -41,12 +41,14 @@ Consistently apply singular and plural naming conventions for keys in the
 configuration file that accept an array of values. This change affects the
 following keys:
 
-- custom_ignorefile -> custom_ignorefiles
-- glob -> globs
-- glob_file -> glob_files
-- iglob -> iglobs
-- iglob_file -> iglob_files
-- tag -> tags
+- `glob` -> `globs` in config profile
+- `iglob` -> `iglobs` in config profile
+- `glob`-file -> `glob-files` in config profile
+- `iglob-file` -> `iglob-files` in config profile
+- `custom-ignore-file` -> `custom-ignore-files` in config profile
+- `tag`-> `tags` in config profile
+- `keep-tags` -> now only array
+- `keep-ids` -> now only array
 
 Update your configuration file accordingly, changing the key names from singular
 to plural. For cases, where the key name was singular before, the value must be
@@ -62,4 +64,11 @@ becomes:
 
 ```toml
 tags = ["important"]
+```
+
+Filters being affected are:
+
+```toml
+filter-hosts = ["host2"] # Default: []
+filter-labels = ["label1"] # Default: []
 ```
