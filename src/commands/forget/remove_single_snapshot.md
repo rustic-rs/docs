@@ -4,7 +4,7 @@ The command `snapshots` can be used to list all snapshots in a repository like
 this:
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots
+$ rustic snapshots
 enter password for repository:
 ID        Date                 Host      Tags  Directory
 ----------------------------------------------------------------------
@@ -19,7 +19,7 @@ In order to remove the snapshot of `/home/art`, use the `forget` command and
 specify the snapshot ID on the command line:
 
 ```console
-$ rustic -r /srv/rustic-repo forget bdbd3439
+$ rustic forget bdbd3439
 enter password for repository:
 removed snapshot bdbd3439
 ```
@@ -27,7 +27,7 @@ removed snapshot bdbd3439
 Afterwards this snapshot is removed:
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots
+$ rustic snapshots
 enter password for repository:
 ID        Date                 Host     Tags  Directory
 ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ But the data that was referenced by files in this snapshot is still stored in
 the repository. To cleanup unreferenced data, the `prune` command must be run:
 
 ```console
-$ rustic -r /srv/rustic-repo prune
+$ rustic prune
 enter password for repository:
 repository 33002c5e opened successfully, password is correct
 loading all snapshots...

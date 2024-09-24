@@ -1,11 +1,14 @@
 # Comparison between `rustic` and `restic`
 
+Note that we regularly update this document to compare the latest versions of
+rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
+
 ## General differences
 
 |                        | `restic`                                          | `rustic`                                           |
 | ---------------------- | ------------------------------------------------- | -------------------------------------------------- |
 | programming language   | Go                                                | Rust                                               |
-| test coverage          | ✅                                                | ❌ (only few tests implemented)                    |
+| test coverage          | ✅                                                | ❌ (45% in rustic_core)                            |
 | config profile support | ❌ (wrapper tools available)                      | ✅                                                 |
 | locking                | lock files in repository                          | lock-free operations, two-phase pruning            |
 | cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data) |
@@ -13,6 +16,7 @@
 | logging                | `-v` or `--quiet`, no log-file support            | `--log-level`, supports log-file output            |
 | returns error code     | ✅                                                | ❌                                                 |
 | available as library   | ❌                                                | ✅ rustic_core                                     |
+| interactive mode (TUI) | ❌                                                | ✅                                                 |
 
 ## Storage backends
 
@@ -46,7 +50,7 @@
 | `copy`             | ✅                     | ✅                                                   |
 | `diff`             | ✅                     | ✅                                                   |
 | `dump`             | ✅                     | ✅                                                   |
-| `find`             | ✅                     | ❌                                                   |
+| `find`             | ✅                     | ✅                                                   |
 | `forget`           | ✅                     | ✅                                                   |
 | `generate`         | ✅                     | ✅ `completions`                                     |
 | `init`             | ✅                     | ✅                                                   |
@@ -81,8 +85,8 @@
 | ---------------------------------------------------------------------------------------------- | -------- | -------- |
 | [from repo design info](https://github.com/restic/restic/blob/master/doc/design.rst#snapshots) | ✅       | ✅       |
 | program version used                                                                           | ✅       | ✅       |
-| summary (size,...)                                                                             | ❌ (WIP) | ✅       |
-| used command                                                                                   | ❌       | ✅       |
+| summary (size,...)                                                                             | ✅       | ✅       |
+| used command                                                                                   | ✅       | ✅       |
 | label                                                                                          | ❌       | ✅       |
 | description                                                                                    | ❌       | ✅       |
 | delete (protection)                                                                            | ❌       | ✅       |
@@ -96,6 +100,8 @@
 | `--cleanup-cache`            | ✅                                      | ❌                                                        |
 | `--compression`              | ✅ (auto,max,off); needed in every call | ✅ (-7..22) configure once in in-repo config              |
 | `--dry-run`                  | ✅                                      | ✅ (or in config profile)                                 |
+| `--insecure-no-password`     | ✅                                      | ✅ (empty passwords work without extra option)            |
+| `--insecure-tls`             | ✅                                      | ❌                                                        |
 | `--json`                     | ✅                                      | ✅                                                        |
 | `--key-hint`                 | ✅                                      | ❌                                                        |
 | `--limit-download`           | ✅                                      | ❌                                                        |
@@ -150,15 +156,15 @@
 
 ### `init`
 
-| option                  | `restic`                       | `rustic`                            |
-| ----------------------- | ------------------------------ | ----------------------------------- |
-| `--copy-chunker-params` | ✅                             | ❌ (not needed, see `copy` command) |
-| `--from-*`              | ✅                             | ❌ (not needed, see `copy` command) |
-| `--hostname`            | ❌ (always sets hostname)      | ✅                                  |
-| `--repository-version`  | ✅                             | ✅ (use `--set-version`)            |
-| `--set-*`               | ❌ (no in-repo config support) | ✅                                  |
-| `--username`            | ❌ (always sets username)      | ✅                                  |
-| `--with-created`        | ❌ (always sets creation time) | ✅                                  |
+| option                  | `restic`                       | `rustic`                         |
+| ----------------------- | ------------------------------ | -------------------------------- |
+| `--copy-chunker-params` | ✅                             | (not needed, use `copy --init`)  |
+| `--from-*`              | ✅                             | (not needed, see `copy` command) |
+| `--hostname`            | ❌ (always sets hostname)      | ✅                               |
+| `--repository-version`  | ✅                             | ✅ (use `--set-version`)         |
+| `--set-*`               | ❌ (no in-repo config support) | ✅                               |
+| `--username`            | ❌ (always sets username)      | ✅                               |
+| `--with-created`        | ❌ (always sets creation time) | ✅                               |
 
 ### `backup`
 
@@ -166,70 +172,73 @@
 | ------------------------------ | -------- | -------- |
 | allow to backup relative paths | ❌       | ✅       |
 
-| option                    | `restic`                          | `rustic` (options also in config profile) |
-| ------------------------- | --------------------------------- | ----------------------------------------- |
-| `--as-path`               | ❌                                | ✅                                        |
-| `--command`               | ❌                                | ✅                                        |
-| `--custom-ignorefile`     | ❌                                | ✅                                        |
-| `--description`           | ❌                                | ✅                                        |
-| `--description-from`      | ❌                                | ✅                                        |
-| `--delete-never`          | ❌                                | ✅                                        |
-| `--delete-after`          | ❌                                | ✅                                        |
-| `--exclude`               | ✅                                | ✅ `--glob`                               |
-| `--exclude-file`          | ✅                                | ✅ `--glob-file`                          |
-| `--exclude-caches`        | ✅                                | ❌ (use `--exclude-if-present`)           |
-| `--exclude-if-present`    | ✅ (+ support for header parsing) | ✅ (no header parsing)                    |
-| `--exclude-larger-than`   | ✅                                | ✅                                        |
-| `--files-from`            | ✅                                | ❌                                        |
-| `--files-from-raw`        | ✅                                | ❌                                        |
-| `--files-from-verbatim`   | ✅                                | ❌                                        |
-| `--force`                 | ✅                                | ✅                                        |
-| `--git-ignore`            | ❌ (roadmap: 0.19)                | ✅                                        |
-| `--group-by`              | ✅ (host/paths/tags)              | ✅ (host/label/paths/tags)                |
-| `--host`                  | ✅                                | ✅                                        |
-| `--iexclude`              | ✅                                | ✅ `--iglob`                              |
-| `--iexclude-file`         | ✅                                | ✅ `--iglob-file`                         |
-| `--ignore-ctime`          | ✅                                | ✅                                        |
-| `--ignore-inode`          | ✅                                | ✅                                        |
-| `--ignore-devid`          | ❌                                | ✅                                        |
-| `--init`                  | ❌                                | ✅                                        |
-| `--label`                 | ❌                                | ✅                                        |
-| `--no-require-git`        | ❌ (no `--git-ignore`)            | ✅                                        |
-| `--no-scan`               | ✅                                | ✅                                        |
-| `--one-file-system`       | ✅                                | ✅                                        |
-| `--parent`                | ✅                                | ✅                                        |
-| `--read-concurrency`      | ✅                                | ❌ (hardcoded)                            |
-| `--skip-identical-parent` | ❌                                | ✅                                        |
-| `--stdin`                 | ✅                                | ✅ (use `-` as backup source)             |
-| `--stdin-filename`        | ✅                                | ✅                                        |
-| `--tag`                   | ✅                                | ✅                                        |
-| `--time`                  | ✅                                | ✅                                        |
-| `--with-atime`            | ✅                                | ✅                                        |
+| option                  | `restic`                          | `rustic` (options also in config profile) |
+| ----------------------- | --------------------------------- | ----------------------------------------- |
+| `--as-path`             | ❌                                | ✅                                        |
+| `--command`             | ❌                                | ✅                                        |
+| `--custom-ignorefile`   | ❌                                | ✅                                        |
+| `--description`         | ❌                                | ✅                                        |
+| `--description-from`    | ❌                                | ✅                                        |
+| `--delete-never`        | ❌                                | ✅                                        |
+| `--delete-after`        | ❌                                | ✅                                        |
+| `--exclude`             | ✅                                | ✅ `--glob`                               |
+| `--exclude-file`        | ✅                                | ✅ `--glob-file`                          |
+| `--exclude-caches`      | ✅                                | ❌ (use `--exclude-if-present`)           |
+| `--exclude-if-present`  | ✅ (+ support for header parsing) | ✅ (but no header parsing)                |
+| `--exclude-larger-than` | ✅                                | ✅                                        |
+| `--files-from`          | ✅                                | ❌                                        |
+| `--files-from-raw`      | ✅                                | ❌                                        |
+| `--files-from-verbatim` | ✅                                | ❌                                        |
+| `--force`               | ✅                                | ✅                                        |
+| `--git-ignore`          | ❌ (roadmap: 0.19)                | ✅                                        |
+| `--group-by`            | ✅ (host/paths/tags)              | ✅ (host/label/paths/tags)                |
+| `--host`                | ✅                                | ✅                                        |
+| `--iexclude`            | ✅                                | ✅ `--iglob`                              |
+| `--iexclude-file`       | ✅                                | ✅ `--iglob-file`                         |
+| `--ignore-ctime`        | ✅                                | ✅                                        |
+| `--ignore-inode`        | ✅                                | ✅                                        |
+| `--ignore-devid`        | ❌                                | ✅                                        |
+| `--init`                | ❌                                | ✅                                        |
+| `--label`               | ❌                                | ✅                                        |
+| `--no-require-git`      | ❌ (no `--git-ignore`)            | ✅                                        |
+| `--no-scan`             | ✅                                | ✅                                        |
+| `--one-file-system`     | ✅                                | ✅                                        |
+| `--parent`              | ✅                                | ✅                                        |
+| `--read-concurrency`    | ✅                                | ❌ (hardcoded)                            |
+| `--skip-if-unchanged`   | ✅                                | ✅ `--skip-identical-parent`              |
+| `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
+| `--stdin-filename`      | ✅                                | ✅                                        |
+| `--stdin-from-command`  | ✅                                | ❌                                        |
+| `--tag`                 | ✅                                | ✅                                        |
+| `--time`                | ✅                                | ✅                                        |
+| `--with-atime`          | ✅                                | ✅                                        |
 
 ### `restore`
 
-| general                                | `restic`           | `rustic` |
-| -------------------------------------- | ------------------ | -------- |
-| scan and use already existing files    | ❌ (roadmap: 0.17) | ✅       |
-| resumable restore                      | ❌ (roadmap: 0.17) | ✅       |
-| restore hard links                     | ✅                 | ❌       |
-| `<snapshotID>:<subfolder>` syntax      | ✅                 | ✅       |
-| `<snapshotID>:<subfolder>/file` syntax | ❌                 | ✅       |
+| general                                | `restic` | `rustic` |
+| -------------------------------------- | -------- | -------- |
+| scan and use already existing files    | ✅       | ✅       |
+| resumable restore                      | ✅       | ✅       |
+| restore hard links                     | ✅       | ❌       |
+| `<snapshotID>:<subfolder>` syntax      | ✅       | ✅       |
+| `<snapshotID>:<subfolder>/file` syntax | ❌       | ✅       |
+| dry run support                        | ✅       | ✅       |
 
-| option                         | `restic`                           | `rustic`                                    |
-| ------------------------------ | ---------------------------------- | ------------------------------------------- |
-| filtering options for `latest` | ✅                                 | ✅                                          |
-| `--delete`                     | ❌                                 | ✅                                          |
-| `--exclude`                    | ✅                                 | ✅ `--glob`                                 |
-| `--iexclude`                   | ✅                                 | ✅ `--iglob`                                |
-| `--iinclude`                   | ✅                                 | ✅ `--iglob`                                |
-| `--include`                    | ✅                                 | ✅ `--glob`                                 |
-| `--no-ownership`               | ❌                                 | ✅                                          |
-| `--numeric-id`                 | ❌                                 | ✅                                          |
-| `--sparse`                     | ✅                                 | ❌                                          |
-| `--target`                     | ✅                                 | ✅ (give target as second CLI argument)     |
-| `--verify`                     | ✅                                 | ❌ (but `diff` can be used to verify after) |
-| `--verify-existing`            | ❌ (no scanning of existing files) | ✅                                          |
+| option                         | `restic`                | `rustic`                                    |
+| ------------------------------ | ----------------------- | ------------------------------------------- |
+| filtering options for `latest` | ✅                      | ✅                                          |
+| `--delete`                     | ✅                      | ✅                                          |
+| `--exclude`                    | ✅                      | ✅ `--glob`                                 |
+| `--iexclude`                   | ✅                      | ✅ `--iglob`                                |
+| `--iinclude`                   | ✅                      | ✅ `--iglob`                                |
+| `--include`                    | ✅                      | ✅ `--glob`                                 |
+| `--no-ownership`               | ❌                      | ✅                                          |
+| `--numeric-id`                 | ❌                      | ✅                                          |
+| `--overwrite`                  | ✅                      | ❌ (missing functionality: if-newer, never) |
+| `--sparse`                     | ✅                      | ❌                                          |
+| `--target`                     | ✅                      | ✅ (give target as second CLI argument)     |
+| `--verify`                     | ✅                      | ❌ (but `diff` can be used to verify after) |
+| `--verify-existing`            | ✅ `--overwrite always` | ✅                                          |
 
 ### `dump`
 
@@ -269,6 +278,7 @@
 | `--keep-within-half-yearly`    | ❌                   | ✅                                        |
 | `--keep-within-yearly`         | ✅                   | ✅                                        |
 | `--keep-tag`                   | ✅                   | ✅                                        |
+| `--usafe-allow-remove-all`     | ✅                   | ✅ --keep-none`                           |
 | `--compact`                    | ✅                   | ❌                                        |
 | `--group-by`                   | ✅ (host/paths/tags) | ✅ (host/label/paths/tags)                |
 | `--prune`                      | ✅                   | ✅                                        |
@@ -280,7 +290,7 @@
 | prune plan without reading pack files      | ✅                 | ✅       |
 | prune parallel to backup (two-phase prune) | ❌ (roadmap: 0.19) | ✅       |
 | different pack sizes for tree/data packs   | ❌                 | ✅       |
-| resumable prune                            | ❌ (roadmap: 0.17) | ✅       |
+| resumable prune                            | ✅                 | ✅       |
 | (option to) resize packs                   | ✅                 | ✅       |
 
 | option                           | `restic`                   | `rustic`                                          |
@@ -360,6 +370,34 @@
 | `--numeric-uid-gid`                     | ❌       | ✅       |
 | `--summary`                             | ❌       | ✅       |
 | `--recursive`                           | ✅       | ✅       |
+
+### `find`
+
+| general                                               | `restic` | `rustic` |
+| ----------------------------------------------------- | -------- | -------- |
+| group and sort snapshots by date before finding       | ❌       | ✅       |
+| summarize snapshots with identical result (like `+3`) | ❌       | ✅       |
+| fast searching for given full paths                   | ❌       | ✅       |
+
+| option                         | `restic`                   | `rustic`                  |
+| ------------------------------ | -------------------------- | ------------------------- |
+| `--all`                        | ❌ (no summarizing)        | ✅                        |
+| `--blob`                       | ✅                         | ❌                        |
+| `--glob`                       | ✅ (give patterns as args) | ✅                        |
+| `--group-by`                   | ❌                         | ✅                        |
+| `--ignore-case`                | ✅                         | ✅ (`--iglob`)            |
+| `--long`                       | ✅                         | ❌ (default: long output) |
+| `--newest`                     | ✅                         | ❌                        |
+| `--numeric-uid-gid`            | ❌ (default: numeric ids)  | ✅                        |
+| `--oldest`                     | ✅                         | ❌                        |
+| `--pack`                       | ✅                         | ❌                        |
+| `--path` (filter snapshots)    | ✅                         | ✅ (use `--filter-path`)  |
+| `--path` (full path to search) | ❌                         | ✅                        |
+| `--show-pack-id`               | ✅                         | ❌                        |
+| `--show-misses`                | ❌                         | ✅                        |
+| `--snapshot`                   | ✅                         | ✅ (give ids as args)     |
+| `--tag`                        | ✅                         | ✅ (use `--filter-tags`)  |
+| `--tree`                       | ✅                         | ❌                        |
 
 ### `diff`
 

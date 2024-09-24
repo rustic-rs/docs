@@ -1,6 +1,6 @@
 # Space requirements
 
-Rustic currently assumes that your backup repository has sufficient space for
+rustic currently assumes that your backup repository has sufficient space for
 the backup operation you are about to perform. This is a realistic assumption
 for many cloud providers, but may not be true when backing up to local disks.
 

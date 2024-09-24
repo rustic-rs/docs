@@ -5,7 +5,7 @@ A repository is a storage location for all of your snapshots.
 The repository is created with the `init` command:
 
 ```console
-$ rustic -r /srv/rustic-repo init
+$ rustic init
 enter password for new repository:
 enter password again:
 created rustic repository 7a8c3b2a0c at /srv/rustic-repo

@@ -5,7 +5,7 @@ point in time is called a "snapshot" in rustic. Run the following command and
 enter the repository password you chose above again:
 
 ```console
-$ rustic -r /srv/rustic-repo --verbose backup ~/work
+$ rustic --log-level debug backup ~/work
 open repository
 enter password for repository:
 password is correct
@@ -30,7 +30,7 @@ size of the files and directories in `~/work` on the local file system. It also
 tells us that only 1.200 GiB was added to the repository. This means that some
 of the data was duplicate and rustic was able to efficiently reduce it.
 
-If you don't pass the `--verbose` option, rustic will print less data. You'll
+If you don't pass the `--log-level` option, rustic will print less data. You'll
 still get a nice live status display. Be aware that the live status shows the
 processed files and not the transferred data. Transferred volume might be lower
 (due to de-duplication) or higher.
@@ -40,7 +40,7 @@ data, but this time it's even faster and no new data was added to the repository
 (since all data is already there). This is de-duplication at work!
 
 ```console
-$ rustic -r /srv/rustic-repo --verbose backup ~/work
+$ rustic --log-level debug backup ~/work
 open repository
 enter password for repository:
 password is correct
@@ -58,10 +58,10 @@ snapshot 79766175 saved
 ```
 
 You can even backup individual files in the same repository (not passing
-`--verbose` means less output):
+`--log-level` means less output):
 
 ```console
-$ rustic -r /srv/rustic-repo backup ~/work.txt
+$ rustic backup ~/work.txt
 enter password for repository:
 password is correct
 snapshot 249d0210 saved

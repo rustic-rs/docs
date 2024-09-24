@@ -13,7 +13,7 @@
 
 ## Can I use rustic with my existing restic repositories?
 
-Yes, you can. Rustic uses the same repository format as restic, so you can use
+Yes, you can. rustic uses the same repository format as restic, so you can use
 rustic and restic on the same repository. The only thing you have to take care
 of is that you don't run prune with restic and rustic at the same time.
 

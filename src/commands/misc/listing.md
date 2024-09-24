@@ -3,7 +3,7 @@
 To list all snapshots in the repository, use the `snapshots` command:
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots
+$ rustic snapshots
 enter password for repository:
 ID        Date                 Host    Tags   Directory
 ----------------------------------------------------------------------
@@ -17,7 +17,7 @@ bdbd3439  2015-05-08 21:45:17  luigi          /home/art
 You can filter the listing by directory path:
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots --path="/srv"
+$ rustic snapshots --filter-paths="/srv"
 enter password for repository:
 ID        Date                 Host    Tags   Directory
 ----------------------------------------------------------------------
@@ -28,7 +28,7 @@ ID        Date                 Host    Tags   Directory
 Or filter by host:
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots --host luigi
+$ rustic snapshots --filter-host luigi
 enter password for repository:
 ID        Date                 Host    Tags   Directory
 ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ Combining filters is also possible.
 Furthermore you can group the output by the same filters (host, paths, tags):
 
 ```console
-$ rustic -r /srv/rustic-repo snapshots --group-by host
+$ rustic snapshots --group-by host
 
 enter password for repository:
 snapshots for (host [kasimir])

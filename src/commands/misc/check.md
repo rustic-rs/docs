@@ -12,7 +12,7 @@ Trying to restore a snapshot which has been modified as shown above will yield
 an error:
 
 ```console
-$ rustic -r /srv/rustic-repo --no-cache restore c23e491f --target /tmp/restore-work
+$ rustic restore c23e491f /tmp/restore-work
 ...
 Fatal: unable to load index de30f323: load <index/de30f3231c>: invalid data returned
 ```
@@ -32,7 +32,7 @@ repository is damaged like in the example above, `check` will detect this and
 yield the same error as when you tried to restore:
 
 ```console
-$ rustic -r /srv/rustic-repo check
+$ rustic check
 ...
 load indexes
 error: error loading index de30f323: load <index/de30f3231c>: invalid data returned
@@ -43,7 +43,7 @@ If the repository structure is intact, rustic will show that no errors were
 found:
 
 ```console
-$ rustic -r /src/rustic-repo check
+$ rustic check
 ...
 load indexes
 check all packs
@@ -57,7 +57,7 @@ of every pack file in the repository. To tell rustic to also verify the
 integrity of the pack files in the repository, use the `--read-data` flag:
 
 ```console
-$ rustic -r /srv/rustic-repo check --read-data
+$ rustic check --read-data
 ...
 load indexes
 check all packs
@@ -85,11 +85,11 @@ checked. For example, the following commands check all repository pack files
 over 5 separate invocations:
 
 ```console
-rustic -r /srv/rustic-repo check --read-data-subset=1/5
-rustic -r /srv/rustic-repo check --read-data-subset=2/5
-rustic -r /srv/rustic-repo check --read-data-subset=3/5
-rustic -r /srv/rustic-repo check --read-data-subset=4/5
-rustic -r /srv/rustic-repo check --read-data-subset=5/5
+rustic check --read-data-subset=1/5
+rustic check --read-data-subset=2/5
+rustic check --read-data-subset=3/5
+rustic check --read-data-subset=4/5
+rustic check --read-data-subset=5/5
 ```
 
 Use `--read-data-subset=x%` to check a randomly choosen subset of the repository
@@ -100,14 +100,14 @@ a small subset of data after each backup. For a floating point value the
 following command may be used:
 
 ```console
-rustic -r /srv/rustic-repo check --read-data-subset=2.5%
+rustic check --read-data-subset=2.5%
 ```
 
 When checking bigger subsets you most likely want to specify the percentage as
 an integer:
 
 ```console
-rustic -r /srv/rustic-repo check --read-data-subset=10%
+rustic check --read-data-subset=10%
 ```
 
 Use `--read-data-subset=nS` to check a randomly chosen subset of the repository
@@ -119,6 +119,6 @@ conversion will be the same as the percentage option above. For a file size
 value the following command may be used:
 
 ```console
-rustic -r /srv/rustic-repo check --read-data-subset=50M
-rustic -r /srv/rustic-repo check --read-data-subset=10G
+rustic check --read-data-subset=50M
+rustic check --read-data-subset=10G
 ```
