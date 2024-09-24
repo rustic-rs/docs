@@ -72,3 +72,7 @@ Filters being affected are:
 filter-hosts = ["host2"] # Default: []
 filter-labels = ["label1"] # Default: []
 ```
+
+The changes can be also derived from the
+[PR](https://github.com/rustic-rs/rustic/pull/1240) that introduced this change.
+So you may want to take a look at the PR for more details.
