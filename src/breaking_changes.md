@@ -41,21 +41,33 @@ Consistently apply singular and plural naming conventions for keys in the
 configuration file that accept an array of values. This change affects the
 following keys:
 
+For `[global]`:
+
+- `use-profile`-> `use-profiles` in config profile
+
+For `[snapshot-filter]` and `[forget]`:
+
+- `filter-host` -> `filter-hosts` in config profile
+- `filter-label` -> `filter-labels` in config profile
+
+For `[backup]`:
+
 - `glob` -> `globs` in config profile
 - `iglob` -> `iglobs` in config profile
 - `glob`-file -> `glob-files` in config profile
 - `iglob-file` -> `iglob-files` in config profile
 - `custom-ignore-file` -> `custom-ignore-files` in config profile
 - `tag`-> `tags` in config profile
+- `source` -> `sources` in config profile
+- `[[backup.sources]]` -> `[[backup.snapshots]]` in config profile
+
+For `[snapshot-filter]` and `[forget]`:
+
 - `keep-tags` -> now only array
 - `keep-ids` -> now only array
-- `use-profile`-> `use-profiles` in config profile
-- `backup.sources` -> `backup.snapshots` in config profile
-- `filter-host` -> `filter-hosts` in config profile
-- `filter-label` -> `filter-labels` in config profile
 
 Update your configuration file accordingly, changing the key names from singular
-to plural. For cases, where the key name was singular before, the value must be
+to plural. For cases, where the key name was plural before, the value must be
 wrapped in an array.
 
 So, for example
