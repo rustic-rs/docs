@@ -90,7 +90,7 @@ cargo install --git https://github.com/rustic-rs/rustic.git rustic-rs
 You can also directly install the latest crate from crates.io.
 
 ```bash
-cargo install rustic-rs
+cargo install --locked rustic-rs
 ```
 
 ### Cross-compile
