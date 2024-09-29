@@ -61,7 +61,7 @@ For `[backup]`:
 - `source` -> `sources` in config profile
 - `[[backup.sources]]` -> `[[backup.snapshots]]` in config profile
 
-For `[snapshot-filter]` and `[forget]`:
+For `[forget]`:
 
 - `keep-tags` -> now only array
 - `keep-ids` -> now only array
