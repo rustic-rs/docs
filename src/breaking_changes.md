@@ -54,7 +54,7 @@ For `[backup]`:
 
 - `glob` -> `globs` in config profile
 - `iglob` -> `iglobs` in config profile
-- `glob`-file -> `glob-files` in config profile
+- `glob-file` -> `glob-files` in config profile
 - `iglob-file` -> `iglob-files` in config profile
 - `custom-ignore-file` -> `custom-ignore-files` in config profile
 - `tag`-> `tags` in config profile
