@@ -32,8 +32,8 @@ The following services are supported:
 
 The configuration for the services is done via the `rustic` configuration file.
 
-For example, to configure the `Amazon S3` service, you would add the following to
-the configuration file:
+For example, to configure the `Amazon S3` service, you would add the following
+to the configuration file:
 
 ```toml
 [repository]
@@ -50,9 +50,9 @@ bucket = "bucket_name"
 root = "/path/to/repo"
 ```
 
-`opendal` is used to access the services. The `s3` postfix is used
-to specify the `Amazon S3` service. For other services, the postfix is replaced
-with the respective service postfix.
+`opendal` is used to access the services. The `s3` postfix is used to specify
+the `Amazon S3` service. For other services, the postfix is replaced with the
+respective service postfix.
 
 You can find more service templates in the
 [rustic repository](https://github.com/rustic-rs/rustic/tree/main/config).
