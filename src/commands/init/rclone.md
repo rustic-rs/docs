@@ -44,9 +44,9 @@ $ rclone ls b2prod:yggdrasil/foo/bar/baz
     448 bar/baz/keys/4bf9c78049de689d73a56ed0546f83b8416795295cda12ec7fb9465af3900b44
 ```
 
-Rclone can be `configured with environment variables`_, so for instance
-configuring a bandwidth limit for rclone can be achieved by setting the
-`RCLONE_BWLIMIT` environment variable:
+Rclone can be configured with environment variables prefixed by `RCLONE_`, so
+for instance configuring a bandwidth limit for rclone can be achieved by setting
+the `RCLONE_BWLIMIT` environment variable:
 
 ```console
 export RCLONE_BWLIMIT=1M
