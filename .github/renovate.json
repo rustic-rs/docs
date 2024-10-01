@@ -1,36 +1,4 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:recommended",
-        ":dependencyDashboard"
-    ],
-    "separateMinorPatch": false,
-    "prHourlyLimit": 1,
-    "prConcurrentLimit": 1,
-    "major": {
-        "dependencyDashboardApproval": true
-    },
-    "labels": [
-        "A-dependencies"
-    ],
-    "packageRules": [
-        {
-            "description": "Automerge pin updates for GitHub Actions",
-            "matchDatasources": [
-                "github-actions"
-            ],
-            "matchDepTypes": [
-                "action"
-            ],
-            "matchUpdateTypes": [
-                "pin",
-                "digest",
-                "pinDigest"
-            ],
-            "labels": [
-                "A-ci"
-            ],
-            "automerge": true
-        }
-    ]
+    "extends": ["local>rustic-rs/.github:renovate-config"]
 }
