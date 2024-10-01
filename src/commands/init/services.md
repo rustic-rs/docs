@@ -56,3 +56,7 @@ respective service postfix.
 
 You can find more service templates in the
 [rustic repository](https://github.com/rustic-rs/rustic/tree/main/config).
+
+To see the service-dependent options to be set in `[repository.options]`, please
+refer to the
+[opendal service documentation](https://opendal.apache.org/docs/rust/opendal/services/).

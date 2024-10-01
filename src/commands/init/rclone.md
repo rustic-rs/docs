@@ -52,4 +52,12 @@ the `RCLONE_BWLIMIT` environment variable:
 export RCLONE_BWLIMIT=1M
 ```
 
+As rustic allows to set environment variables in the config profile, you can
+alternatively use:
+
+```toml
+[global.env]
+RCLONE_BWLIMIT = "1M"
+```
+
 For debugging rclone, you can set the environment variable `RCLONE_VERBOSE=2`.
