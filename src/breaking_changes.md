@@ -3,6 +3,16 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
+## 0.10.0
+
+### Configuration File
+
+The way we merge values (merge precedence change from overwrite older values, to
+ignore new values) in `options`, `options-hot`, `options-cold` for the
+`BackendOptions` has changed. Please make sure, that your workflow is still
+working as intended, especially that the configuration is applied as you wanted
+it.
+
 ## 0.9.0
 
 ### Configuration File
