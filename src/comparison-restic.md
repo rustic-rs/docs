@@ -174,9 +174,10 @@ rustic and restic. Currently, we compare restic 0.17.1 with rustic 0.9.1.
 
 ### `backup`
 
-| general                        | `restic` | `rustic` |
-| ------------------------------ | -------- | -------- |
-| allow to backup relative paths | ❌       | ✅       |
+| general                                         | `restic` | `rustic` |
+| ----------------------------------------------- | -------- | -------- |
+| allow to create multiple snapshot in single run | ❌       | ✅       |
+| allow to backup relative paths                  | ❌       | ✅       |
 
 | option                  | `restic`                          | `rustic` (options also in config profile) |
 | ----------------------- | --------------------------------- | ----------------------------------------- |
