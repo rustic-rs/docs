@@ -1,20 +1,21 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
+rustic and restic. Currently, we compare restic 0.17.1 with rustic 0.9.1.
 
 ## General differences
 
 |                        | `restic`                                          | `rustic`                                           |
 | ---------------------- | ------------------------------------------------- | -------------------------------------------------- |
 | programming language   | Go                                                | Rust                                               |
-| test coverage          | ✅                                                | ❌ (45% in rustic_core)                            |
+| test coverage          | ✅                                                | ❌ (46% in rustic_core)                            |
 | config profile support | ❌ (wrapper tools available)                      | ✅                                                 |
 | locking                | lock files in repository                          | lock-free operations, two-phase pruning            |
 | cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data) |
 | in-repo config         | ❌                                                | ✅ (see below for details)                         |
-| logging                | `-v` or `--quiet`, no log-file support            | `--log-level`, supports log-file output            |
-| returns error code     | ✅                                                | ❌                                                 |
+| logging                | `-v` or `--quiet`                                 | `--log-level`                                      |
+| allow to log to file   | ❌                                                | ✅                                                 |
+| returns error code     | ✅                                                | (✅) only 0 or 1; not all commands support it      |
 | available as library   | ❌                                                | ✅ rustic_core                                     |
 | interactive mode (TUI) | ❌                                                | ✅                                                 |
 
@@ -104,8 +105,8 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | `--insecure-tls`             | ✅                                      | ❌                                                        |
 | `--json`                     | ✅                                      | ✅                                                        |
 | `--key-hint`                 | ✅                                      | ❌                                                        |
-| `--limit-download`           | ✅                                      | ❌                                                        |
-| `--limit-upload`             | ✅                                      | ❌                                                        |
+| `--limit-download`           | ✅                                      | ❌ (for opendal option `trottle`)                         |
+| `--limit-upload`             | ✅                                      | ❌ (for opendal option `trottle`)                         |
 | `--log-file`                 | ❌                                      | ✅ (or in config profile)                                 |
 | `--no-cache`                 | ✅                                      | ✅ (or in config profile)                                 |
 | `--no-extra-verify`          | ✅ needed in every call                 | ✅ configure once using `config`                          |
@@ -144,13 +145,18 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 
 ## Snapshot filtering
 
-| filter   | `restic`     | `rustic` (options also in config profile)         |
-| -------- | ------------ | ------------------------------------------------- |
-| by host  | ✅ `--host`  | ✅ `--filter-host`                                |
-| by label | ❌           | ✅ `--filter-label`                               |
-| by paths | ✅ `--paths` | ✅ `--filter-paths`                               |
-| by tags  | ✅ `--tags`  | ✅ `--filter-tags`                                |
-| custom   | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
+| filter                | `restic`     | `rustic` (options also in config profile)         |
+| --------------------- | ------------ | ------------------------------------------------- |
+| by host               | ✅ `--host`  | ✅ `--filter-host`                                |
+| by label              | ❌           | ✅ `--filter-label`                               |
+| by paths              | ✅ `--paths` | ✅ `--filter-paths`                               |
+| by exact pathlists    | ❌           | ✅ `--filter-paths-exact`                         |
+| by tags               | ✅ `--tags`  | ✅ `--filter-tags`                                |
+| by exact tagists      | ❌           | ✅ `--filter-tags-exact`                          |
+| by date/time          | ❌           | ✅ `--filter-before`, `filter-after`              |
+| by size               | ❌           | ✅ `--filter-size`                                |
+| by size added to repo | ❌           | ✅ `--filter-size-added`                          |
+| custom                | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
 
 ## Comparison of important commands
 
@@ -208,7 +214,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | `--skip-if-unchanged`   | ✅                                | ✅ `--skip-identical-parent`              |
 | `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
 | `--stdin-filename`      | ✅                                | ✅                                        |
-| `--stdin-from-command`  | ✅                                | ❌                                        |
+| `--stdin-from-command`  | ✅                                | ✅                                        |
 | `--tag`                 | ✅                                | ✅                                        |
 | `--time`                | ✅                                | ✅                                        |
 | `--with-atime`          | ✅                                | ✅                                        |
@@ -315,6 +321,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | check index vs packs          | ✅                                            | ✅           |
 | check snapshot files          | ✅                                            | ✅           |
 | (optionally) check pack files | ✅                                            | ✅           |
+| only check given snapshots    | ❌                                            | ✅           |
 | cache policy                  | create temporary (use existing: roadmap 0.18) | use existing |
 | check cache integrity         | ❌                                            | ✅           |
 | check hot/cold integrity      | ❌ (no cold storage support)                  | ✅           |
@@ -322,7 +329,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | option               | `restic`                      | `rustic`              |
 | -------------------- | ----------------------------- | --------------------- |
 | `--read-data`        | ✅                            | ✅                    |
-| `--read-data-subset` | ✅                            | ❌                    |
+| `--read-data-subset` | ✅                            | ✅                    |
 | `--trust-cache`      | ❌ (no cache integrity check) | ✅                    |
 | `--with-cache`       | ✅                            | ✅ (default behavior) |
 
@@ -345,7 +352,7 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | general                                   | `restic` | `rustic` |
 | ----------------------------------------- | -------- | -------- |
 | summarize identical snapshots (like `+3`) | ❌       | ✅       |
-| show summary information (sizes)          | ❌ (WIP) | ✅       |
+| show summary information (sizes)          | ✅       | ✅       |
 
 | option                     | `restic`             | `rustic`                   |
 | -------------------------- | -------------------- | -------------------------- |
@@ -379,25 +386,25 @@ rustic and restic. Currently, we compare restic 0.17.0 with rustic 0.8.0.
 | summarize snapshots with identical result (like `+3`) | ❌       | ✅       |
 | fast searching for given full paths                   | ❌       | ✅       |
 
-| option                         | `restic`                   | `rustic`                  |
-| ------------------------------ | -------------------------- | ------------------------- |
-| `--all`                        | ❌ (no summarizing)        | ✅                        |
-| `--blob`                       | ✅                         | ❌                        |
-| `--glob`                       | ✅ (give patterns as args) | ✅                        |
-| `--group-by`                   | ❌                         | ✅                        |
-| `--ignore-case`                | ✅                         | ✅ (`--iglob`)            |
-| `--long`                       | ✅                         | ❌ (default: long output) |
-| `--newest`                     | ✅                         | ❌                        |
-| `--numeric-uid-gid`            | ❌ (default: numeric ids)  | ✅                        |
-| `--oldest`                     | ✅                         | ❌                        |
-| `--pack`                       | ✅                         | ❌                        |
-| `--path` (filter snapshots)    | ✅                         | ✅ (use `--filter-path`)  |
-| `--path` (full path to search) | ❌                         | ✅                        |
-| `--show-pack-id`               | ✅                         | ❌                        |
-| `--show-misses`                | ❌                         | ✅                        |
-| `--snapshot`                   | ✅                         | ✅ (give ids as args)     |
-| `--tag`                        | ✅                         | ✅ (use `--filter-tags`)  |
-| `--tree`                       | ✅                         | ❌                        |
+| option                         | `restic`                   | `rustic`                   |
+| ------------------------------ | -------------------------- | -------------------------- |
+| `--all`                        | ❌ (no summarizing)        | ✅                         |
+| `--blob`                       | ✅                         | ❌                         |
+| `--glob`                       | ✅ (give patterns as args) | ✅                         |
+| `--group-by`                   | ❌                         | ✅                         |
+| `--ignore-case`                | ✅                         | ✅ (`--iglob`)             |
+| `--long`                       | ✅                         | ❌ (default: long output)  |
+| `--newest`                     | ✅                         | (✅) use `--filter-before` |
+| `--numeric-uid-gid`            | ❌ (default: numeric ids)  | ✅                         |
+| `--oldest`                     | ✅                         | ✅ use `--filter-after`    |
+| `--pack`                       | ✅                         | ❌                         |
+| `--path` (filter snapshots)    | ✅                         | ✅ `--filter-path`         |
+| `--path` (full path to search) | ❌                         | ✅                         |
+| `--show-pack-id`               | ✅                         | ❌                         |
+| `--show-misses`                | ❌                         | ✅                         |
+| `--snapshot`                   | ✅                         | ✅ (give ids as args)      |
+| `--tag`                        | ✅                         | ✅ `--filter-tags`         |
+| `--tree`                       | ✅                         | ❌                         |
 
 ### `diff`
 
