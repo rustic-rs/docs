@@ -74,12 +74,14 @@ So, for example
 
 ```toml
 tag = "important"
+source = "~/folder1 ~/folder2"
 ```
 
 becomes:
 
 ```toml
 tags = ["important"]
+sources = ["~/folder1", "~/folder2"]
 ```
 
 Filters being affected are:
