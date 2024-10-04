@@ -73,6 +73,7 @@ wrapped in an array.
 So, for example
 
 ```toml
+[[backup.sources]]
 tag = "important"
 source = "~/folder1 ~/folder2"
 ```
@@ -80,6 +81,7 @@ source = "~/folder1 ~/folder2"
 becomes:
 
 ```toml
+[[backup.snapshots]]
 tags = ["important"]
 sources = ["~/folder1", "~/folder2"]
 ```
