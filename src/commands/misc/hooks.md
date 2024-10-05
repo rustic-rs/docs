@@ -87,5 +87,5 @@ run-after = ["notify-send 'Backup finished'"]
 ```
 
 You can also use the `--json` option to get the output of a rustic command in
-JSON format. This can be useful if you want to parse the output and use it in
-a script.
+JSON format. This can be useful if you want to parse the output and use it in a
+script.
