@@ -86,6 +86,6 @@ You can use that, e.g. to send a notification when a backup has finished:
 run-after = ["notify-send 'Backup finished'"]
 ```
 
-You can also use the `--json` option to get the output of the command in JSON
-format. This can be useful if you want to parse the output of a command in a
-script.
+You can also use the `--json` option to get the output of a rustic command in
+JSON format. This can be useful if you want to parse the output and use it in
+a script.
