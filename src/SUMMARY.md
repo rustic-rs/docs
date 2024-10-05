@@ -9,6 +9,7 @@
   - [Nightly Builds](./nightly_builds.md)
 - [Completions](./commands/misc/completions.md)
 - [Getting Started](./getting_started.md)
+- [Hooks](./commands/misc/hooks.md)
 - [Preparing a new repository](./commands/init/intro.md)
   - [Configuration File](./commands/init/configuration_file.md)
   - [Local Backend](./commands/init/local.md)
