@@ -76,11 +76,12 @@ run-after = ["sh -c 'echo Goodbye, world! >> test.out'"]
 In this example, the `run-before` hook is executed globally before any command
 is executed. Within the hook, two commands are executed. The first command
 writes `Hello,` to a file called `test.out`, and the second command appends
-`World!` to the same file. The commands in a hook are executed in order.
+`World!` to the same file on a new line. The commands within the list of a hook
+are executed in order.
 
-After any command is executed globally, the `run-after` hook is executed. In
-this case, the command `echo 'Goodbye, world!'` is executed, and the output is
-appended to the file `test.out`.
+So, after any other command is executed globally, the `run-after` hook is
+executed. In this case, the command `echo 'Goodbye, world!'` is executed, and
+the output is appended to the file `test.out` in a new line.
 
 You can use hooks, e.g. to send a notification when a backup has finished:
 
