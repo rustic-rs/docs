@@ -46,7 +46,12 @@ run-finally = []
 
 [[backup.snapshots]]
 sources = []
-hooks = { run-before = [], run-after = [], run-failed = [], run-finally = [] }
+
+[backup.snapshots.hooks]
+run-before = []
+run-after = []
+run-failed = []
+run-finally = []
 ```
 
 Each hook is a list of commands that are executed in order. If you want to run a
@@ -61,11 +66,16 @@ For example:
 
 ```toml
 [global.hooks]
-run-before = ["sh -c  'echo Hello, world!'"]
+run-before = [
+  "sh -c  'echo Hello > test.out'",
+  "sh -c  'echo World >> test.out'",
+]
 ```
 
-In this example, the command `echo 'Hello, world!'` is executed before any
-command is executed.
+In this example, the `run-before` hook is executed globally before any command
+is executed. Within the hook, two commands are executed. The first command
+writes `Hello` to a file called `test.out`, and the second command appends
+`World` to the same file. The commands in a hook are executed in order.
 
 If you want to run multiple commands, you can add them to the list:
 
@@ -75,15 +85,15 @@ run-before = ["sh -c 'echo Hello, world!'"]
 run-after = ["sh -c 'echo Goodbye, world!'"]
 ```
 
-In this example, the command `echo 'Hello, world!'` is executed before any
-command is executed, and the command `echo 'Goodbye, world!'` is executed after
-any command is executed.
+In this example, the command `echo 'Hello, world!'` is executed globally before
+any command is executed, and the command `echo 'Goodbye, world!'` is executed
+globally after any command is executed.
 
 You can use that, e.g. to send a notification when a backup has finished:
 
 ```toml
 [backup.hooks]
-run-after = ["notify-send 'Backup finished'"]
+run-after = ["notify-send 'Backup finished successfully!'"]
 ```
 
 You can also use the `--json` option to get the output of a rustic command in
