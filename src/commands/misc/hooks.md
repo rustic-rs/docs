@@ -67,35 +67,24 @@ For example:
 ```toml
 [global.hooks]
 run-before = [
-  "sh -c  'echo Hello > test.out'",
-  "sh -c  'echo World >> test.out'",
+  "sh -c  'echo Hello, > test.out'",
+  "sh -c  'echo World! >> test.out'",
 ]
+run-after = ["sh -c 'echo Goodbye, world! >> test.out'"]
 ```
 
 In this example, the `run-before` hook is executed globally before any command
 is executed. Within the hook, two commands are executed. The first command
-writes `Hello` to a file called `test.out`, and the second command appends
-`World` to the same file. The commands in a hook are executed in order.
+writes `Hello,` to a file called `test.out`, and the second command appends
+`World!` to the same file. The commands in a hook are executed in order.
 
-If you want to run multiple commands, you can add them to the list:
+After any command is executed globally, the `run-after` hook is executed. In
+this case, the command `echo 'Goodbye, world!'` is executed, and the output is
+appended to the file `test.out`.
 
-```toml
-[global.hooks]
-run-before = ["sh -c 'echo Hello, world!'"]
-run-after = ["sh -c 'echo Goodbye, world!'"]
-```
-
-In this example, the command `echo 'Hello, world!'` is executed globally before
-any command is executed, and the command `echo 'Goodbye, world!'` is executed
-globally after any command is executed.
-
-You can use that, e.g. to send a notification when a backup has finished:
+You can use hooks, e.g. to send a notification when a backup has finished:
 
 ```toml
 [backup.hooks]
 run-after = ["notify-send 'Backup finished successfully!'"]
 ```
-
-You can also use the `--json` option to get the output of a rustic command in
-JSON format. This can be useful if you want to parse the output and use it in a
-script.
