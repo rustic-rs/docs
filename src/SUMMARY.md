@@ -36,6 +36,7 @@
   - [Checking Integrity and Consistency](./commands/misc/check.md)
   - [Managing Repository Keys](./commands/misc/key.md)
   - [Upgrading the Repository Format Version](./commands/misc/upgrading_repository_format.md)
+  - [Hooks](./commands/misc/hooks.md)
 - [Restoring data from backups](./commands/restore/intro.md)
   - [Using mount](./commands/restore/using_mount.md)
   - [Printing files to StdOut](./commands/restore/printing_stdout.md)
