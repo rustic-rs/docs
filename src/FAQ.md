@@ -77,3 +77,14 @@ instance the crypto libraries of Rust and golang both have optimizations for
 some CPUs. But it might be that your CPU benefits from a golang optimization
 which is not present in the Rust implementation. If you observe some unexpected
 resource usage, please don't hesitate to submit an issue.
+
+## File exclusion for Windows Defender
+
+If you are on Windows and you are using Windows Defender, you might want to
+exclude the `rustic.exe` binary from being scanned to speed up all operations.
+This can be done by adding an exclusion in the Windows Security settings. Here
+is how you can do it on the command line (elevated):
+
+```powershell
+Add-MpPreference -ExclusionProcess "rustic.exe"
+```
