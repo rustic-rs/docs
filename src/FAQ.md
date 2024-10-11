@@ -6,8 +6,11 @@
 - [What are the differences between rustic and restic?](#what-are-the-differences-between-rustic-and-restic)
 - [Why is rustic written in Rust](#why-is-rustic-written-in-rust)
 - [How does rustic work with cold storages like AWS Glacier?](#how-does-rustic-work-with-cold-storages-like-aws-glacier)
+- [Are all operations lock free?](#are-all-operations-lock-free)
 - [How does the lock-free prune work?](#how-does-the-lock-free-prune-work)
 - [You said "rustic uses less resources than restic" but I'm observing the opposite](#you-said-rustic-uses-less-resources-than-restic-but-im-observing-the-opposite)
+- [File exclusion for Windows Defender](#file-exclusion-for-windows-defender)
+- [Pass environment variables to RCLONE](#pass-environment-variables-to-rclone)
 
 <!-- /TOC -->
 
