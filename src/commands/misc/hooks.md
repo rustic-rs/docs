@@ -103,7 +103,7 @@ Here are some use cases which might be interesting to use hooks for:
 ### Repository hooks
 
 - Mount/umount the drive where the repository is located
-- Sync you repo to some remote destination after each command
+- Sync your repo to some remote destination after each command
 - Start extra integrity checks like checking the SHA256 against repo files
 
 ### Backup hooks
