@@ -89,3 +89,30 @@ You can use hooks, e.g. to send a notification when a backup has finished:
 [backup.hooks]
 run-after = ["notify-send 'Backup finished successfully!'"]
 ```
+
+## Use cases
+
+Here are some use cases which might be interesting to use hooks for:
+
+### Global hooks
+
+- Send messages after successful / failed runs
+- Feed your custom logging/monitoring with information about start/end of rustic
+  calls
+
+### Repository hooks
+
+- Mount/umount the drive where the repository is located
+- Sync you repo to some remote destination after each command
+- Start extra integrity checks like checking the SHA256 against repo files
+
+### Backup hooks
+
+- Mount/umount a drive with data-to-backup
+- Run commands to save some systems state, e.g. `dpkg --get-selections` on
+  debian-based systems
+- Dump a database into a file and remove the dump after backup (using
+  `stdin-command` may be an alternative)
+
+If you have a nice use-case yourself, please share it with others by making a
+pull request to this documentation.
