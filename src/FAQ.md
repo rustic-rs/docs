@@ -26,6 +26,8 @@ of is that you don't run prune with restic and rustic at the same time.
 - New features (e.g. hot/cold repositories, lock-free pruning)
 - Some commands or options act a bit different or have slightly different syntax
 
+A more detailed comparison can be found in the [comparison table](./comparison-restic.md).
+
 ## Why is rustic written in Rust
 
 Rust is a powerful language designed to build reliable and efficient software.
