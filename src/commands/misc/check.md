@@ -92,7 +92,7 @@ rustic check --read-data-subset=4/5
 rustic check --read-data-subset=5/5
 ```
 
-Use `--read-data-subset=x%` to check a randomly choosen subset of the repository
+Use `--read-data-subset=x%` to check a randomly chosen subset of the repository
 pack files. It takes one parameter, `x`, the percentage of pack files to check
 as an integer or floating point number. This will not guarantee to cover all
 available pack files after sufficient runs, but it is easy to automate checking
