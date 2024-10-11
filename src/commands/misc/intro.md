@@ -16,5 +16,5 @@ irrecoverably lost.
 
 The repository is now ready for use.
 
-**Note**: In case you are using the rclone backend, please see the
-`rclone-backend` section for additional information.
+**Note**: You can use `latest` to select the last snapshot for a command. For
+example, `rustic snapshots latest` will show the last snapshot.
