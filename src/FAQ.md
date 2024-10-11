@@ -47,6 +47,30 @@ your local disc and a second level cache with the "hot repo". Note that the "hot
 repo" can be also a remote repo, so hot/cold repositories also work for multiple
 rustic clients backing up to the same repository.
 
+## Are all operations lock free?
+
+Yes, all operations are designed lock-free. This means all commands can run
+parallel. This is especially true for multiple backup runs and backup runs
+parallel to `prune`. However, make sure that each individual `backup` run won't
+take longer as the `--keep-delete` option (default: 23h) if you run `prune`
+parallel to `backup` - and that you don't use `--instant-delete`.
+
+Of course, any read-only command also safely runs parallel to any other command.
+
+Multiple parallel `forget` or `prune` runs are designed to work, too. But I have
+to admit that we have not tested this in detail so far. Because of this and
+other reasons (like ACLs to set up and scheduling) I would recommend to schedule
+`forget` and `prune` for the whole repository using a single host to do so.
+However feedback on this with multiple parallel runs is highly appreciated.
+
+There is one general caveat: Error handling is not perfect yet in rustic and we
+may run into cases where parallel runs may throw errors. E.g. the combination
+`forget`/`check` may lead to `check` trying to load just-removed snapshots. Or
+`forget`/`forget` may want to remove a just-removed snapshots which then fails.
+These are however all cases which should not affect the general repository
+consistency. If you encounter such an error handling problem, please report it
+in our [issue tracker](https://github.com/rustic-rs/rustic/issues/new)!
+
 ## How does the lock-free prune work?
 
 Like the prune within restic, rustic decides for each pack whether to keep it,
