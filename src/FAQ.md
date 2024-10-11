@@ -88,3 +88,19 @@ is how you can do it on the command line (elevated):
 ```powershell
 Add-MpPreference -ExclusionProcess "rustic.exe"
 ```
+
+## Pass environment variables to RCLONE
+
+Environment variables are set by `rustic` before calling a subcommand, e.g.
+`rclone` or commands defined in the repository options. For example, to set the
+`RCLONE_FAST_LIST` environment variable you add the following to your
+`<profile>.toml`:
+
+```toml
+[global.env]
+RCLONE_FAST_LIST = "true"
+```
+
+Make sure to check the
+[latest config documentation](https://github.com/rustic-rs/rustic/blob/main/config/full.toml#L29)
+for the correct syntax.
