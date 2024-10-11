@@ -37,3 +37,23 @@ found in fef232e8 from 2024-04-23 23:30:52 (+432)
 This shows that the given file exists in quite some snapshots - we exactly get
 the snapshots where the file content changed. So we can easily restore the
 content of the file from the snapshot we want.
+
+The snapshots are sorted by the snapshot timestamp. Moreover, by default
+identical nodes are grouped together, this means that
+
+```console
+found in dd4d75e2 from 2022-08-31 23:30:33 (+16)
+-rw-r--r--     user     user      4036 12 Aug 12:55 "/home/user/.config/mc/ini"
+```
+
+means that this file was found in the shown snapshot `dd4d75e2` and in the 16
+subsequent snapshots. Moreover, the contents and metadata of it is exactly the
+same for all 17 snapshots.
+
+Note, this also works for directories - if `rustic find` groups dirs which were
+found, the content and metadata of the dir for all contained files and
+subdirectories are exactly identical.
+
+So, this grouping only shows that there is something different or same. To
+really see what is different, you have to use `rustic diff` or maybe even show
+the contents using `rustic dump`.
