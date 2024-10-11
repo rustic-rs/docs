@@ -25,3 +25,14 @@ by later copy runs.
 the entire snapshot(s) due to the different encryption keys used in the source
 and destination repository. This *may incur higher bandwidth usage and costs*
 than expected during normal backup runs.
+
+## Copying to a repository with different chunker parameters
+
+Instead of pre-initializing the repos you want to copy snapshots into, just use
+`rustic copy --init` for the first run - this will set the correct chunker
+parameters.
+
+**Note**: rustic currently refuses to copy to a repository with different
+chunker parameters. If you want to copy to a repository with different chunker
+parameters, you have to set the chunker parameters of the target repository to
+the same values as the source repository.
