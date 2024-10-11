@@ -40,3 +40,8 @@ the path to the file within the snapshot. This path you can then pass to
 
 There is case insensitive variants of `--glob` called `--iglob`. This option
 will behave the same way but ignore the casing of paths.
+
+**Important**: The restore command will restore the permissions of the files and
+directories to the state they were in when the snapshot was taken. GUIDs and
+UIDs will be restored as well, but this requires elevated privileges to work
+correctly.
