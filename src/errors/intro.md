@@ -9,3 +9,4 @@ error codes are grouped by the module that returns them.
 - C002 (Password): The password that has been entered, seems to be incorrect. No
   suitable key found for the given password. Please check your password and try
   again.
+- C003 (Verification): Verification failed: After decrypting and decompressing
