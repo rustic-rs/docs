@@ -8,6 +8,7 @@
 - [Error Codes](./errors/intro.md)
   - [C001 Data corruption](./errors/C001.md)
   - [C002 Incorrect Password](./errors/C002.md)
+  - [C003 Verification failed](./errors/C003.md)
 - [Installation](./installation.md)
   - [Nightly Builds](./nightly_builds.md)
 - [Completions](./commands/misc/completions.md)
