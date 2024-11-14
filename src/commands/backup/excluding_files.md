@@ -5,7 +5,7 @@ exclude options are:
 
 - `--git-ignore` Respect `.gitignore` files and exclude paths/files not handled
   by git.
-- `--glob` include/exclue files and dirs based on given glob patterns
+- `--glob` include/exclude files and dirs based on given glob patterns
 - `--iglob` Same as `--glob` but ignores the case of paths
 - `--glob-file` Specified one or more times to exclude items listed in a given
   file
