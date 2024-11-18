@@ -27,7 +27,7 @@ runs:
       shell: bash
 
     - name: Install dependencies
-      uses: taiki-e/install-action@c6dc131d2c4291552cafb840290190a53b2cd937 # v2
+      uses: taiki-e/install-action@5d427d86f088a6cedcddb92b3ad038d30721b52f # v2
       with:
         tool: mdbook@${{ steps.mdbook-version.outputs.version }},mdbook-pandoc@${{ steps.mdbook-pandoc-version.outputs.version }},mdbook-last-changed@${{ steps.mdbook-last-changed-version.outputs.version }}
 
