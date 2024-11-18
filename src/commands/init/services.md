@@ -1,32 +1,34 @@
 # Supported Services
 
 rustic integrates `opendal`, a data access layer for many different services.
-The following services are supported:
 
-| Service Name                  | Postfix    |
-| ----------------------------- | ---------- |
-| Backblaze B2                  | `b2`       |
-| SFTP                          | `sftp`     |
-| OpenStack Swift               | `swift`    |
-| Azure Blob Storage            | `azblob`   |
-| Azure Data Lake Storage Gen2  | `azdls`    |
-| Azure File Storage            | `azfile`   |
-| Tencent Cloud Object Storage  | `cos`      |
-| Local Filesystem              | `fs`       |
-| FTP                           | `ftp`      |
-| Dropbox                       | `dropbox`  |
-| Google Drive                  | `gdrive`   |
-| Google Cloud Storage          | `gcs`      |
-| GitHub Actions Cache          | `ghac`     |
-| HTTP                          | `http`     |
-| IPFS based on IPFS MFS API    | `ipmfs`    |
-| In-memory storage             | `memory`   |
-| Huawei Cloud OBS              | `obs`      |
-| Microsoft OneDrive            | `onedrive` |
-| Aliyun Object Storage Service | `oss`      |
-| Amazon S3                     | `s3`       |
-| WebDAV                        | `webdav`   |
-| WebHDFS                       | `webhdfs`  |
+The following services are enabled in `rustic`:
+
+| Service       | Description                   | Windows | Linux | MacOS |
+| ------------- | ----------------------------- | ------- | ----- | ----- |
+| `azblob`      | Azure Blob Storage            | ✅      | ✅    | ✅    |
+| `azdls`       | Azure Data Lake Storage       | ✅      | ✅    | ✅    |
+| `azfile`      | Azure File Storage            | ✅      | ✅    | ✅    |
+| `b2`          | Backblaze B2                  | ✅      | ✅    | ✅    |
+| `cos`         | Tencent Cloud Object Storage  | ✅      | ✅    | ✅    |
+| `dropbox`     | Dropbox                       | ✅      | ✅    | ✅    |
+| `fs`          | Local Filesystem              | ✅      | ✅    | ✅    |
+| `ftp`         | FTP                           | ✅      | ✅    | ✅    |
+| `gcs`         | Google Cloud Storage          | ✅      | ✅    | ✅    |
+| `gdrive`      | Google Drive                  | ✅      | ✅    | ✅    |
+| `ghac`        | GitHub Actions Cache          | ✅      | ✅    | ✅    |
+| `http`        | HTTP                          | ✅      | ✅    | ✅    |
+| `ipmfs`       | IPFS based on IPFS MFS API    | ✅      | ✅    | ✅    |
+| `memory`      | In-memory storage             | ✅      | ✅    | ✅    |
+| `obs`         | Huawei Cloud Object Storage   | ✅      | ✅    | ✅    |
+| `onedrive`    | OneDrive                      | ✅      | ✅    | ✅    |
+| `oss`         | Aliyun Object Storage Service | ✅      | ✅    | ✅    |
+| `sftp`        | SFTP                          | ❌      | ✅    | ✅    |
+| `swift`       | OpenStack Swift               | ✅      | ✅    | ✅    |
+| `s3`          | Amazon S3                     | ✅      | ✅    | ✅    |
+| `webdav`      | WebDAV                        | ✅      | ✅    | ✅    |
+| `webhdfs`     | WebHDFS                       | ✅      | ✅    | ✅    |
+| `yandex-disk` | Yandex Disk                   | ✅      | ✅    | ✅    |
 
 ## Configuration
 

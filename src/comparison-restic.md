@@ -21,23 +21,23 @@ rustic and restic. Currently, we compare restic 0.17.1 with rustic 0.9.1.
 
 ## Storage backends
 
-| backend                    | `restic`                                        | `rustic`                                                    |
-| -------------------------- | ----------------------------------------------- | ----------------------------------------------------------- |
-| `local`                    | ✅ (built-in)                                   | ✅ (built-in)                                               |
-| `sftp`                     | ✅ (using external `ssh` command)               | ✅ (built-in using `opendal`, windows not supported)        |
-| `rest`                     | ✅ (built-in)                                   | ✅ (built-in)                                               |
-| `s3`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
-| `swift`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
-| `b2`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
-| `azure`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
-| `gs`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                               |
-| `dropbox`                  | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `ftp`                      | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `gdrive`                   | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `onedrive`                 | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `webdav`                   | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `opendal` (other services) | ❌                                              | ✅ (built-in using `opendal`)                               |
-| `rclone`                   | ✅ (via stdin, using external `rclone` command) | ✅ (via http on localhost, using external `rclone` command) |
+| backend                    | `restic`                                        | `rustic`                                                                |
+| -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| `local`                    | ✅ (built-in)                                   | ✅ (built-in)                                                           |
+| `sftp`                     | ✅ (using external `ssh` command)               | ✅ (built-in using `opendal`, windows not supported)                    |
+| `rest`                     | ✅ (built-in)                                   | ✅ (built-in)                                                           |
+| `s3`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
+| `swift`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
+| `b2`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
+| `azure`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
+| `gs`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
+| `dropbox`                  | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `ftp`                      | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `gdrive`                   | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `onedrive`                 | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `webdav`                   | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `opendal` (other services) | ❌                                              | ✅ (built-in using `opendal`) (see [here](./commands/init/services.md)) |
+| `rclone`                   | ✅ (via stdin, using external `rclone` command) | ✅ (via http on localhost, using external `rclone` command)             |
 
 ## Commands
 
