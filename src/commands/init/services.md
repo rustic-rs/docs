@@ -13,7 +13,6 @@ The following services are enabled in `rustic`:
 | `cos`         | Tencent Cloud Object Storage  | ✅      | ✅    | ✅    |
 | `dropbox`     | Dropbox                       | ✅      | ✅    | ✅    |
 | `fs`          | Local Filesystem              | ✅      | ✅    | ✅    |
-| `ftp`         | FTP                           | ✅      | ✅    | ✅    |
 | `gcs`         | Google Cloud Storage          | ✅      | ✅    | ✅    |
 | `gdrive`      | Google Drive                  | ✅      | ✅    | ✅    |
 | `ghac`        | GitHub Actions Cache          | ✅      | ✅    | ✅    |
@@ -29,6 +28,10 @@ The following services are enabled in `rustic`:
 | `webdav`      | WebDAV                        | ✅      | ✅    | ✅    |
 | `webhdfs`     | WebHDFS                       | ✅      | ✅    | ✅    |
 | `yandex-disk` | Yandex Disk                   | ✅      | ✅    | ✅    |
+
+<!-- | `ftp`         | FTP                           | ✅      | ✅    | ✅    | -->
+
+**Note**: `FTP` is temporarily deactivated, due to build issues.
 
 ## Configuration
 
