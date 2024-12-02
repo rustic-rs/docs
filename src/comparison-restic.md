@@ -3,19 +3,20 @@
 Note that we regularly update this document to compare the latest versions of
 rustic and restic. Currently, we compare restic 0.17.1 with rustic 0.9.1.
 
-You can also read a [simple comparison of borg, restic and rustic blogpost](https://archive.ph/So9vG).
+You can also read a
+[simple comparison of borg, restic and rustic blogpost](https://archive.ph/So9vG).
 
 ## General differences
 
-|                        | `restic`                                          | `rustic`                                                |
-| ---------------------- | ------------------------------------------------- | ------------------------------------------------------- |
-| programming language   | Go                                                | Rust                                                    |
+|                        | `restic`                                          | `rustic`                                               |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------ |
+| programming language   | Go                                                | Rust                                                   |
 | test coverage          | ✅                                                | ❌ (42% in rustic_core)                                |
 | config profile support | ❌ (wrapper tools available)                      | ✅                                                     |
-| locking                | lock files in repository                          | lock-free operations, two-phase pruning                 |
+| locking                | lock files in repository                          | lock-free operations, two-phase pruning                |
 | cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data)     |
 | in-repo config         | ❌                                                | ✅ (see below for details)                             |
-| logging                | `-v` or `--quiet`                                 | `--log-level`                                           |
+| logging                | `-v` or `--quiet`                                 | `--log-level`                                          |
 | allow to log to file   | ❌                                                | ✅                                                     |
 | returns error code     | ✅                                                | (✅) only 0 or 1; not all commands support it          |
 | available as library   | ❌                                                | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
