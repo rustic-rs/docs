@@ -1,10 +1,7 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.17.1 with rustic 0.9.1.
-
-You can also read a
-[simple comparison of borg, restic and rustic blogpost](https://archive.ph/So9vG).
+rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 
 ## General differences
 
@@ -66,7 +63,7 @@ You can also read a
 | `ls`               | ✅                     | ✅                                                   |
 | `merge`            | ❌                     | ✅                                                   |
 | `migrate`          | ✅                     | ❌ (not needed; repo version migration via `config`) |
-| `mount`            | ✅                     | ❌ (WIP)                                             |
+| `mount`            | ✅                     | ✅ (linux only)                                      |
 | `prune`            | ✅                     | ✅                                                   |
 | `recover`          | ✅                     | ❌                                                   |
 | `repair index`     | ✅                     | ✅                                                   |
@@ -108,8 +105,8 @@ You can also read a
 | `--insecure-tls`             | ✅                                      | ❌                                                        |
 | `--json`                     | ✅                                      | ✅                                                        |
 | `--key-hint`                 | ✅                                      | ❌                                                        |
-| `--limit-download`           | ✅                                      | ❌ (for opendal option `trottle`)                         |
-| `--limit-upload`             | ✅                                      | ❌ (for opendal option `trottle`)                         |
+| `--limit-download`           | ✅                                      | (✅) (for opendal option `trottle`)                       |
+| `--limit-upload`             | ✅                                      | (✅) (for opendal option `trottle`)                       |
 | `--log-file`                 | ❌                                      | ✅ (or in config profile)                                 |
 | `--no-cache`                 | ✅                                      | ✅ (or in config profile)                                 |
 | `--no-extra-verify`          | ✅ needed in every call                 | ✅ configure once using `config`                          |
@@ -159,7 +156,8 @@ You can also read a
 | by date/time          | ❌           | ✅ `--filter-before`, `filter-after`              |
 | by size               | ❌           | ✅ `--filter-size`                                |
 | by size added to repo | ❌           | ✅ `--filter-size-added`                          |
-| custom                | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
+| custom Rhai           | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
+| custom `jq` syntax    | ❌           | ✅ `--filter-jq`                                  |
 
 ## Comparison of important commands
 
@@ -177,10 +175,10 @@ You can also read a
 
 ### `backup`
 
-| general                                         | `restic` | `rustic` |
-| ----------------------------------------------- | -------- | -------- |
-| allow to create multiple snapshot in single run | ❌       | ✅       |
-| allow to backup relative paths                  | ❌       | ✅       |
+| general                                         | `restic`                    | `rustic` |
+| ----------------------------------------------- | --------------------------- | -------- |
+| allow to create multiple snapshot in single run | ❌                          | ✅       |
+| allow to backup relative paths                  | (✅) full path in snapshots | ✅       |
 
 | option                  | `restic`                          | `rustic` (options also in config profile) |
 | ----------------------- | --------------------------------- | ----------------------------------------- |
@@ -252,15 +250,17 @@ You can also read a
 
 ### `dump`
 
-| general    | `restic` | `rustic` |
-| ---------- | -------- | -------- |
-| dump files | ✅       | ✅       |
-| dump dirs  | ✅       | ❌       |
+| general                             | `restic` | `rustic` |
+| ----------------------------------- | -------- | -------- |
+| dump files                          | ✅       | ✅       |
+| dump dirs                           | ✅       | ✅       |
+| allow auto-detection of used format | ❌       | ✅       |
 
-| option                                  | `restic` | `rustic`                |
-| --------------------------------------- | -------- | ----------------------- |
-| snapshot filtering options for `latest` | ✅       | ✅                      |
-| `--archive`                             | ✅       | ❌ (no dumping of dirs) |
+| option                                  | `restic`     | `rustic`                        |
+| --------------------------------------- | ------------ | ------------------------------- |
+| snapshot filtering options for `latest` | ✅           | ✅                              |
+| `--archive`                             | ✅ (tar,zip) | ✅ (tar,targz,zip,content,auto) |
+| `--target`                              | ✅           | ✅ `--file`                     |
 
 ### `forget`
 
@@ -273,6 +273,9 @@ You can also read a
 | ------------------------------ | -------------------- | ----------------------------------------- |
 | snapshot filtering options     | ✅                   | ✅                                        |
 | `--keep-last`                  | ✅                   | ✅                                        |
+| `--keep-minutely`              | ❌                   | ✅                                        |
+| `--keep-hourly`                | ✅                   | ✅                                        |
+| `--keep-daily`                 | ✅                   | ✅                                        |
 | `--keep-daily`                 | ✅                   | ✅                                        |
 | `--keep-weekly`                | ✅                   | ✅                                        |
 | `--keep-monthly`               | ✅                   | ✅                                        |
@@ -280,6 +283,7 @@ You can also read a
 | `--keep-half-yearly`           | ❌                   | ✅                                        |
 | `--keep-yearly`                | ✅                   | ✅                                        |
 | `--keep-within`                | ✅                   | ✅                                        |
+| `--keep-within-minutely`       | ❌                   | ✅                                        |
 | `--keep-within-hourly`         | ✅                   | ✅                                        |
 | `--keep-within-daily`          | ✅                   | ✅                                        |
 | `--keep-within-weekly`         | ✅                   | ✅                                        |
@@ -288,7 +292,7 @@ You can also read a
 | `--keep-within-half-yearly`    | ❌                   | ✅                                        |
 | `--keep-within-yearly`         | ✅                   | ✅                                        |
 | `--keep-tag`                   | ✅                   | ✅                                        |
-| `--usafe-allow-remove-all`     | ✅                   | ✅ --keep-none`                           |
+| `--usafe-allow-remove-all`     | ✅                   | ✅ `--keep-none`                          |
 | `--compact`                    | ✅                   | ❌                                        |
 | `--group-by`                   | ✅ (host/paths/tags) | ✅ (host/label/paths/tags)                |
 | `--prune`                      | ✅                   | ✅                                        |
@@ -390,25 +394,25 @@ You can also read a
 | summarize snapshots with identical result (like `+3`) | ❌       | ✅       |
 | fast searching for given full paths                   | ❌       | ✅       |
 
-| option                         | `restic`                   | `rustic`                   |
-| ------------------------------ | -------------------------- | -------------------------- |
-| `--all`                        | ❌ (no summarizing)        | ✅                         |
-| `--blob`                       | ✅                         | ❌                         |
-| `--glob`                       | ✅ (give patterns as args) | ✅                         |
-| `--group-by`                   | ❌                         | ✅                         |
-| `--ignore-case`                | ✅                         | ✅ (`--iglob`)             |
-| `--long`                       | ✅                         | ❌ (default: long output)  |
-| `--newest`                     | ✅                         | (✅) use `--filter-before` |
-| `--numeric-uid-gid`            | ❌ (default: numeric ids)  | ✅                         |
-| `--oldest`                     | ✅                         | ✅ use `--filter-after`    |
-| `--pack`                       | ✅                         | ❌                         |
-| `--path` (filter snapshots)    | ✅                         | ✅ `--filter-path`         |
-| `--path` (full path to search) | ❌                         | ✅                         |
-| `--show-pack-id`               | ✅                         | ❌                         |
-| `--show-misses`                | ❌                         | ✅                         |
-| `--snapshot`                   | ✅                         | ✅ (give ids as args)      |
-| `--tag`                        | ✅                         | ✅ `--filter-tags`         |
-| `--tree`                       | ✅                         | ❌                         |
+| option                         | `restic`                   | `rustic`                  |
+| ------------------------------ | -------------------------- | ------------------------- |
+| `--all`                        | ❌ (no summarizing)        | ✅                        |
+| `--blob`                       | ✅                         | ❌                        |
+| `--glob`                       | ✅ (give patterns as args) | ✅                        |
+| `--group-by`                   | ❌                         | ✅                        |
+| `--ignore-case`                | ✅                         | ✅ (`--iglob`)            |
+| `--long`                       | ✅                         | ❌ (default: long output) |
+| `--newest`                     | ✅                         | ✅ use `--filter-before`  |
+| `--numeric-uid-gid`            | ❌ (default: numeric ids)  | ✅                        |
+| `--oldest`                     | ✅                         | ✅ use `--filter-after`   |
+| `--pack`                       | ✅                         | ❌                        |
+| `--path` (filter snapshots)    | ✅                         | ✅ `--filter-path`        |
+| `--path` (full path to search) | ❌                         | ✅                        |
+| `--show-pack-id`               | ✅                         | ❌                        |
+| `--show-misses`                | ❌                         | ✅                        |
+| `--snapshot`                   | ✅                         | ✅ (give ids as args)     |
+| `--tag`                        | ✅                         | ✅ `--filter-tags`        |
+| `--tree`                       | ✅                         | ❌                        |
 
 ### `diff`
 
@@ -429,3 +433,7 @@ You can also read a
 | `--metadata`                            | ✅                            | ✅       |
 | `--no-content`                          | ❌                            | ✅       |
 | exclude options for local files         | ❌ (no diff with local files) | ✅       |
+
+## External Links
+
+[simple comparison of borg, restic and rustic blogpost](https://archive.ph/So9vG).
