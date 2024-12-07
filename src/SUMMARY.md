@@ -44,6 +44,7 @@
   - [Hooks](./commands/misc/hooks.md)
 - [Restoring data from backups](./commands/restore/intro.md)
   - [Using mount](./commands/restore/using_mount.md)
+  - [Using webdav](./commands/restore/webdav.md)
   - [Printing files to StdOut](./commands/restore/printing_stdout.md)
 - [Removing backup snapshots](./commands/forget/intro.md)
   - [Removing a Single Snapshot](./commands/forget/remove_single_snapshot.md)
