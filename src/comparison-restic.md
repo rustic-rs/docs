@@ -5,21 +5,45 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 
 ## General differences
 
-|                        | `restic`                                          | `rustic`                                               |
-| ---------------------- | ------------------------------------------------- | ------------------------------------------------------ |
-| programming language   | Go                                                | Rust                                                   |
-| test coverage          | ✅                                                | ❌ (42% in rustic_core)                                |
-| config profile support | ❌ (wrapper tools available)                      | ✅                                                     |
-| locking                | lock files in repository                          | lock-free operations, two-phase pruning                |
-| cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data)     |
-| in-repo config         | ❌                                                | ✅ (see below for details)                             |
-| logging                | `-v` or `--quiet`                                 | `--log-level`                                          |
-| allow to log to file   | ❌                                                | ✅                                                     |
-| returns error code     | ✅                                                | (✅) only 0 or 1; not all commands support it          |
-| available as library   | ❌                                                | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
-| interactive mode (TUI) | ❌                                                | ✅                                                     |
+|                       | `restic`                  | `rustic`                                               |
+| --------------------- | ------------------------- | ------------------------------------------------------ |
+| programming language  | Go                        | Rust                                                   |
+| development philosopy | conservative with changes | moving fast, add new features early                    |
+| test coverage         | ✅                        | ❌ (42% in rustic_core)                                |
+| returns error code    | ✅                        | (✅) only 0 or 1; not all commands support it          |
+| available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
-## Storage backends
+## Core features introduced by rustic
+
+rustic's goal is to implement all functionality/features restic offers - and
+make some of them even better. It also implements new features which are missing
+in restic.
+
+This section is an advertisement of the most important features uniquely
+introduced by rustic. Some have been already adopted by restic.
+
+| feature                             | `restic`                       | `rustic`                                           |
+| ----------------------------------- | ------------------------------ | -------------------------------------------------- |
+| cold storage support                | ❌ (may work in special cases) | ✅ (full support including warm-up of needed data) |
+| config profile support              | ❌ (wrapper tools available)   | ✅                                                 |
+| lock-free                           | ❌ (roadmap: 0.19)             | ✅ (lock-free operations, two-phase pruning)       |
+| in-place restore                    | ✅                             | ✅                                                 |
+| additional snapshot information     | (✅) (partly added)            | ✅ (see below for details)                         |
+| in-repo config                      | ❌                             | ✅ (see below for details)                         |
+| `<snapshot>:<path>` syntax          | ✅ (most commands)             | ✅                                                 |
+| new command: `merge`                | ❌                             | ✅                                                 |
+| new command: `webdav`               | ❌                             | ✅                                                 |
+| `diff` with local files             | ❌                             | ✅                                                 |
+| `backup` can use .gitignore         | ❌ (roadmap: 0.19)             | ✅                                                 |
+| `backup` multiple snapshots at once | ❌                             | ✅                                                 |
+| `check` uses existing cache         | ❌ (roadmap: 0.18)             | ✅                                                 |
+| show file history                   | ❌                             | ✅ (`rustic find --path`)                          |
+| more snapshot filter options        | ❌                             | ✅ (see below for details)                         |
+| allow to log to file                | ❌                             | ✅                                                 |
+| interactive mode (TUI)              | ❌                             | ✅                                                 |
+| log verbosity                       | `-v` or `--quiet`              | `--log-level`                                      |
+
+## Supported storage backends
 
 | backend                    | `restic`                                        | `rustic`                                                                |
 | -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
