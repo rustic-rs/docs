@@ -54,12 +54,12 @@ keep-weekly = 5
 exclude-if-present = [".nobackup", "CACHEDIR.TAG"]
 glob-file = ["/root/rustic-local.glob"]
 
-[[backup.sources]]
-source = "/home"
+[[backup.snapshots]]
+sources = ["/home"]
 git-ignore = true
 
-[[backup.sources]]
-source = "/etc"
+[[backup.snapshots]]
+sources = ["/etc"]
 ```
 
 allows you to use `rustic backup` and `rustic forget --prune` in your regularly
