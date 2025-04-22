@@ -90,6 +90,34 @@ You can use hooks, e.g. to send a notification when a backup has finished:
 run-after = ["notify-send 'Backup finished successfully!'"]
 ```
 
+### Hook command failure
+
+By default, if a hook command fails, `rustic` will log the error and stop. If
+you would like `rustic` to continue its process with just a warning in the logs
+or nothing, you can use the `on_failure` field.
+
+The `on_failure` field takes `"error"` by default and can take `"warn"` and
+`"ignore"` as well.
+
+A first way to write it:
+
+```toml
+[backup.hooks]
+run-after = [
+  { command = "notify-send", args = ["Backup finished successfully!"], on_failure = "warn" },
+]
+```
+
+An alternative way possible with the toml format:
+
+```toml
+[[backup.hooks.run-after]]
+command = "notify-send"
+args = ["Backup finished successfully!"]
+# optional
+on_failure = "warn" # possible values are "error" (default), "warn",  "ignore"
+```
+
 ## Use cases
 
 Here are some use cases which might be interesting to use hooks for:
