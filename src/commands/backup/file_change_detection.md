@@ -42,5 +42,8 @@ The option `--ignore-inode` exists to support FUSE-based filesystems and pCloud,
 which do not assign stable inodes to files.
 
 Note that the device id of the containing mount point is never taken into
-account. Device numbers are not stable for removable devices and ZFS snapshots.
+account. Device numbers are not stable for removable devices and ZFS datasets.
 If you want to force a re-scan in such a case, you can change the mountpoint.
+
+The device id will still be tracked and stored as part of the backup,
+unless you supply `--ignore-devid`.
