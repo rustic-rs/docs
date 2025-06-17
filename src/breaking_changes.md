@@ -3,12 +3,15 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
-## 0.9.0
+## 0.10.0
 
-### Renamed opions
+### Renamed/changed opions
 
 The `skip-identical-parent` option of `backup` has been renamed to
-`skip-if-unchanged`.
+`skip-if-unchanged` (like it's named in restic).
+
+The `filter-fn` option is no longer included in the official release builds and
+will be deprecated and removed. Try to use `filter-jq` instead.
 
 ## 0.9.0
 
