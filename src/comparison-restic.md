@@ -237,7 +237,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--one-file-system`     | ✅                                | ✅                                        |
 | `--parent`              | ✅                                | ✅                                        |
 | `--read-concurrency`    | ✅                                | ❌ (hardcoded)                            |
-| `--skip-if-unchanged`   | ✅                                | ✅ `--skip-identical-parent`              |
+| `--skip-if-unchanged`   | ✅                                | ✅                                        |
 | `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
 | `--stdin-filename`      | ✅                                | ✅                                        |
 | `--stdin-from-command`  | ✅                                | ✅                                        |

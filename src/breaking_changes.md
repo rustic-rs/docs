@@ -5,6 +5,13 @@ guidance on how to migrate from one version to another.
 
 ## 0.9.0
 
+### Renamed opions
+
+The `skip-identical-parent` option of `backup` has been renamed to
+`skip-if-unchanged`.
+
+## 0.9.0
+
 ### Configuration File
 
 #### Using String in `password-command` and `warm-up-command`
