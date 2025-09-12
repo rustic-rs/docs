@@ -55,15 +55,17 @@ exclude-if-present = [".nobackup", "CACHEDIR.TAG"]
 glob-file = ["/root/rustic-local.glob"]
 
 [[backup.snapshots]]
+name = "home"
 sources = ["/home"]
 git-ignore = true
 
 [[backup.snapshots]]
+name = "etc"
 sources = ["/etc"]
 ```
 
-allows you to use `rustic backup` and `rustic forget --prune` in your regularly
-backup/cleanup scripts.
+allows you to use `rustic backup --name home` or `rustic backup` (generates all
+snapshots) and `rustic forget --prune` in your regularly backup/cleanup scripts.
 
 For more config file examples
 [check the config here](https://github.com/rustic-rs/rustic/tree/main/config)
