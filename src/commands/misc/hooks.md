@@ -92,7 +92,8 @@ run-after = ["notify-send 'Backup finished successfully!'"]
 
 ### Getting more context
 
-Hooks provide environment variables to external commands, depending on the the hook's type.
+Hooks provide environment variables to external commands, depending on the the
+hook's type.
 
 | Variable name           | Content                                                  | Type                 |
 | ----------------------- | -------------------------------------------------------- | -------------------- |
