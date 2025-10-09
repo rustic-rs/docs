@@ -24,19 +24,19 @@ additional-css = ["./styles/last-changed.css"]
 enable = true
 level = 0
 
-[output.pandoc]
-optional = true
-hosted-html = "https://rustic.cli.rs/docs/"
+# [output.pandoc]
+# optional = true
+# hosted-html = "https://rustic.cli.rs/docs/"
 
-[output.pandoc.profile.pdf]
-output-file = "rustic-user-docs.pdf"
-pdf-engine = "lualatex"
+# [output.pandoc.profile.pdf]
+# output-file = "rustic-user-docs.pdf"
+# pdf-engine = "lualatex"
 
-[output.pandoc.profile.pdf.variables]
-mainfont = "Noto Serif"
-sansfont = "Noto Sans"
-monofont = "Noto Sans Mono"
-mainfontfallback = ["NotoSerifCJKSC:"]
-geometry = ["margin=1in"]
-linkcolor = "blue"
-urlcolor = "red"
+# [output.pandoc.profile.pdf.variables]
+# mainfont = "Noto Serif"
+# sansfont = "Noto Sans"
+# monofont = "Noto Sans Mono"
+# mainfontfallback = ["NotoSerifCJKSC:"]
+# geometry = ["margin=1in"]
+# linkcolor = "blue"
+# urlcolor = "red"
