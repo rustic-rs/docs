@@ -90,6 +90,20 @@ You can use hooks, e.g. to send a notification when a backup has finished:
 run-after = ["notify-send 'Backup finished successfully!'"]
 ```
 
+### Getting more context
+
+Hooks provide environment variables to external commands depending on their type. 
+
+| Variable name           | Content                                                 | Type                 |
+| ----------------------- | ------------------------------------------------------- | -------------------- |
+| `RUSTIC_HOOK_TYPE`      | `run-before`, `run-after`, `run-failed`or `run-finally` | global               |
+| `RUSTIC_ACTION`         | `repository`, `backup` or `source-specific-backup`      | repository or backup |
+| `RUSTIC_BACKUP_LABEL`   | label of snapshot                                       | backup               |
+| `RUSTIC_BACKUP_SOURCES` | comma-separated sources                                 | backup               |
+| `RUSTIC_BACKUP_TAGS`    | comma-separated tags                                    | backup               |
+
+Note that `global` variables are provided to all commands.
+
 ### Hook command failure
 
 By default, if a hook command fails, `rustic` will log the error and stop. If
