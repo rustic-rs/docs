@@ -31,11 +31,11 @@ runs:
       with:
         tool: mdbook@${{ steps.mdbook-version.outputs.version }},mdbook-pandoc@${{ steps.mdbook-pandoc-version.outputs.version }},mdbook-last-changed@${{ steps.mdbook-last-changed-version.outputs.version }}
 
-    - name: Install mdbook-pandoc and related dependencies
-      run: |
-        . ./.env
-        sudo apt-get update
-        sudo apt-get install -y texlive texlive-latex-extra texlive-luatex texlive-lang-cjk librsvg2-bin fonts-noto
-        curl -LsSf https://github.com/jgm/pandoc/releases/download/$PANDOC_VERSION/pandoc-$PANDOC_VERSION-linux-amd64.tar.gz | tar zxf -
-        echo "$PWD/pandoc-$PANDOC_VERSION/bin" >> $GITHUB_PATH
-      shell: bash
+    # - name: Install mdbook-pandoc and related dependencies
+    #   run: |
+    #     . ./.env
+    #     sudo apt-get update
+    #     sudo apt-get install -y texlive texlive-latex-extra texlive-luatex texlive-lang-cjk librsvg2-bin fonts-noto
+    #     curl -LsSf https://github.com/jgm/pandoc/releases/download/$PANDOC_VERSION/pandoc-$PANDOC_VERSION-linux-amd64.tar.gz | tar zxf -
+    #     echo "$PWD/pandoc-$PANDOC_VERSION/bin" >> $GITHUB_PATH
+    #   shell: bash

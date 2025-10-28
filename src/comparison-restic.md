@@ -1,25 +1,52 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
+rustic and restic. Currently, we compare restic 0.18.0 with rustic 0.10.0.
 
 ## General differences
 
-|                        | `restic`                                          | `rustic`                                               |
-| ---------------------- | ------------------------------------------------- | ------------------------------------------------------ |
-| programming language   | Go                                                | Rust                                                   |
-| test coverage          | ✅                                                | ❌ (42% in rustic_core)                                |
-| config profile support | ❌ (wrapper tools available)                      | ✅                                                     |
-| locking                | lock files in repository                          | lock-free operations, two-phase pruning                |
-| cold storage           | ❌ (no direct support, may work in special cases) | ✅ (full support including warm-up of needed data)     |
-| in-repo config         | ❌                                                | ✅ (see below for details)                             |
-| logging                | `-v` or `--quiet`                                 | `--log-level`                                          |
-| allow to log to file   | ❌                                                | ✅                                                     |
-| returns error code     | ✅                                                | (✅) only 0 or 1; not all commands support it          |
-| available as library   | ❌                                                | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
-| interactive mode (TUI) | ❌                                                | ✅                                                     |
+|                       | `restic`                  | `rustic`                                               |
+| --------------------- | ------------------------- | ------------------------------------------------------ |
+| programming language  | Go                        | Rust                                                   |
+| development philosopy | conservative with changes | moving fast, add new features early                    |
+| test coverage         | ✅                        | ❌ (43% in rustic_core)                                |
+| returns error code    | ✅                        | (✅) only 0 or 1; not all commands support it          |
+| available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
-## Storage backends
+## Core features introduced by rustic
+
+rustic's goal is to implement all functionality/features restic offers - and
+make some of them even better. It also implements new features which are missing
+in restic.
+
+This section is an advertisement of the most important features uniquely
+introduced by rustic. Some have been already adopted by restic.
+
+| feature                             | `restic`                       | `rustic`                                            |
+| ----------------------------------- | ------------------------------ | --------------------------------------------------- |
+| cold storage support                | ❌ (may work in special cases) | ✅ (full support including warm-up of needed data)  |
+| lock-free                           | ❌ (roadmap: 0.19)             | ✅ (lock-free operations, two-phase pruning)        |
+| in-place restore                    | ✅                             | ✅                                                  |
+| config profile support              | ❌ (wrapper tools available)   | ✅                                                  |
+| hooks                               | ❌                             | ✅ (at many points, configurable in config profile) |
+| additional snapshot information     | (✅) (partly added)            | ✅ (see below for details)                          |
+| in-repo config                      | ❌                             | ✅ (see below for details)                          |
+| custom chunker config               | ❌                             | ✅ (min/max/average chunk size; fixed size chunker) |
+| `<snapshot>:<path>` syntax          | ✅ (most commands)             | ✅                                                  |
+| new command: `merge`                | ❌                             | ✅                                                  |
+| new command: `webdav`               | ❌                             | ✅                                                  |
+| `diff` with local files             | ❌                             | ✅                                                  |
+| `backup` can use .gitignore         | ❌ (roadmap: 0.19)             | ✅                                                  |
+| `backup` multiple snapshots at once | ❌                             | ✅                                                  |
+| `check` uses existing cache         | ❌ (roadmap: 0.19)             | ✅                                                  |
+| show file history                   | ❌                             | ✅ (`rustic find --path`)                           |
+| more snapshot filter options        | ❌                             | ✅ (see below for details)                          |
+| allow to log to file                | ❌                             | ✅                                                  |
+| log verbosity                       | `-v` or `--quiet`              | `--log-level`                                       |
+| telemetry support                   | ❌                             | ✅ (for `backup`, Prometheus and OpenTelemetry)     |
+| interactive mode (TUI)              | ❌                             | ✅                                                  |
+
+## Supported storage backends
 
 | backend                    | `restic`                                        | `rustic`                                                                |
 | -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
@@ -55,10 +82,10 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 | `forget`           | ✅                     | ✅                                                   |
 | `generate`         | ✅                     | ✅ `completions`                                     |
 | `init`             | ✅                     | ✅                                                   |
-| `key list`         | ✅                     | ❌                                                   |
+| `key list`         | ✅                     | ✅                                                   |
 | `key add`          | ✅                     | ✅                                                   |
-| `key remove`       | ✅                     | ❌                                                   |
-| `key passwd`       | ✅                     | ❌                                                   |
+| `key remove`       | ✅                     | ✅                                                   |
+| `key passwd`       | ✅                     | ✅                                                   |
 | `list`             | ✅                     | ✅                                                   |
 | `ls`               | ✅                     | ✅                                                   |
 | `merge`            | ❌                     | ✅                                                   |
@@ -114,9 +141,13 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 | `--no-progress`              | ❌                                      | ✅ (or in config profile)                                 |
 | `--progress-intervall`       | ✅ (via env variable)                   | ✅ (or in config profile)                                 |
 | `--option`                   | ✅ as cmd arg or env variable           | ✅ via config profile or env variable                     |
+| `--opentelemetry`            | ❌                                      | ✅ (or in config profile, only for `backup` currently)    |
 | `--pack-size`                | ✅ fix limit; needed in every call      | ✅ fix or dynamic limit, configure once in in-repo config |
 | `--password-command`         | ✅                                      | ✅ (or in config profile)                                 |
 | `--password-file`            | ✅                                      | ✅ (or in config profile)                                 |
+| `--prometheus`               | ❌                                      | ✅ (or in config profile, only for `backup` currently)    |
+| `--prometheus-user`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
+| `--prometheus-pass`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
 | `--quiet`                    | ✅                                      | ✅                                                        |
 | `--repo`                     | ✅                                      | ✅ (or in config profile)                                 |
 | `--repo-hot`                 | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
@@ -126,12 +157,18 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 | `--use-profile`              | ❌ (no config profile support)          | ✅ (or in config profile for recursively using profiles)  |
 | `--verbose` (multiple times) | ✅                                      | ✅ `--log-level`                                          |
 | `--warm-up`                  | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
+| `--warm-up-wait`             | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
+| `--warm-up-wait-command`     | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 
 ## `rustic` in-repo config options
 
 | option                          | `restic`                                             | `rustic`     |
 | ------------------------------- | ---------------------------------------------------- | ------------ |
 | `append_only`                   | ❌                                                   | ✅           |
+| `chunker`                       | ❌                                                   | ✅           |
+| `chunk-size`                    | ❌                                                   | ✅           |
+| `chunk-min-size`                | ❌                                                   | ✅           |
+| `chunk-max-size`                | ❌                                                   | ✅           |
 | `compression`                   | ✅ (by `--compression`)                              | ✅           |
 | `treepack_size`                 | ❌ (only all packs: `--pack-size`)                   | ✅           |
 | `treepack_growfactor`           | ❌                                                   | ✅           |
@@ -145,19 +182,18 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 
 ## Snapshot filtering
 
-| filter                | `restic`     | `rustic` (options also in config profile)         |
-| --------------------- | ------------ | ------------------------------------------------- |
-| by host               | ✅ `--host`  | ✅ `--filter-host`                                |
-| by label              | ❌           | ✅ `--filter-label`                               |
-| by paths              | ✅ `--paths` | ✅ `--filter-paths`                               |
-| by exact pathlists    | ❌           | ✅ `--filter-paths-exact`                         |
-| by tags               | ✅ `--tags`  | ✅ `--filter-tags`                                |
-| by exact tagists      | ❌           | ✅ `--filter-tags-exact`                          |
-| by date/time          | ❌           | ✅ `--filter-before`, `filter-after`              |
-| by size               | ❌           | ✅ `--filter-size`                                |
-| by size added to repo | ❌           | ✅ `--filter-size-added`                          |
-| custom Rhai           | ❌           | ✅ `--filter-fn` (using [Rhai](https://rhai.rs/)) |
-| custom `jq` syntax    | ❌           | ✅ `--filter-jq`                                  |
+| filter                | `restic`     | `rustic` (options also in config profile) |
+| --------------------- | ------------ | ----------------------------------------- |
+| by host               | ✅ `--host`  | ✅ `--filter-host`                        |
+| by label              | ❌           | ✅ `--filter-label`                       |
+| by paths              | ✅ `--paths` | ✅ `--filter-paths`                       |
+| by exact pathlists    | ❌           | ✅ `--filter-paths-exact`                 |
+| by tags               | ✅ `--tags`  | ✅ `--filter-tags`                        |
+| by exact tagists      | ❌           | ✅ `--filter-tags-exact`                  |
+| by date/time          | ❌           | ✅ `--filter-before`, `filter-after`      |
+| by size               | ❌           | ✅ `--filter-size`                        |
+| by size added to repo | ❌           | ✅ `--filter-size-added`                  |
+| custom `jq` syntax    | ❌           | ✅ `--filter-jq`                          |
 
 ## Comparison of important commands
 
@@ -213,7 +249,7 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 | `--one-file-system`     | ✅                                | ✅                                        |
 | `--parent`              | ✅                                | ✅                                        |
 | `--read-concurrency`    | ✅                                | ❌ (hardcoded)                            |
-| `--skip-if-unchanged`   | ✅                                | ✅ `--skip-identical-parent`              |
+| `--skip-if-unchanged`   | ✅                                | ✅                                        |
 | `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
 | `--stdin-filename`      | ✅                                | ✅                                        |
 | `--stdin-from-command`  | ✅                                | ✅                                        |
@@ -293,6 +329,7 @@ rustic and restic. Currently, we compare restic 0.17.3 with rustic 0.9.5.
 | `--keep-within-yearly`         | ✅                   | ✅                                        |
 | `--keep-tag`                   | ✅                   | ✅                                        |
 | `--usafe-allow-remove-all`     | ✅                   | ✅ `--keep-none`                          |
+| `--delete-unchanged`           | ❌                   | ✅                                        |
 | `--compact`                    | ✅                   | ❌                                        |
 | `--group-by`                   | ✅ (host/paths/tags) | ✅ (host/label/paths/tags)                |
 | `--prune`                      | ✅                   | ✅                                        |
