@@ -1,7 +1,12 @@
 # Restore using mount
 
 **NOTE**: `rustic` currently only supports `mount` for linux; we are working on
-support for other operation systemss.
+support for other operation systems. Moreover, when compiling, the `mount`
+feature must be chosen and `libfuse` must be installed during comilation and as
+shared library when calling `rustic`. Your binary hence may not have a `mount`
+command - depending on the preferences during the compilation process.
+Alternatives for `rustic mount` are to use `rustic webdav` or
+`rustic snapshots -i`.
 
 Browsing your backup as a regular file system is also very easy. First, create a
 mount point such as `/mnt/rustic` and then use the following command to serve
