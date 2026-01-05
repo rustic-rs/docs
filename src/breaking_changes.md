@@ -3,6 +3,56 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
+## 0.11.0 (coming soon)
+
+### Configuration File
+
+As rustic now allows to use multiple parents, the option in the config profile
+has been renamed from `parent` to `parents` and now needs to be given as list.
+
+Instead of
+
+```toml
+parent = "abc"
+```
+
+please use
+
+```toml
+parents = ["abc"]
+```
+
+### Changed options
+
+Parsing durations where 'M' is used for 'months' no longer works, but instead
+'mo' or `months` should be used. For example
+
+```toml
+keep-weekly-within = "3M"
+```
+
+must be changed to something like
+
+```toml
+keep-weekly-within = "3 months"
+```
+
+### Removed options
+
+The option `quiet` has been removed for the `backup` and `forget` command;
+please use the `log-level-*` (see below) options for fine-tuning the output.
+
+### Logging options
+
+Logging has been refactored allowing to fine-tune logging for the console
+(stderr) output and log-file output separately using `log-level` and
+`log-level-logfile`, respectively. Moreover, the log-level for dependency crates
+can be directly set using `log-level-dependencies` to reduce log flooding.
+Logging in dry-run mode can be set using `log-level-dryrun`.
+
+This may result in a changed logging behavior depending on your setup; you may
+need to fine-tune the logging options to suit your needs.
+
 ## 0.10.0
 
 ### Renamed/changed opions
