@@ -1,4 +1,4 @@
-## Filtering snapshots
+# Filtering snapshots
 
 rustic allows to filter snapshots by certain criteria. This can be useful when
 listing snapshots, copying snapshots between repositories.
