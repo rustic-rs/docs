@@ -40,7 +40,9 @@ found in ca466029 from 2026-02-02 13:17:57
 -rw-r--r--     user     user        29  2 Feb 2026 13:17 "Project/config/secret.env"
 ```
 
-**Note:** As an alternative to `rustic find`, you may directly use `rustic rewrite -n` (`-n` is for dry-run)
+**Note:** As an alternative to `rustic find`, you may directly use
+`rustic rewrite -n` (`-n` is for dry-run)
+
 ```console
 $ rustic rewrite -n --glob '!**/secret.env'
 Would have rewritten the following snapshots:
@@ -49,7 +51,6 @@ Would have rewritten the following snapshots:
 | 5109f5fe | kasimir |       |      | Project |   507 |   87 | 524.0 KiB |
 | ca466029 | kasimir |       |      | Project |   508 |   87 | 524.0 KiB |
 2 snapshot(s)
-
 ```
 
 Apparently, two snapshots are concerned. Let's rewrite them to *exclude* that
@@ -75,9 +76,10 @@ total: 5 snapshot(s)
 **Note:** In the `rewrite` command, you must use a negative glob (starting with
 an exclamation mark) to specify the files you want to remove.
 
-We now have two _new_ snapshots tagged `rewrite`: the updated snapshots with the secret file removed.
-You may also notice that the snapshots `5109f5fe` and `ca466029` remain. By
-default, the `rewrite` command does *not* remove the source snapshots. So, in mycase, I will have to remove them manually:
+We now have two *new* snapshots tagged `rewrite`: the updated snapshots with the
+secret file removed. You may also notice that the snapshots `5109f5fe` and
+`ca466029` remain. By default, the `rewrite` command does *not* remove the
+source snapshots. So, in mycase, I will have to remove them manually:
 
 ```console
 $ rustic forget 5109f5fe ca466029
@@ -119,15 +121,20 @@ snapshots for (host [kasimir], label [], paths [Project])
 total: 3 snapshot(s)
 ```
 
-**Note:** The `rewrite` command never modifies an existing snapshot. It always creates a new one.
-That's why the _untagged_ snapshots above have a different ID than the _tagged_ ones.
+**Note:** The `rewrite` command never modifies an existing snapshot. It always
+creates a new one. That's why the *untagged* snapshots above have a different ID
+than the *tagged* ones.
 
 ### The short way
 
-In the section above, we've outlined all the steps in detail. We
-especially had to manually identify and then remove the unwanted snapshots. But using the `-n` and `--forget` options, the `rewrite command` can do the job with fewer keystrokes.
+In the section above, we've outlined all the steps in detail. We especially had
+to manually identify and then remove the unwanted snapshots. But using the `-n`
+and `--forget` options, the `rewrite command` can do the job with fewer
+keystrokes.
 
-Let's resume at the moment we noticed the unwanted file in the backups. If you remember, we had then three snapshots without knowing the ones that were containing the `secret.env` file:
+Let's resume at the moment we noticed the unwanted file in the backups. If you
+remember, we had then three snapshots without knowing the ones that were
+containing the `secret.env` file:
 
 ```console
 # Initial state:
@@ -144,9 +151,10 @@ snapshots for (host [kasimir], label [], paths [Project])
 total: 3 snapshot(s)
 ```
 
-To identify the snapshots containing the `secret.env` file, we previously used `rustic find`.
-But `rewrite` also has a _dry-run_ option `-n`. It doesn't perform any action on
-the repo, but it will show you the snapshot that would have been affected:
+To identify the snapshots containing the `secret.env` file, we previously used
+`rustic find`. But `rewrite` also has a *dry-run* option `-n`. It doesn't
+perform any action on the repo, but it will show you the snapshot that would
+have been affected:
 
 ```console
 $ rustic rewrite -n --glob '!Project/config/secret.env' --filter-paths Project
@@ -158,7 +166,8 @@ Would have rewritten the following snapshots:
 2 snapshot(s)
 ```
 
-And using the `--forget` option, we can do the `rewrite` and `forget` steps in one command:
+And using the `--forget` option, we can do the `rewrite` and `forget` steps in
+one command:
 
 ```console
 $ rustic rewrite --forget --glob '!Project/config/secret.env' 5109f5fe ca466029
@@ -175,11 +184,14 @@ snapshots for (host [kasimir], label [], paths [Project])
 total: 3 snapshot(s)
 ```
 
-Interestingly, the new snapshots replaced the old ones but were not tagged. The options `--forget` and `--tags-rewritten ''` prevent the command from adding the `rewrite` tag.
+Interestingly, the new snapshots replaced the old ones but were not tagged. The
+options `--forget` and `--tags-rewritten ''` prevent the command from adding the
+`rewrite` tag.
 
 ### The very short way
 
-Well, as a matter of fact, if you know what you're doing, all can be done just using `rewrite --forget`:
+Well, as a matter of fact, if you know what you're doing, all can be done just
+using `rewrite --forget`:
 
 ```console
 # Initial state:
@@ -230,7 +242,8 @@ with the data packs. It has two consequences:
 
 The `rustic rewrite` command allows you to manipulate the snapshots' tags.
 
-For example, you can use `rewrite --set-tags ...` to set a new tag list to a snapshot:
+For example, you can use `rewrite --set-tags ...` to set a new tag list to a
+snapshot:
 
 ```console
 $ rustic snapshots --all --filter-paths Project
@@ -259,9 +272,8 @@ snapshots for (host [kasimir], label [], paths [Project])
 total: 2 snapshot(s)
 ```
 
-You can also add tags with `rewrite --add-tags ...` and remove them using `rewrite --add-tags ...`:
-
-
+You can also add tags with `rewrite --add-tags ...` and remove them using
+`rewrite --add-tags ...`:
 
 ```console
 # Add more tags
@@ -295,7 +307,8 @@ snapshots for (host [kasimir], label [], paths [Project])
 total: 2 snapshot(s)
 ```
 
-**Note:** `rustic tag --remove ...` is an alias for `rustic rewrite --forget --remove-tags ...`
+**Note:** `rustic tag --remove ...` is an alias for
+`rustic rewrite --forget --remove-tags ...`
 
 ```console
 # Replace the tag list
@@ -314,7 +327,8 @@ total: 2 snapshot(s)
 
 ## Rewriting the hostname
 
-You can change the hotname of an index tree. It can be useful if you have a master snapshot you want to use for different hosts:
+You can change the hotname of an index tree. It can be useful if you have a
+master snapshot you want to use for different hosts:
 
 ```console
 $ rustic snapshots --all --filter-paths Project
@@ -347,4 +361,5 @@ snapshots for (host [mikado], label [], paths [Project])
 
 ## More
 
-If you want more, try `rustic rewrite --help` to see all the rewrite capabilities.
+If you want more, try `rustic rewrite --help` to see all the rewrite
+capabilities.
