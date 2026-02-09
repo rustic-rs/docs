@@ -72,6 +72,8 @@ will behave the same way but ignore the casing of paths. -->
 - The source path should be relative to the snapshot's root
 - The destination path should be an absolute or relative path on your local
   system
+- If using cold storage, remember to specify both buckets, a warmup command, and
+  an adequate warmup time.
 
 ## Troubleshooting
 
