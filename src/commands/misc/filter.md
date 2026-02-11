@@ -43,13 +43,16 @@ filter-paths = ["/srv"]
 ```
 
 **Note**: For paths and tags it is already possible to give multiple values -
-and then they are `and`ed: `filter-tags=["a,b"]` matches snapshots which have
-both "a" and "b" as tags, whereas `filter-tags=["a","b"]` matches snapshots
+and then they are `and`ed: `filter-tags = ["a,b"]` matches snapshots which have
+both "a" and "b" as tags, whereas `filter-tags = ["a","b"]` matches snapshots
 which have either "a" or "b" as tag.
 
-What is (currently) not possible is to filter exactly for a tag list or path
-list: A snapshot with tags "a,b,c" is currently shown when you specify
-`filter-tags=["a,b"]`.
+Note that `filter-tags` and `filter-paths` also match snapshots which do have
+additional tags or paths, respectively.
+
+For example, a snapshot with tags "a,b,c" is currently shown when you specify
+`filter-tags=["a,b"]`. If you want to get only snapshots with the exact list of
+tags/paths, use `filter-tags-exact` and filter-paths-exact`.
 
 ## Filtering snapshots to copy
 
