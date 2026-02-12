@@ -1,7 +1,7 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.18.0 with rustic 0.10.0.
+rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.0.
 
 ## General differences
 
@@ -9,14 +9,13 @@ rustic and restic. Currently, we compare restic 0.18.0 with rustic 0.10.0.
 | --------------------- | ------------------------- | ------------------------------------------------------ |
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
-| test coverage         | ✅                        | ❌ (43% in rustic_core)                                |
-| returns error code    | ✅                        | (✅) only 0 or 1; not all commands support it          |
+| test coverage         | ✅                        | ❌ (47% in rustic_core)                                |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
 ## Core features introduced by rustic
 
 rustic's goal is to implement all functionality/features restic offers - and
-make some of them even better. It also implements new features which are missing
+make most of them even better. It also implements new features which are missing
 in restic.
 
 This section is an advertisement of the most important features uniquely
@@ -32,19 +31,22 @@ introduced by rustic. Some have been already adopted by restic.
 | additional snapshot information     | (✅) (partly added)            | ✅ (see below for details)                          |
 | in-repo config                      | ❌                             | ✅ (see below for details)                          |
 | custom chunker config               | ❌                             | ✅ (min/max/average chunk size; fixed size chunker) |
+| open repository using masterkey     | ❌                             | ✅                                                  |
 | `<snapshot>:<path>` syntax          | ✅ (most commands)             | ✅                                                  |
+| `latest~N` syntax                   | ❌                             | ✅                                                  |
 | new command: `merge`                | ❌                             | ✅                                                  |
 | new command: `webdav`               | ❌                             | ✅                                                  |
 | `diff` with local files             | ❌                             | ✅                                                  |
 | `backup` can use .gitignore         | ❌ (roadmap: 0.19)             | ✅                                                  |
 | `backup` multiple snapshots at once | ❌                             | ✅                                                  |
+| `backup` support for block devives  | ❌                             | ✅                                                  |
 | `check` uses existing cache         | ❌ (roadmap: 0.19)             | ✅                                                  |
 | show file history                   | ❌                             | ✅ (`rustic find --path`)                           |
 | more snapshot filter options        | ❌                             | ✅ (see below for details)                          |
 | allow to log to file                | ❌                             | ✅                                                  |
-| log verbosity                       | `-v` or `--quiet`              | `--log-level`                                       |
+| log verbosity                       | `-v` or `--quiet`              | `--log-level-*`                                     |
 | telemetry support                   | ❌                             | ✅ (for `backup`, Prometheus and OpenTelemetry)     |
-| interactive mode (TUI)              | ❌                             | ✅                                                  |
+| integrated interactive mode (TUI)   | ❌                             | ✅                                                  |
 
 ## Supported storage backends
 
@@ -98,11 +100,11 @@ introduced by rustic. Some have been already adopted by restic.
 | `repair snapshots` | ✅                     | ✅                                                   |
 | `repoinfo`         | ❌                     | ✅                                                   |
 | `restore`          | ✅                     | ✅                                                   |
-| `rewrite`          | ✅                     | ❌                                                   |
+| `rewrite`          | ✅                     | ✅                                                   |
 | `self-update`      | ✅                     | ✅                                                   |
 | `show-config`      | ❌                     | ✅                                                   |
 | `snapshots`        | ✅                     | ✅                                                   |
-| `stats`            | ✅                     | ❌ (but there is `repoinfo`)                         |
+| `stats`            | ✅                     | (✅) (in interactive mode)                           |
 | `tag`              | ✅                     | ✅                                                   |
 | `unlock`           | ✅                     | lock-free                                            |
 | `webdav`           | ❌                     | ✅                                                   |
@@ -131,6 +133,9 @@ introduced by rustic. Some have been already adopted by restic.
 | `--insecure-no-password`     | ✅                                      | ✅ (empty passwords work without extra option)            |
 | `--insecure-tls`             | ✅                                      | ❌                                                        |
 | `--json`                     | ✅                                      | ✅                                                        |
+| `--key`                      | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
+| `--key-file`                 | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
+| `--key-command`              | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
 | `--key-hint`                 | ✅                                      | ❌                                                        |
 | `--limit-download`           | ✅                                      | (✅) (for opendal option `trottle`)                       |
 | `--limit-upload`             | ✅                                      | (✅) (for opendal option `trottle`)                       |
@@ -148,14 +153,14 @@ introduced by rustic. Some have been already adopted by restic.
 | `--prometheus`               | ❌                                      | ✅ (or in config profile, only for `backup` currently)    |
 | `--prometheus-user`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
 | `--prometheus-pass`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
-| `--quiet`                    | ✅                                      | ✅                                                        |
+| `--quiet`                    | ✅                                      | ✅ (use log-level configuration)                          |
 | `--repo`                     | ✅                                      | ✅ (or in config profile)                                 |
 | `--repo-hot`                 | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 | `--repository-file`          | ✅                                      | ❌ (use `repository` in config profile instead)           |
 | `--retry-lock`               | ✅                                      | not needed; lock-free                                     |
 | `--tls-client-cert`          | ✅                                      | ❌                                                        |
 | `--use-profile`              | ❌ (no config profile support)          | ✅ (or in config profile for recursively using profiles)  |
-| `--verbose` (multiple times) | ✅                                      | ✅ `--log-level`                                          |
+| `--verbose` (multiple times) | ✅                                      | ✅ `--log-level-*`                                        |
 | `--warm-up`                  | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 | `--warm-up-batch`            | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 | `--warm-up-wait`             | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
@@ -191,10 +196,11 @@ introduced by rustic. Some have been already adopted by restic.
 | by exact pathlists    | ❌           | ✅ `--filter-paths-exact`                 |
 | by tags               | ✅ `--tags`  | ✅ `--filter-tags`                        |
 | by exact tagists      | ❌           | ✅ `--filter-tags-exact`                  |
-| by date/time          | ❌           | ✅ `--filter-before`, `filter-after`      |
+| by date/time          | ❌           | ✅ `--filter-before`, `--filter-after`    |
 | by size               | ❌           | ✅ `--filter-size`                        |
 | by size added to repo | ❌           | ✅ `--filter-size-added`                  |
 | custom `jq` syntax    | ❌           | ✅ `--filter-jq`                          |
+| n last                | ❌           | ✅ `--filter-last`                        |
 
 ## Comparison of important commands
 
@@ -242,14 +248,18 @@ introduced by rustic. Some have been already adopted by restic.
 | `--iexclude-file`       | ✅                                | ✅ `--iglob-file`                         |
 | `--ignore-ctime`        | ✅                                | ✅                                        |
 | `--ignore-inode`        | ✅                                | ✅                                        |
-| `--ignore-devid`        | ❌                                | ✅                                        |
 | `--init`                | ❌                                | ✅                                        |
 | `--label`               | ❌                                | ✅                                        |
 | `--no-require-git`      | ❌ (no `--git-ignore`)            | ✅                                        |
 | `--no-scan`             | ✅                                | ✅                                        |
 | `--one-file-system`     | ✅                                | ✅                                        |
-| `--parent`              | ✅                                | ✅                                        |
+| `--parent`              | ✅                                | ✅ (multiple parents are supported)       |
 | `--read-concurrency`    | ✅                                | ❌ (hardcoded)                            |
+| `--set-atime`           | ❌                                | ✅                                        |
+| `--set-blockdev`        | ❌                                | ✅                                        |
+| `--set-ctime`           | ❌                                | ✅                                        |
+| `--set-devid`           | ❌                                | ✅                                        |
+| `--set-xattr`           | ❌                                | ✅                                        |
 | `--skip-if-unchanged`   | ✅                                | ✅                                        |
 | `--stdin`               | ✅                                | ✅ (use `-` as backup source)             |
 | `--stdin-filename`      | ✅                                | ✅                                        |
@@ -304,6 +314,7 @@ introduced by rustic. Some have been already adopted by restic.
 | general                                 | `restic` | `rustic` |
 | --------------------------------------- | -------- | -------- |
 | allow to keep all XXX                   | ✅       | ✅       |
+| respect "no delete" options in snapshot | ❌       | ✅       |
 | respect "no delete" options in snapshot | ❌       | ✅       |
 
 | option                         | `restic`             | `rustic` (options also in config profile) |
@@ -361,16 +372,17 @@ introduced by rustic. Some have been already adopted by restic.
 
 ### `check`
 
-| general                       | `restic`                                      | `rustic`     |
-| ----------------------------- | --------------------------------------------- | ------------ |
-| check index files             | ✅                                            | ✅           |
-| check index vs packs          | ✅                                            | ✅           |
-| check snapshot files          | ✅                                            | ✅           |
-| (optionally) check pack files | ✅                                            | ✅           |
-| only check given snapshots    | ❌                                            | ✅           |
-| cache policy                  | create temporary (use existing: roadmap 0.18) | use existing |
-| check cache integrity         | ❌                                            | ✅           |
-| check hot/cold integrity      | ❌ (no cold storage support)                  | ✅           |
+| general                             | `restic`                                      | `rustic`     |
+| ----------------------------------- | --------------------------------------------- | ------------ |
+| check index files                   | ✅                                            | ✅           |
+| check index vs packs                | ✅                                            | ✅           |
+| check snapshot files                | ✅                                            | ✅           |
+| (optionally) check pack files       | ✅                                            | ✅           |
+| `read-data-subset` convenient names | ❌                                            | ✅           |
+| only check given snapshots          | ❌                                            | ✅           |
+| cache policy                        | create temporary (use existing: roadmap 0.18) | use existing |
+| check cache integrity               | ❌                                            | ✅           |
+| check hot/cold integrity            | ❌ (no cold storage support)                  | ✅           |
 
 | option               | `restic`                      | `rustic`              |
 | -------------------- | ----------------------------- | --------------------- |
@@ -414,6 +426,7 @@ introduced by rustic. Some have been already adopted by restic.
 | option                                  | `restic` | `rustic` |
 | --------------------------------------- | -------- | -------- |
 | snapshot filtering options for `latest` | ✅       | ✅       |
+| ls local files (using inclucde/exclude) | ❌       | ✅       |
 | `--glob`                                | ❌       | ✅       |
 | `--glob-file`                           | ❌       | ✅       |
 | `--human-readable`                      | ✅       | ❌       |
