@@ -3,7 +3,70 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
-## 0.11.0 (coming soon)
+## 0.11.0
+
+### Changed default behavior
+
+The devid is now by default only saved for hardlinks; this option however can be
+changed using `set-devid` which allows `"yes"/"no"/"hardlink"` as possible
+values. To get the old behavior, use `set-devid = "yes"`.
+
+The timestamps saved in trees have been changed and should now produce exactly
+the same format used in restic. This however can couse new trees to be saved
+even if they actually didn't change.
+
+If you want to rewrite the trees of your existing snapshots, use the new
+`rewrite` command, e.g.
+
+```console
+rustic rewrite --all-trees --forget
+```
+
+Moreover, the rewrite command now by default creates new snapshots and leaves
+the existing ones untouched. If you want to remove the "old" snapshot for
+modified ones, use the new option `--forget`.
+
+### Changed options
+
+The option `with-atime` has been refactored and is now called `set-atime`.
+`ignore-devid` must be substituted by `set-devid = "no"` (see above).
+
+For example, instead of
+
+```toml
+with-atime = true
+ignore-devid = true
+```
+
+use
+
+```toml
+set-atime = "yes"
+set-devid = "no"
+```
+
+Parsing durations where 'M' is used for 'months' no longer works, but instead
+'mo' or `months` should be used. For example
+
+```toml
+keep-weekly-within = "3M"
+```
+
+must be changed to something like
+
+```toml
+keep-weekly-within = "3 months" # or "3mo"
+```
+
+Moreover, some duration options like timeouts (which typically have durations
+below 1 day) now no longer support durations in days/weeks/months in order to
+not run into ambiguities due to daylight saving (a day is not always 24h).
+Specifying more than 24h, however, still works.
+
+### Removed options
+
+The option `quiet` has been removed for the `backup` and `forget` command;
+please use the `log-level-*` (see below) options for fine-tuning the output.
 
 ### Configuration File
 
@@ -21,26 +84,6 @@ please use
 ```toml
 parents = ["abc"]
 ```
-
-### Changed options
-
-Parsing durations where 'M' is used for 'months' no longer works, but instead
-'mo' or `months` should be used. For example
-
-```toml
-keep-weekly-within = "3M"
-```
-
-must be changed to something like
-
-```toml
-keep-weekly-within = "3 months"
-```
-
-### Removed options
-
-The option `quiet` has been removed for the `backup` and `forget` command;
-please use the `log-level-*` (see below) options for fine-tuning the output.
 
 ### Logging options
 
