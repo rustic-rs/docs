@@ -157,6 +157,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--use-profile`              | ❌ (no config profile support)          | ✅ (or in config profile for recursively using profiles)  |
 | `--verbose` (multiple times) | ✅                                      | ✅ `--log-level`                                          |
 | `--warm-up`                  | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
+| `--warm-up-batch`            | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 | `--warm-up-wait`             | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 | `--warm-up-wait-command`     | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
 
