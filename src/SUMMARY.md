@@ -28,6 +28,7 @@
   - [Comparing Snapshots](./commands/backup/comparing_snapshots.md)
   - [Special Items and Metadata](./commands/backup/special_items_metadata.md)
   - [Reading data from StdIn](./commands/backup/reading_stdin.md)
+  - [Backup Block Devices](./commands/backup/blockdev.md)
   - [Tags](./commands/backup/tags.md)
   - [Scheduling](./commands/backup/scheduling.md)
   - [Space requirements](./commands/backup/space_requirements.md)
