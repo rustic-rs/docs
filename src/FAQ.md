@@ -5,7 +5,7 @@
 - [Can I use rustic with my existing restic repositories?](#can-i-use-rustic-with-my-existing-restic-repositories)
 - [What are the differences between rustic and restic?](#what-are-the-differences-between-rustic-and-restic)
 - [Why is rustic written in Rust](#why-is-rustic-written-in-rust)
-- [How does rustic work with cold storages like AWS Glacier?](#how-does-rustic-work-with-cold-storages-like-aws-glacier)
+- [Can/should I use cold storage?](#canshould-i-use-cold-storage)
 - [Are all operations lock free?](#are-all-operations-lock-free)
 - [How does the lock-free prune work?](#how-does-the-lock-free-prune-work)
 - [You said "rustic uses less resources than restic" but I'm observing the opposite](#you-said-rustic-uses-less-resources-than-restic-but-im-observing-the-opposite)
@@ -37,71 +37,27 @@ A more detailed comparison can be found in the
 Rust is a powerful language designed to build reliable and efficient software.
 This is a very good fit for a backup tool.
 
-## How does rustic work with cold storages like AWS Glacier?
+## Can/should I use cold storage?
 
-If you want to use cold storage, make sure you always specify an extra
-repository `--repo-hot` which contains the hot data. This repository acts like a
-cache for all metadata, i.e. config/key/snapshot/index files and tree packs. As
-all commands except `restore` only need to access the metadata, they are fully
-functional but only need the cold storage to list files while everything else is
-read from the "hot repo". Note that the "hot repo" on its own is not a valid
-rustic repository. The "cold repo", however, contains all files and is nothing
-but a standard rustic repository.
+rustic is unique in backup tools in having direct support for cold storage like
+AWS S3's Glacier storage classes and OVH Cloud Cold Object Storage's Cold
+Archive class.
 
-If you additionally use a cache, you effectively have a first level cache on
-your local disc and a second level cache with the "hot repo". Note that the "hot
-repo" can be also a remote repo, so hot/cold repositories also work for multiple
-rustic clients backing up to the same repository.
+Cold storage is a storage tier that offers a lower cost of storing your data by
+increasing the cost or time to upload and/or retrieve your data. Consider the
+full lifecycle of your data when comparing costs. You'll most benefit from this
+tradeoff if your dataset is large and you never need to retrieve it. (In other
+words, if it is your secondary or tertiary storage, serving only as an insurance
+policy against total data loss.)
 
-### More details
+- [Economic side of hosting rustic repo in AWS Glacier](https://kmh.prasil.info/posts/rustic-cold-storage-glacier-economics/)
+  [(archive)](https://archive.ph/jGA4r)
+- [drinkcat's *AWS S3 Glacier Deep Archive Cost computation*](https://drinkc.at/blog/2024/07/09/backup-to-glacier-calc/)
+  [(archive)](https://archive.ph/wip/qUTyY)
 
-rustic doesn't support single repositories/buckets which have objects that can
-be in different "states" (something like this is not contained in the restic
-REST protocol; rclone therefore isn't able to provide this kind of information).
-
-So, to use S3 glacier, you should use 2 buckets: A hot one which is always
-accessible and a cold one where all object should be transitioned/transferred
-directly to Glacier when they are stored. The "hot" objects are then in fact
-stored in both buckets, but this shouldn't be much overhead as it is only
-metadata which usually is less than 1% of the repo size. (The side effect is
-that the cold repo contains a full restic-compatible repository; if you warm up
-it completely, you can use it a standard repository within rustic and even
-restic).
-
-TL;DR: I think you have to do the following:
-
-1. To store data (e.g. `init` or `backup` command):
-
-- Create a regular bucket and use it as `repo-hot`
-- Create a bucket for `cold` and configure it to store data directly in Glacier
-  (don't know if you can configure this in `rclone` or in AWS)
-
-2. To retrieve data (e.g. `restore`):
-
-- configure `warm-up-command` such that objects from the cold buckets are
-  restored, see e.g
-  <https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects.html>.
-  That is, the config file should look have a line like
-  `warm-up-command  = 'aws s3api restore-object --bucket BUCKET --key path/data/%id --restore-request '{"Days":25,"GlacierJobParameters":{"Tier":"Standard"}}'  '`
-  (may need some adaption)
-- configure a suitable `warm-up-wait` to ensure that the data is warmed up and
-  can be accessed after that
-- Note: All commands which need to read cold data now will warm this data up and
-  wait for the given time before processing the data
-
-3. removing cold data (`prune`) This actually should work out of the box, but
-   note that by default `prune` doesn't repack any cold pack file; instead it
-   keeps them until the last blob within is no longer used.
-
-- to do more repacking, have a look at the `repack-cacheable` option which does
-  allow to repack cold pack files.
-- Use the `keep-pack` option if you have some minimum holding duration, i.e. if
-  you would get charged if you remove objects too early. This option ensures
-  that only pack files older than the given time will be removed.
-
-Once you get a working configuration, please share it
-[in the main repository](https://github.com/rustic-rs/rustic/tree/main/config/services)
-so other users can use it as well!
+If cold storage sounds beneficial for you, then refer to
+[*Preparing a new repository* -> *Cold Storage*](./commands/init/cold_storage.md)
+for how to set it up.
 
 ## Are all operations lock free?
 
