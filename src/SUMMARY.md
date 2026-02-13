@@ -35,6 +35,7 @@
 - [Working with repositories](./commands/misc/intro.md)
   - [Listing Snapshots](./commands/misc/listing.md)
   - [Copying Snapshots between Repositories](./commands/misc/copy.md)
+  - [Rewriting Snapshots](./commands/misc/rewrite.md)
   - [Filtering Snapshots](./commands/misc/filter.md)
   - [Show File History](./commands/misc/file_history.md)
   - [Ensuring deduplication for copied Snapshots](./commands/misc/deduplication.md)
