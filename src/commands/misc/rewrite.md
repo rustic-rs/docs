@@ -170,7 +170,7 @@ And using the `--forget` option, we can do the `rewrite` and `forget` steps in
 one command:
 
 ```console
-$ rustic rewrite --forget --glob '!Project/config/secret.env' 5109f5fe ca466029
+$ rustic rewrite --forget --tags-rewritten '' --glob '!Project/config/secret.env' 5109f5fe ca466029
 $ rustic snapshots --all --filter-paths Project
 
 snapshots for (host [kasimir], label [], paths [Project])
