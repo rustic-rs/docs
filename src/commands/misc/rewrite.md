@@ -185,8 +185,10 @@ total: 3 snapshot(s)
 ```
 
 Interestingly, the new snapshots replaced the old ones but were not tagged. The
-options `--forget` and `--tags-rewritten ''` prevent the command from adding the
-`rewrite` tag.
+option `--forget` prevent the command from adding the `rewrite` tag. To be more 
+precise, there is the option `--tags-rewritten` which specifies which tags to
+add to rewritten snapshots. It defaults to `rewrite` if no `--forget` is given 
+and to `''` (i.e. no tag) if `--forget` is used.
 
 ### The very short way
 
@@ -240,9 +242,12 @@ with the data packs. It has two consequences:
 
 ## Rewriting tags
 
-The `rustic rewrite` command allows you to manipulate the snapshots' tags.
+The `rustic rewrite` command also allows you to manipulate the snapshots' tags.
+Note that there is the special `rustic tag` command which only allows to modify
+tags, this is basically a shortcut for the respective options of 
+`rustic rewrite --force`.
 
-For example, you can use `rewrite --set-tags ...` to set a new tag list to a
+You can use `rewrite --set-tags ...` to set a new tag list to a
 snapshot:
 
 ```console
@@ -306,9 +311,6 @@ snapshots for (host [kasimir], label [], paths [Project])
 
 total: 2 snapshot(s)
 ```
-
-**Note:** `rustic tag --remove ...` is an alias for
-`rustic rewrite --forget --remove-tags ...`
 
 ```console
 # Replace the tag list
