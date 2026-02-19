@@ -39,7 +39,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `diff` with local files             | ❌                             | ✅                                                  |
 | `backup` can use .gitignore         | ❌ (roadmap: 0.19)             | ✅                                                  |
 | `backup` multiple snapshots at once | ❌                             | ✅                                                  |
-| `backup` support for block devives  | ❌                             | ✅                                                  |
+| `backup` support for block devices  | ❌                             | ✅                                                  |
 | `check` uses existing cache         | ❌ (roadmap: 0.19)             | ✅                                                  |
 | show file history                   | ❌                             | ✅ (`rustic find --path`)                           |
 | more snapshot filter options        | ❌                             | ✅ (see below for details)                          |
