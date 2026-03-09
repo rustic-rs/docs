@@ -9,7 +9,7 @@ rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.0.
 | --------------------- | ------------------------- | ------------------------------------------------------ |
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
-| test coverage         | ✅                        | ❌ (47% in rustic_core)                                |
+| test coverage         | ✅                        | ❌ (52% in rustic_core)                                |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
 ## Core features introduced by rustic
@@ -41,6 +41,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `backup` multiple snapshots at once | ❌                             | ✅                                                  |
 | `backup` support for block devices  | ❌                             | ✅                                                  |
 | `check` uses existing cache         | ❌ (roadmap: 0.19)             | ✅                                                  |
+| `check` only given snapshot(s)      | ❌                             | ✅                                                  |
 | show file history                   | ❌                             | ✅ (`rustic find --path`)                           |
 | more snapshot filter options        | ❌                             | ✅ (see below for details)                          |
 | allow to log to file                | ❌                             | ✅                                                  |
@@ -206,15 +207,16 @@ introduced by rustic. Some have been already adopted by restic.
 
 ### `init`
 
-| option                  | `restic`                       | `rustic`                         |
-| ----------------------- | ------------------------------ | -------------------------------- |
-| `--copy-chunker-params` | ✅                             | (not needed, use `copy --init`)  |
-| `--from-*`              | ✅                             | (not needed, see `copy` command) |
-| `--hostname`            | ❌ (always sets hostname)      | ✅                               |
-| `--repository-version`  | ✅                             | ✅ (use `--set-version`)         |
-| `--set-*`               | ❌ (no in-repo config support) | ✅                               |
-| `--username`            | ❌ (always sets username)      | ✅                               |
-| `--with-created`        | ❌ (always sets creation time) | ✅                               |
+| option                  | `restic`                         | `rustic`                         |
+| ----------------------- | -------------------------------- | -------------------------------- |
+| `--copy-chunker-params` | ✅                               | (not needed, use `copy --init`)  |
+| `--from-*`              | ✅                               | (not needed, see `copy` command) |
+| `--hostname`            | ❌ (always sets hostname)        | ✅                               |
+| `--hot-only`            | ❌ (no general hot/cold support) | ✅                               |
+| `--repository-version`  | ✅                               | ✅ (use `--set-version`)         |
+| `--set-*`               | ❌ (no in-repo config support)   | ✅                               |
+| `--username`            | ❌ (always sets username)        | ✅                               |
+| `--with-created`        | ❌ (always sets creation time)   | ✅                               |
 
 ### `backup`
 

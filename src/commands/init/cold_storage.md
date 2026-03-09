@@ -205,3 +205,41 @@ only pack files older than the given time will be removed.
 Once you get a working configuration, please share it
 [in the main repository](https://github.com/rustic-rs/rustic/tree/main/config/services)
 so other users can use it as well!
+
+### changing a normal repository into a hot/cold repository
+
+Note: When changing a normal repository into a hot/cold repository, rustic uses
+the normal repository as cold part; we therefore need to create the hot
+repository part. This involves copying metadata from the normal repository to
+the hot repository part. It is advised to do this before the cold part is
+actually freezed, e.g. by changing storage tier or moving it to a cold location.
+
+Here are the steps:
+
+- Add a `repo-hot` configuration.
+- Run `rustic init --hot-only`. This will copy over all metadata to the hot
+  repository part.
+- Note that after these two steps, you already have a valid hot/cold repository
+  configuration where the cold part is not read by standard rustic commands. Try
+  it out by e.g. running `rustic check`!
+- Manually freeze the complete cold repository part or copy it to another (cold)
+  storage (this may need to update the repository configuration).
+- Add a suitable warm-up configuration.
+
+### changing a hot/cold repository into a normal repository
+
+This is rather simple, as the cold part of the repository already is a normal
+repository which only needs to be warmed up. Here are the steps:
+
+- Remove any warm-up configuration.
+- Manually warm-up the complete cold repository part or copy it to another (hot)
+  storage (this may need to update the repository configuration).
+- Note that after these first two steps, you still have a totally valid hot/cold
+  repository configuration. The "cold" part is not cold anymore, but will not be
+  read by standard rustic commands. You can test this e.g. by running
+  `rustic check`.
+- Remove `repo-hot` and the according configuration from the repository
+  configuration.
+- (optional) Remove the hot repository from its storage backend.
+
+That's it! rustic will use the fully warmed-up repsitory as a normal repository.
