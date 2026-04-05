@@ -1,7 +1,7 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.0.
+rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.2.
 
 ## General differences
 
@@ -9,7 +9,7 @@ rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.0.
 | --------------------- | ------------------------- | ------------------------------------------------------ |
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
-| test coverage         | ✅                        | ❌ (52% in rustic_core)                                |
+| test coverage         | ✅                        | (✅) (57% in rustic_core)                              |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
 ## Core features introduced by rustic
@@ -238,6 +238,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--exclude-file`        | ✅                                | ✅ `--glob-file`                          |
 | `--exclude-caches`      | ✅                                | ❌ (use `--exclude-if-present`)           |
 | `--exclude-if-present`  | ✅ (+ support for header parsing) | ✅ (but no header parsing)                |
+| `--exclude-if-xattr`    | ❌                                | ✅                                        |
 | `--exclude-larger-than` | ✅                                | ✅                                        |
 | `--files-from`          | ✅                                | ❌                                        |
 | `--files-from-raw`      | ✅                                | ❌                                        |
@@ -276,7 +277,7 @@ introduced by rustic. Some have been already adopted by restic.
 | -------------------------------------- | -------- | -------- |
 | scan and use already existing files    | ✅       | ✅       |
 | resumable restore                      | ✅       | ✅       |
-| restore hard links                     | ✅       | ❌       |
+| restore hard links                     | ✅       | ✅       |
 | `<snapshotID>:<subfolder>` syntax      | ✅       | ✅       |
 | `<snapshotID>:<subfolder>/file` syntax | ❌       | ✅       |
 | dry run support                        | ✅       | ✅       |
