@@ -8,10 +8,8 @@ commands need to be called in sequence: `forget` to remove snapshots, and
 snapshots. The latter can be automated with the `--prune` option of `forget`,
 which runs `prune` automatically if any snapshots were actually removed.
 
-Pruning snapshots can be a time-consuming process, depending on the number of
-snapshots and data to process. During a prune operation, the repository is
-locked and backups cannot be completed. Please plan your pruning so that there's
-time to complete it and it doesn't interfere with regular backup runs.
-
 It is advisable to run `rustic check` after pruning, to make sure you are
-alerted, should the internal data structures of the repository be damaged.
+alerted, should the internal data structures of the repository be damaged. But
+note: If you run a `backup` parallel to this `check` command, the output may
+produce some warnings as `check` cannote distinguish whether it's a running
+`backup` and OK or an aborted backup with left-overs.
