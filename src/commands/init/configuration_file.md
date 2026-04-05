@@ -52,7 +52,7 @@ keep-weekly = 5
 
 [backup]
 exclude-if-present = [".nobackup", "CACHEDIR.TAG"]
-glob-file = ["/root/rustic-local.glob"]
+glob-files = ["/root/rustic-local.glob"]
 
 [[backup.snapshots]]
 name = "home"

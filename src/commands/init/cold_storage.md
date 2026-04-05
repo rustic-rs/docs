@@ -58,10 +58,10 @@ buckets and an IAM role; refer to AWS Batch Operations documentation.
 
 You can create all this infrastructure manually in the AWS Console, or you can
 (should) use tooling like CloudFormation and CDK. The
-[warmup-s3-archives CDK](https://gitlab.com/philipmw/warmup-s3-archives-cdk)
+[glacier-cold-storage-cdk](https://github.com/rustic-rs/rustic-aws/tree/main/glacier-cold-storage-cdk)
 open-source project provides a model CDK application that creates all the above
-described infrastructure, supporting cold storage, batch restore, and
-restoration event processing. You can build and deploy this CDK into your
+described infrastructure, supporting append-only cold storage, batch restore,
+and restoration event processing. You can build and deploy this CDK into your
 account as-is or adapt it for your needs.
 
 ### warmup program
@@ -100,7 +100,7 @@ restore notifications. To support batching and restore notifications, this
 warmup program expects some additional AWS infrastructure beyond just a pair of
 buckets for hot/cold storage. This additional infrastructure can be created by
 hand or by deploying
-[warmup-s3-archives CDK](https://gitlab.com/philipmw/warmup-s3-archives-cdk).
+[glacier-cold-storage-cdk](https://github.com/rustic-rs/rustic-aws/tree/main/glacier-cold-storage-cdk).
 
 rustic also has a configurable warmup batch size (`--warm-up-batch=N`), with the
 default batch size being 1. With batch size 1, `%ids` and `%paths` is equivalent
