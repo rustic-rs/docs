@@ -109,9 +109,9 @@ Note that `global` variables are provided to all commands.
 
 By default, if a hook command fails, `rustic` will log the error and stop. If
 you would like `rustic` to continue its process with just a warning in the logs
-or nothing, you can use the `on_failure` field.
+or nothing, you can use the `on-failure` field.
 
-The `on_failure` field takes `"error"` by default and can take `"warn"` and
+The `on-failure` field takes `"error"` by default and can take `"warn"` and
 `"ignore"` as well.
 
 A first way to write it:
@@ -119,7 +119,7 @@ A first way to write it:
 ```toml
 [backup.hooks]
 run-after = [
-  { command = "notify-send", args = ["Backup finished successfully!"], on_failure = "warn" },
+  { command = "notify-send", args = ["Backup finished successfully!"], on-failure = "warn" },
 ]
 ```
 
@@ -130,7 +130,7 @@ An alternative way possible with the toml format:
 command = "notify-send"
 args = ["Backup finished successfully!"]
 # optional
-on_failure = "warn" # possible values are "error" (default), "warn",  "ignore"
+on-failure = "warn" # possible values are "error" (default), "warn",  "ignore"
 ```
 
 ## Use cases
