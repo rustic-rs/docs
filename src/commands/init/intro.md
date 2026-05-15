@@ -98,8 +98,8 @@ repository:
 
 - `--set-chunker`, `--set-chunk-size`, `--set-chunk-min-size`,
   `--set-chunk-max-size` allows to tweak the chunker settings. Currently `rabin`
-  and `fixed_size` are available chunkers. Default is `fixed_size` with an
-  (average) chunk size of 1MiB, a minimum of 512kiB and a maximum of 8MiB.
+  and `fixed_size` are available chunkers. Default is `rabin` with an (average)
+  chunk size of 1MiB, a minimum of 512kiB and a maximum of 8MiB.
 - `--set-compression` allows to set the zstd compression level
 - `--set-append-only` puts the repository in append-only mode disabling commands
   which would remove files.
