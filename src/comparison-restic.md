@@ -1,7 +1,7 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.2.
+rustic and restic. Currently, we compare restic 0.19.0 with rustic 0.11.3.
 
 ## General differences
 
@@ -9,6 +9,7 @@ rustic and restic. Currently, we compare restic 0.18.1 with rustic 0.11.2.
 | --------------------- | ------------------------- | ------------------------------------------------------ |
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
+| configuration         | oppinionated, few choices | offers many choices to users; reasonable defaults      |
 | test coverage         | ✅                        | (✅) (57% in rustic_core)                              |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
@@ -21,40 +22,43 @@ in restic.
 This section is an advertisement of the most important features uniquely
 introduced by rustic. Some have been already adopted by restic.
 
-| feature                             | `restic`                       | `rustic`                                            |
-| ----------------------------------- | ------------------------------ | --------------------------------------------------- |
-| cold storage support                | ❌ (may work in special cases) | ✅ (full support including warm-up of needed data)  |
-| lock-free                           | ❌ (roadmap: 0.19)             | ✅ (lock-free operations, two-phase pruning)        |
-| in-place restore                    | ✅                             | ✅                                                  |
-| config profile support              | ❌ (wrapper tools available)   | ✅                                                  |
-| hooks                               | ❌                             | ✅ (at many points, configurable in config profile) |
-| additional snapshot information     | (✅) (partly added)            | ✅ (see below for details)                          |
-| in-repo config                      | ❌                             | ✅ (see below for details)                          |
-| custom chunker config               | ❌                             | ✅ (min/max/average chunk size; fixed size chunker) |
-| open repository using masterkey     | ❌                             | ✅                                                  |
-| `<snapshot>:<path>` syntax          | ✅ (most commands)             | ✅                                                  |
-| `latest~N` syntax                   | ❌                             | ✅                                                  |
-| new command: `merge`                | ❌                             | ✅                                                  |
-| new command: `webdav`               | ❌                             | ✅                                                  |
-| `diff` with local files             | ❌                             | ✅                                                  |
-| `backup` can use .gitignore         | ❌ (roadmap: 0.19)             | ✅                                                  |
-| `backup` multiple snapshots at once | ❌                             | ✅                                                  |
-| `backup` support for block devices  | ❌                             | ✅                                                  |
-| `check` uses existing cache         | ❌ (roadmap: 0.19)             | ✅                                                  |
-| `check` only given snapshot(s)      | ❌                             | ✅                                                  |
-| show file history                   | ❌                             | ✅ (`rustic find --path`)                           |
-| more snapshot filter options        | ❌                             | ✅ (see below for details)                          |
-| allow to log to file                | ❌                             | ✅                                                  |
-| log verbosity                       | `-v` or `--quiet`              | `--log-level-*`                                     |
-| telemetry support                   | ❌                             | ✅ (for `backup`, Prometheus and OpenTelemetry)     |
-| integrated interactive mode (TUI)   | ❌                             | ✅                                                  |
+| feature                             | `restic`                              | `rustic`                                            |
+| ----------------------------------- | ------------------------------------- | --------------------------------------------------- |
+| cold storage support                | ❌ (may work in special cases)        | ✅ (full support including warm-up of needed data)  |
+| lock-free                           | ❌                                    | ✅ (lock-free operations, two-phase pruning)        |
+| remote sources (e.g. S3)            | ❌                                    | ✅                                                  |
+| in-place restore                    | ✅                                    | ✅                                                  |
+| config profile support              | ❌ (wrapper tools available)          | ✅                                                  |
+| hooks                               | ❌                                    | ✅ (at many points, configurable in config profile) |
+| additional snapshot information     | (✅) (partly added)                   | ✅ (see below for details)                          |
+| in-repo config                      | ❌                                    | ✅ (see below for details)                          |
+| custom chunker config               | ❌                                    | ✅ (min/max/average chunk size; fixed size chunker) |
+| pack size configuration             | (✅) (only fixed size, up to 128 MiB) | ✅ (highly configurable, up to 4GiB)                |
+| open repository using masterkey     | ❌                                    | ✅                                                  |
+| `<snapshot>:<path>` syntax          | ✅ (most commands)                    | ✅                                                  |
+| `latest~N` syntax                   | ❌                                    | ✅                                                  |
+| new command: `merge`                | ❌                                    | ✅                                                  |
+| new command: `webdav`               | ❌                                    | ✅                                                  |
+| new command: `repoinfo`             | ❌                                    | ✅                                                  |
+| `diff` with local files             | ❌                                    | ✅                                                  |
+| `backup` can use .gitignore         | ❌                                    | ✅                                                  |
+| `backup` multiple snapshots at once | ❌                                    | ✅                                                  |
+| `backup` support for block devices  | ❌                                    | ✅                                                  |
+| `check` uses existing cache         | ❌                                    | ✅                                                  |
+| `check` only given snapshot(s)      | ✅                                    | ✅                                                  |
+| show file history                   | ❌                                    | ✅ (`rustic find --path`)                           |
+| more snapshot filter options        | ❌                                    | ✅ (see below for details)                          |
+| allow to log to file                | ❌                                    | ✅                                                  |
+| log verbosity                       | `-v` or `--quiet`                     | `--log-level-*`                                     |
+| telemetry support                   | ❌                                    | ✅ (for `backup`, Prometheus and OpenTelemetry)     |
+| integrated interactive mode (TUI)   | ❌                                    | ✅                                                  |
 
 ## Supported storage backends
 
 | backend                    | `restic`                                        | `rustic`                                                                |
 | -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
 | `local`                    | ✅ (built-in)                                   | ✅ (built-in)                                                           |
-| `sftp`                     | ✅ (using external `ssh` command)               | ✅ (built-in using `opendal`, windows not supported)                    |
+| `sftp`                     | ✅ (using external `ssh` command)               | (✅) (built-in using `opendal`, windows not supported)                  |
 | `rest`                     | ✅ (built-in)                                   | ✅ (built-in)                                                           |
 | `s3`                       | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
 | `swift`                    | ✅ (built-in)                                   | ✅ (built-in using `opendal`)                                           |
@@ -66,6 +70,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `gdrive`                   | ❌                                              | ✅ (built-in using `opendal`)                                           |
 | `onedrive`                 | ❌                                              | ✅ (built-in using `opendal`)                                           |
 | `webdav`                   | ❌                                              | ✅ (built-in using `opendal`)                                           |
+| `pcloud`                   | ❌                                              | ✅ (built-in using `opendal`)                                           |
 | `opendal` (other services) | ❌                                              | ✅ (built-in using `opendal`) (see [here](./commands/init/services.md)) |
 | `rclone`                   | ✅ (via stdin, using external `rclone` command) | ✅ (via http on localhost, using external `rclone` command)             |
 
@@ -124,48 +129,48 @@ introduced by rustic. Some have been already adopted by restic.
 
 ## General options
 
-| option                       | `restic`                                | `rustic`                                                  |
-| ---------------------------- | --------------------------------------- | --------------------------------------------------------- |
-| `--cacert`                   | ✅                                      | ❌                                                        |
-| `--cache-dir`                | ✅                                      | ✅ (or in config profile)                                 |
-| `--cleanup-cache`            | ✅                                      | ❌                                                        |
-| `--compression`              | ✅ (auto,max,off); needed in every call | ✅ (-7..22) configure once in in-repo config              |
-| `--dry-run`                  | ✅                                      | ✅ (or in config profile)                                 |
-| `--insecure-no-password`     | ✅                                      | ✅ (empty passwords work without extra option)            |
-| `--insecure-tls`             | ✅                                      | ❌                                                        |
-| `--json`                     | ✅                                      | ✅                                                        |
-| `--key`                      | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
-| `--key-file`                 | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
-| `--key-command`              | ❌ (no access via masterkey)            | ✅ (or in config profile)                                 |
-| `--key-hint`                 | ✅                                      | ❌                                                        |
-| `--limit-download`           | ✅                                      | (✅) (for opendal option `trottle`)                       |
-| `--limit-upload`             | ✅                                      | (✅) (for opendal option `trottle`)                       |
-| `--log-file`                 | ❌                                      | ✅ (or in config profile)                                 |
-| `--no-cache`                 | ✅                                      | ✅ (or in config profile)                                 |
-| `--no-extra-verify`          | ✅ needed in every call                 | ✅ configure once using `config`                          |
-| `--no-lock`                  | ✅                                      | ✅ all operations are lock-free                           |
-| `--no-progress`              | ❌                                      | ✅ (or in config profile)                                 |
-| `--progress-intervall`       | ✅ (via env variable)                   | ✅ (or in config profile)                                 |
-| `--option`                   | ✅ as cmd arg or env variable           | ✅ via config profile or env variable                     |
-| `--opentelemetry`            | ❌                                      | ✅ (or in config profile, only for `backup` currently)    |
-| `--pack-size`                | ✅ fix limit; needed in every call      | ✅ fix or dynamic limit, configure once in in-repo config |
-| `--password-command`         | ✅                                      | ✅ (or in config profile)                                 |
-| `--password-file`            | ✅                                      | ✅ (or in config profile)                                 |
-| `--prometheus`               | ❌                                      | ✅ (or in config profile, only for `backup` currently)    |
-| `--prometheus-user`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
-| `--prometheus-pass`          | ❌ (no prometheus support)              | ✅ (or in config profile)                                 |
-| `--quiet`                    | ✅                                      | ✅ (use log-level configuration)                          |
-| `--repo`                     | ✅                                      | ✅ (or in config profile)                                 |
-| `--repo-hot`                 | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
-| `--repository-file`          | ✅                                      | ❌ (use `repository` in config profile instead)           |
-| `--retry-lock`               | ✅                                      | not needed; lock-free                                     |
-| `--tls-client-cert`          | ✅                                      | ❌                                                        |
-| `--use-profile`              | ❌ (no config profile support)          | ✅ (or in config profile for recursively using profiles)  |
-| `--verbose` (multiple times) | ✅                                      | ✅ `--log-level-*`                                        |
-| `--warm-up`                  | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
-| `--warm-up-batch`            | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
-| `--warm-up-wait`             | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
-| `--warm-up-wait-command`     | ❌ (no cold-storage support)            | ✅ (or in config profile)                                 |
+| option                       | `restic`                           | `rustic`                                                  |
+| ---------------------------- | ---------------------------------- | --------------------------------------------------------- |
+| `--cacert`                   | ✅                                 | ❌                                                        |
+| `--cache-dir`                | ✅                                 | ✅ (or in config profile)                                 |
+| `--cleanup-cache`            | ✅                                 | ❌                                                        |
+| `--compression`              | ✅ needed in every call            | ✅ (-7..22) configure once in in-repo config              |
+| `--dry-run`                  | ✅                                 | ✅ (or in config profile)                                 |
+| `--insecure-no-password`     | ✅                                 | ✅ (empty passwords work without extra option)            |
+| `--insecure-tls`             | ✅                                 | ❌                                                        |
+| `--json`                     | ✅                                 | ✅                                                        |
+| `--key`                      | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
+| `--key-file`                 | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
+| `--key-command`              | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
+| `--key-hint`                 | ✅                                 | ❌                                                        |
+| `--limit-download`           | ✅                                 | (✅) (for opendal option `trottle`)                       |
+| `--limit-upload`             | ✅                                 | (✅) (for opendal option `trottle`)                       |
+| `--log-file`                 | ❌                                 | ✅ (or in config profile)                                 |
+| `--no-cache`                 | ✅                                 | ✅ (or in config profile)                                 |
+| `--no-extra-verify`          | ✅ needed in every call            | ✅ configure once using `config`                          |
+| `--no-lock`                  | ✅                                 | ✅ all operations are lock-free                           |
+| `--no-progress`              | ❌                                 | ✅ (or in config profile)                                 |
+| `--progress-intervall`       | ✅ (via env variable)              | ✅ (or in config profile)                                 |
+| `--option`                   | ✅ as cmd arg or env variable      | ✅ via config profile or env variable                     |
+| `--opentelemetry`            | ❌                                 | ✅ (or in config profile, only for `backup` currently)    |
+| `--pack-size`                | ✅ fix limit; needed in every call | ✅ fix or dynamic limit, configure once in in-repo config |
+| `--password-command`         | ✅                                 | ✅ (or in config profile)                                 |
+| `--password-file`            | ✅                                 | ✅ (or in config profile)                                 |
+| `--prometheus`               | ❌                                 | ✅ (or in config profile, only for `backup` currently)    |
+| `--prometheus-user`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                 |
+| `--prometheus-pass`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                 |
+| `--quiet`                    | ✅                                 | ✅ (use log-level configuration)                          |
+| `--repo`                     | ✅                                 | ✅ (or in config profile)                                 |
+| `--repo-hot`                 | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
+| `--repository-file`          | ✅                                 | ❌ (use `repository` in config profile instead)           |
+| `--retry-lock`               | ✅                                 | not needed; lock-free                                     |
+| `--tls-client-cert`          | ✅                                 | ❌                                                        |
+| `--use-profile`              | ❌ (no config profile support)     | ✅ (or in config profile for recursively using profiles)  |
+| `--verbose` (multiple times) | ✅                                 | ✅ `--log-level-*`                                        |
+| `--warm-up`                  | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
+| `--warm-up-batch`            | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
+| `--warm-up-wait`             | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
+| `--warm-up-wait-command`     | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
 
 ## `rustic` in-repo config options
 
@@ -244,7 +249,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--files-from-raw`      | ✅                                | ❌                                        |
 | `--files-from-verbatim` | ✅                                | ❌                                        |
 | `--force`               | ✅                                | ✅                                        |
-| `--git-ignore`          | ❌ (roadmap: 0.19)                | ✅                                        |
+| `--git-ignore`          | ❌                                | ✅                                        |
 | `--group-by`            | ✅ (host/paths/tags)              | ✅ (host/label/paths/tags)                |
 | `--host`                | ✅                                | ✅                                        |
 | `--iexclude`            | ✅                                | ✅ `--iglob`                              |
@@ -253,6 +258,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--ignore-inode`        | ✅                                | ✅                                        |
 | `--init`                | ❌                                | ✅                                        |
 | `--label`               | ❌                                | ✅                                        |
+| `--ls`                  | ❌                                | ✅                                        |
 | `--no-require-git`      | ❌ (no `--git-ignore`)            | ✅                                        |
 | `--no-scan`             | ✅                                | ✅                                        |
 | `--one-file-system`     | ✅                                | ✅                                        |
@@ -351,13 +357,13 @@ introduced by rustic. Some have been already adopted by restic.
 
 ### `prune`
 
-| general                                    | `restic`           | `rustic` |
-| ------------------------------------------ | ------------------ | -------- |
-| prune plan without reading pack files      | ✅                 | ✅       |
-| prune parallel to backup (two-phase prune) | ❌ (roadmap: 0.19) | ✅       |
-| different pack sizes for tree/data packs   | ❌                 | ✅       |
-| resumable prune                            | ✅                 | ✅       |
-| (option to) resize packs                   | ✅                 | ✅       |
+| general                                    | `restic` | `rustic` |
+| ------------------------------------------ | -------- | -------- |
+| prune plan without reading pack files      | ✅       | ✅       |
+| prune parallel to backup (two-phase prune) | ❌       | ✅       |
+| different pack sizes for tree/data packs   | ❌       | ✅       |
+| resumable prune                            | ✅       | ✅       |
+| (option to) resize packs                   | ✅       | ✅       |
 
 | option                           | `restic`                   | `rustic`                                          |
 | -------------------------------- | -------------------------- | ------------------------------------------------- |
