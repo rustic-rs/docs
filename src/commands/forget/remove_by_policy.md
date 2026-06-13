@@ -30,7 +30,7 @@ The `forget` command accepts the following policy options:
   (can be specified multiple times).
 - `--keep-within duration` keep all snapshots having a timestamp within the
   specified duration of the latest snapshot, where `duration` is a number of
-  years, months, days, and hours. E.g. `2y5m7d3h` will keep all snapshots made
+  years, months, days, and hours. E.g. `2y5mo7d3h` will keep all snapshots made
   in the two years, five months, seven days and three hours before the latest
   (most recent) snapshot.
 - `--keep-within-hourly duration` keep all hourly snapshots made within the
