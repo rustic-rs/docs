@@ -9,7 +9,7 @@ rustic and restic. Currently, we compare restic 0.19.0 with rustic 0.11.3.
 | --------------------- | ------------------------- | ------------------------------------------------------ |
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
-| configuration         | oppinionated, few choices | offers many choices to users; reasonable defaults      |
+| configuration         | opinionated, few choices  | offers many choices to users; reasonable defaults      |
 | test coverage         | ✅                        | (✅) (57% in rustic_core)                              |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
