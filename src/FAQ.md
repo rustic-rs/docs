@@ -17,8 +17,33 @@
 ## Can I use rustic with my existing restic repositories?
 
 Yes, you can. rustic uses the same repository format as restic, so you can use
-rustic and restic on the same repository. The only thing you have to take care
-of is that you don't run prune with restic and rustic at the same time.
+rustic and restic on the same repository.
+
+There is one caveat worth stating carefully, because rustic and restic reach
+safe concurrent access by *different* mechanisms and the two do not compose:
+
+- **rustic is lock-free.** `prune` marks packs and deletes them only after
+  `--keep-delete` (default 23h), so a parallel rustic `backup` has that long to
+  finish. See [Are all operations lock free?](#are-all-operations-lock-free).
+- **restic instead takes an exclusive lock** inside the repository, which is
+  what lets its `prune` delete packs immediately.
+
+**rustic neither takes nor honours restic's lock.** So a `restic prune` running
+while *any* rustic command is writing can delete packs that the rustic run has
+just written and not yet referenced, leaving the repository failing
+`restic check`.
+
+Note this is not limited to prune-versus-prune:
+
+| combination                          | safe   | why                                                          |
+| ------------------------------------ | ------ | ------------------------------------------------------------ |
+| `rustic prune` + rustic `backup`     | yes    | the `--keep-delete` grace period                             |
+| `restic prune` + restic `backup`     | yes    | restic's repository lock                                     |
+| **`restic prune` + rustic `backup`** | **no** | restic deletes at once, relying on a lock rustic never takes |
+| `rustic prune` + restic `backup`     | yes    | the grace period still applies                               |
+
+In short: **never run `restic prune` against a repository a rustic command may
+be writing to.** If every client is rustic, none of this applies.
 
 ## What are the differences between rustic and restic?
 
