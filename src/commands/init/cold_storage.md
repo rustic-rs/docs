@@ -109,6 +109,46 @@ When batch size is >1, `%ids` and `%paths` is expanded to multiple IDs/paths per
 invocation, while `%id` and `%path` invoke N instances of the warmup command in
 parallel.
 
+### warmup progress
+
+For rustic to know and display the warmup progress to the user, there is a
+simple and optional protocol between rustic and the external warmup program.
+
+rustic captures the warmup program's stdout and interprets it as
+[JSON Lines](https://jsonlines.org): each line must be a single JSON object
+carrying at least a `type` field. Currently the only defined message is
+`pack-progress`, which tells rustic how many of the packs in the current
+invocation are expected to be warm now:
+
+    {"type":"pack-progress","warm":42}
+
+`warm` is the number of packs in *this* invocation that are now warm. It must be
+between `0` and the number of packs passed to that invocation, and it is per
+invocation: if rustic calls your program with 5 packs and later with 3 packs,
+each invocation starts again at `0`. rustic advances its shared progress bar by
+the increase over the last reported value, so `warm` must be monotonically
+non-decreasing within an invocation; a lower value is ignored.
+
+Reporting progress is optional, and the protocol is strictly an enhancement. If
+your program exits successfully but never emits a `pack-progress` message,
+rustic still counts the whole invocation as complete; if it reports only part of
+the invocation, rustic counts the remaining packs as done when the command
+exits. So a program that emits nothing keeps the old behaviour of jumping from
+0% to 100%, while emitting `pack-progress` gives users accurate, live progress.
+
+Lines from the warmup program that don't fit the protocol, such as plain text,
+are still logged by rustic at the info log level and prefixed with `[warmup`].
+
+For example, a warmup program that reports progress as each pack is warmed up
+could look like:
+
+    warm=0
+    for pack in "$@"; do
+      # ... request restoration of $pack in your cold storage backend ...
+      warm=$((warm+1))
+      echo '{"type":"pack-progress","warm":'$warm'}'
+    done
+
 ### configuring storage in rustic (`rustic init`)
 
 The bucket for hot data can be specified by the `hot-repo` option or the
