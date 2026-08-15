@@ -3,6 +3,18 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
+## 0.12.0
+
+### Changed default behavior
+
+During restores from cold storage, rustic now captures your warm-up command's
+stdout and parses it as [JSON Lines](https://jsonlines.org) to report restore
+progress, rather than passing it straight through to the terminal.
+
+Output that is not valid JSON is no longer printed directly to the terminal;
+instead it is logged at info level with a `[warmup]` prefix, visible with
+`--log-level info` or the appropriate `RUST_LOG` setting.
+
 ## 0.11.0
 
 ### Changed default behavior
