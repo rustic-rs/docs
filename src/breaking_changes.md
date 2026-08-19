@@ -3,7 +3,7 @@
 This document lists all user facing breaking changes in `rustic` and provides
 guidance on how to migrate from one version to another.
 
-## 0.12.0
+## 0.11.4
 
 ### Changed default behavior
 
