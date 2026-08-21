@@ -1,7 +1,7 @@
 # Comparison between `rustic` and `restic`
 
 Note that we regularly update this document to compare the latest versions of
-rustic and restic. Currently, we compare restic 0.19.0 with rustic 0.11.3.
+rustic and restic. Currently, we compare restic 0.19.1 with rustic 0.12.0.
 
 ## General differences
 
@@ -10,7 +10,7 @@ rustic and restic. Currently, we compare restic 0.19.0 with rustic 0.11.3.
 | programming language  | Go                        | Rust                                                   |
 | development philosopy | conservative with changes | moving fast, add new features early                    |
 | configuration         | opinionated, few choices  | offers many choices to users; reasonable defaults      |
-| test coverage         | ✅                        | (✅) (57% in rustic_core)                              |
+| test coverage         | ✅                        | ✅ (65% in rustic_core)                                |
 | available as library  | ❌                        | ✅ [rustic_core](https://crates.io/crates/rustic_core) |
 
 ## Core features introduced by rustic
@@ -129,48 +129,48 @@ introduced by rustic. Some have been already adopted by restic.
 
 ## General options
 
-| option                       | `restic`                           | `rustic`                                                  |
-| ---------------------------- | ---------------------------------- | --------------------------------------------------------- |
-| `--cacert`                   | ✅                                 | ❌                                                        |
-| `--cache-dir`                | ✅                                 | ✅ (or in config profile)                                 |
-| `--cleanup-cache`            | ✅                                 | ❌                                                        |
-| `--compression`              | ✅ needed in every call            | ✅ (-7..22) configure once in in-repo config              |
-| `--dry-run`                  | ✅                                 | ✅ (or in config profile)                                 |
-| `--insecure-no-password`     | ✅                                 | ✅ (empty passwords work without extra option)            |
-| `--insecure-tls`             | ✅                                 | ❌                                                        |
-| `--json`                     | ✅                                 | ✅                                                        |
-| `--key`                      | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
-| `--key-file`                 | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
-| `--key-command`              | ❌ (no access via masterkey)       | ✅ (or in config profile)                                 |
-| `--key-hint`                 | ✅                                 | ❌                                                        |
-| `--limit-download`           | ✅                                 | (✅) (for opendal option `trottle`)                       |
-| `--limit-upload`             | ✅                                 | (✅) (for opendal option `trottle`)                       |
-| `--log-file`                 | ❌                                 | ✅ (or in config profile)                                 |
-| `--no-cache`                 | ✅                                 | ✅ (or in config profile)                                 |
-| `--no-extra-verify`          | ✅ needed in every call            | ✅ configure once using `config`                          |
-| `--no-lock`                  | ✅                                 | ✅ all operations are lock-free                           |
-| `--no-progress`              | ❌                                 | ✅ (or in config profile)                                 |
-| `--progress-intervall`       | ✅ (via env variable)              | ✅ (or in config profile)                                 |
-| `--option`                   | ✅ as cmd arg or env variable      | ✅ via config profile or env variable                     |
-| `--opentelemetry`            | ❌                                 | ✅ (or in config profile, only for `backup` currently)    |
-| `--pack-size`                | ✅ fix limit; needed in every call | ✅ fix or dynamic limit, configure once in in-repo config |
-| `--password-command`         | ✅                                 | ✅ (or in config profile)                                 |
-| `--password-file`            | ✅                                 | ✅ (or in config profile)                                 |
-| `--prometheus`               | ❌                                 | ✅ (or in config profile, only for `backup` currently)    |
-| `--prometheus-user`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                 |
-| `--prometheus-pass`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                 |
-| `--quiet`                    | ✅                                 | ✅ (use log-level configuration)                          |
-| `--repo`                     | ✅                                 | ✅ (or in config profile)                                 |
-| `--repo-hot`                 | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
-| `--repository-file`          | ✅                                 | ❌ (use `repository` in config profile instead)           |
-| `--retry-lock`               | ✅                                 | not needed; lock-free                                     |
-| `--tls-client-cert`          | ✅                                 | ❌                                                        |
-| `--use-profile`              | ❌ (no config profile support)     | ✅ (or in config profile for recursively using profiles)  |
-| `--verbose` (multiple times) | ✅                                 | ✅ `--log-level-*`                                        |
-| `--warm-up`                  | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
-| `--warm-up-batch`            | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
-| `--warm-up-wait`             | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
-| `--warm-up-wait-command`     | ❌ (no cold-storage support)       | ✅ (or in config profile)                                 |
+| option                       | `restic`                           | `rustic`                                                          |
+| ---------------------------- | ---------------------------------- | ----------------------------------------------------------------- |
+| `--cacert`                   | ✅                                 | ✅ (`http-cacert` in config profile or via env variable)          |
+| `--cache-dir`                | ✅                                 | ✅ (or in config profile)                                         |
+| `--cleanup-cache`            | ✅                                 | ❌                                                                |
+| `--compression`              | ✅ needed in every call            | ✅ (-7..22) configure once in in-repo config                      |
+| `--dry-run`                  | ✅                                 | ✅ (or in config profile)                                         |
+| `--insecure-no-password`     | ✅                                 | ✅ (empty passwords work without extra option)                    |
+| `--insecure-tls`             | ✅                                 | ✅ (`http-insecure-tls` config profile or via env variable)       |
+| `--json`                     | ✅                                 | ✅                                                                |
+| `--key`                      | ❌ (no access via masterkey)       | ✅ (or in config profile)                                         |
+| `--key-file`                 | ❌ (no access via masterkey)       | ✅ (or in config profile)                                         |
+| `--key-command`              | ❌ (no access via masterkey)       | ✅ (or in config profile)                                         |
+| `--key-hint`                 | ✅                                 | ❌                                                                |
+| `--limit-download`           | ✅                                 | (✅) (for opendal option `trottle`)                               |
+| `--limit-upload`             | ✅                                 | (✅) (for opendal option `trottle`)                               |
+| `--log-file`                 | ❌                                 | ✅ (or in config profile)                                         |
+| `--no-cache`                 | ✅                                 | ✅ (or in config profile)                                         |
+| `--no-extra-verify`          | ✅ needed in every call            | ✅ configure once using `config`                                  |
+| `--no-lock`                  | ✅                                 | ✅ all operations are lock-free                                   |
+| `--no-progress`              | ❌                                 | ✅ (or in config profile)                                         |
+| `--progress-intervall`       | ✅ (via env variable)              | ✅ (or in config profile)                                         |
+| `--option`                   | ✅ as cmd arg or env variable      | ✅ via config profile or env variable                             |
+| `--opentelemetry`            | ❌                                 | ✅ (or in config profile, only for `backup` currently)            |
+| `--pack-size`                | ✅ fix limit; needed in every call | ✅ fix or dynamic limit, configure once in in-repo config         |
+| `--password-command`         | ✅                                 | ✅ (or in config profile)                                         |
+| `--password-file`            | ✅                                 | ✅ (or in config profile)                                         |
+| `--prometheus`               | ❌                                 | ✅ (or in config profile, only for `backup` currently)            |
+| `--prometheus-user`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                         |
+| `--prometheus-pass`          | ❌ (no prometheus support)         | ✅ (or in config profile)                                         |
+| `--quiet`                    | ✅                                 | ✅ (use log-level configuration)                                  |
+| `--repo`                     | ✅                                 | ✅ (or in config profile)                                         |
+| `--repo-hot`                 | ❌ (no cold-storage support)       | ✅ (or in config profile)                                         |
+| `--repository-file`          | ✅                                 | ❌ (use `repository` in config profile instead)                   |
+| `--retry-lock`               | ✅                                 | not needed; lock-free                                             |
+| `--tls-client-cert`          | ✅                                 | ✅ (`http-tls-client-cert` in config profile or via env variable) |
+| `--use-profile`              | ❌ (no config profile support)     | ✅ (or in config profile for recursively using profiles)          |
+| `--verbose` (multiple times) | ✅                                 | ✅ `--log-level-*`                                                |
+| `--warm-up`                  | ❌ (no cold-storage support)       | ✅ (or in config profile)                                         |
+| `--warm-up-batch`            | ❌ (no cold-storage support)       | ✅ (or in config profile)                                         |
+| `--warm-up-wait`             | ❌ (no cold-storage support)       | ✅ (or in config profile)                                         |
+| `--warm-up-wait-command`     | ❌ (no cold-storage support)       | ✅ (or in config profile)                                         |
 
 ## `rustic` in-repo config options
 
@@ -299,7 +299,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--no-ownership`               | ❌                      | ✅                                          |
 | `--numeric-id`                 | ❌                      | ✅                                          |
 | `--overwrite`                  | ✅                      | ❌ (missing functionality: if-newer, never) |
-| `--sparse`                     | ✅                      | ❌                                          |
+| `--sparse`                     | ✅                      | ✅                                          |
 | `--target`                     | ✅                      | ✅ (give target as second CLI argument)     |
 | `--verify`                     | ✅                      | ❌ (but `diff` can be used to verify after) |
 | `--verify-existing`            | ✅ `--overwrite always` | ✅                                          |
@@ -427,7 +427,7 @@ introduced by rustic. Some have been already adopted by restic.
 | `--all`                    | ❌                   | ✅                         |
 | `--compact`                | ✅                   | ❌                         |
 | `--group-by`               | ✅ (host/paths/tags) | ✅ (host/label/paths/tags) |
-| `--latest`                 | ✅                   | ❌                         |
+| `--latest`                 | ✅                   | ✅ (using `--filter-last`) |
 | `--long`                   | ❌                   | ✅                         |
 
 ### `ls`
