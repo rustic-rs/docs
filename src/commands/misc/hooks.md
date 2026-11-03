@@ -133,6 +133,50 @@ args = ["Backup finished successfully!"]
 on-failure = "warn" # possible values are "error" (default), "warn",  "ignore"
 ```
 
+### Example: heartbeat monitoring with Watchgoose
+
+[Watchgoose](https://watchgoose.com/docs/) alerts you when a scheduled backup
+fails or does not run at all. It uses the same ping URLs as healthchecks.io:
+`/start` when the job starts, the bare URL on success and `/fail` on failure.
+Replace the UUID with the one of your check:
+
+```toml
+[backup.hooks]
+run-before = [
+  { command = "curl", args = ["-fsS", "-m", "10", "--retry", "3", "-o", "/dev/null", "https://watchgoose.com/ping/addffa72-da17-40ae-be9c-ff591afb942a/start"], on-failure = "warn" },
+]
+run-after = [
+  { command = "curl", args = ["-fsS", "-m", "10", "--retry", "3", "-o", "/dev/null", "https://watchgoose.com/ping/addffa72-da17-40ae-be9c-ff591afb942a"], on-failure = "warn" },
+]
+run-failed = [
+  { command = "curl", args = ["-fsS", "-m", "10", "--retry", "3", "-o", "/dev/null", "https://watchgoose.com/ping/addffa72-da17-40ae-be9c-ff591afb942a/fail"], on-failure = "warn" },
+]
+```
+
+`on-failure = "warn"` makes sure that an unreachable monitoring server does not
+abort the backup.
+
+Backup hooks only run once the repository is open. If `rustic` fails earlier,
+e.g. because of a wrong password or an unreachable repository, no `/fail` ping
+is sent and Watchgoose alerts you when the expected ping does not arrive. To
+report these failures immediately, put the same hooks in `[repository.hooks]` of
+a profile that you only use for the scheduled backup, as repository hooks also
+run for other commands like `snapshots`.
+
+Watchgoose stores the first 10,000 bytes of a POST body as the ping log. To
+attach the end of the `rustic` log to a failure, set a log file and send it with
+`run-failed`:
+
+```toml
+[global]
+log-file = "/var/log/rustic.log"
+
+[backup.hooks]
+run-failed = [
+  { command = "sh", args = ["-c", "tail -c 10000 /var/log/rustic.log | curl -fsS -m 10 --retry 3 -o /dev/null --data-binary @- https://watchgoose.com/ping/addffa72-da17-40ae-be9c-ff591afb942a/fail"], on-failure = "warn" },
+]
+```
+
 ## Use cases
 
 Here are some use cases which might be interesting to use hooks for:
