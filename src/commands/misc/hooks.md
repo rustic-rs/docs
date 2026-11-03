@@ -136,8 +136,8 @@ on-failure = "warn" # possible values are "error" (default), "warn",  "ignore"
 ### Example: heartbeat monitoring with Watchgoose
 
 [Watchgoose](https://watchgoose.com/docs/) alerts you when a scheduled backup
-fails or does not run at all. It uses the same ping URLs as healthchecks.io:
-`/start` when the job starts, the bare URL on success and `/fail` on failure.
+fails or does not run at all. Each check has a ping URL: send `/start` when the
+job starts, the bare URL on success and `/fail` on failure.
 Replace the UUID with the one of your check:
 
 ```toml
