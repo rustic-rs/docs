@@ -20,7 +20,7 @@ save the access time for files and directories, you can pass the `--with-atime`
 option to the `backup` command.
 
 Note that `rustic` does not back up some metadata associated with files. Of
-particular note are::
+particular note are:
 
 - file creation date on Unix platforms
 - inode flags on Unix platforms
