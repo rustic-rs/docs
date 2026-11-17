@@ -67,7 +67,7 @@ key-file = "/path/to/my/masterkey.txt"
 key-command = "get_my_masterkey.sh"
 ```
 
-Note that you can create a new masterkey before initializeing a new repository
+Note that you can create a new masterkey before initializing a new repository
 by running `rustic key create`.
 
 If none of these above credential options is used, rustic will query for a
