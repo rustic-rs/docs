@@ -7,6 +7,45 @@ guidance on how to migrate from one version to another.
 
 ### Changed default behavior
 
+The `prune` command will now not recover marked-but-still-used packs directly,
+but instead mark them for recovery. This is needed to prevent potential data
+loss when multiple `prune` and `backup` runs run in parallel.
+
+The chunker now will produce slightly different chunks in some rare situations.
+This fixes a bug where the restic and rustic chunkers did not behave
+identically.
+
+If you specify multiple paths for a backup, subpaths won't be merged any longer.
+Instead the paths are backup'ed as given. This fixes a bug where backup of a
+subdir on a different drive was not possible with the `one-file-system` option.
+
+### Changed options
+
+The `prune` option `--keep-delete` has been renamed to `--keep-marked`. This
+time span is used for deletion as well as for recovery.
+
+The backend options to set a root certificate and a client certificate are
+renamed. Instead of
+
+```toml
+cacert = "cert-file"
+tls-client-cert = "client-cert-file"
+```
+
+use now
+
+```toml
+http-cacert = "cert-file"
+http-tls-client-cert = "client-cert-file"
+```
+
+Note that these options are now also available for opendal and other options
+have been added, too.
+
+## 0.11.4
+
+### Changed default behavior
+
 During restores from cold storage, rustic now captures your warm-up command's
 stdout and parses it as [JSON Lines](https://jsonlines.org) to report restore
 progress, rather than passing it straight through to the terminal.
